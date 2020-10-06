@@ -8,12 +8,15 @@ import pandas as pd
 data_folder = os.path.dirname(__file__)
 
 # OFF ingredients taxonomy
-with open(os.path.join(data_folder, 'off_ingredients_taxonomy.json'), 'r') as file:
+OFF_TAXONOMY_FILEPATH = os.path.join(data_folder, 'off_ingredients_taxonomy.json')
+with open(OFF_TAXONOMY_FILEPATH, 'r') as file:
     off_taxonomy = json.load(file)
 
 # Data about OFF ingredients (impacts and nutriments)
-with open(os.path.join(data_folder, 'ingredients_data.json'), 'r') as file:
+INGREDIENTS_DATA_FILEPATH = os.path.join(data_folder, 'ingredients_data.json')
+with open(INGREDIENTS_DATA_FILEPATH, 'r') as file:
     ingredients_data = json.load(file)
 
 # Distribution of ingredients percentage by category in OFF
-ref_ing_dist = pd.read_csv(os.path.join(data_folder, 'off_ingredients_percentage_distribution.csv'), na_filter=None)
+INGREDIENTS_DISTRIBUTION_FILEPATH = os.path.join(data_folder, 'off_ingredients_percentage_distribution.csv')
+ref_ing_dist = pd.read_csv(INGREDIENTS_DISTRIBUTION_FILEPATH, na_filter=None)
