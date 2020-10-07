@@ -18,7 +18,7 @@ try:
     with open(INGREDIENTS_DATA_FILEPATH, 'r') as file:
         ingredients_data = json.load(file)
 except FileNotFoundError:
-    ingredients_data = []
+    ingredients_data = dict()
 
 # Distribution of ingredients percentage by category in OFF
 INGREDIENTS_DISTRIBUTION_FILEPATH = os.path.join(data_folder, 'off_ingredients_percentage_distribution.csv')

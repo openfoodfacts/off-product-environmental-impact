@@ -18,15 +18,13 @@ try:
     with open(INGREDIENTS_DATA_FILEPATH, 'r') as file:
         ingredients_data = json.load(file)
 except FileNotFoundError:
-    ingredients_data = []
-
-ingredients_data_dict = {x['id']: x for x in ingredients_data}
+    ingredients_data = dict()
 
 # Looping on all links to append fcen data to off ingredients
 for off_id in links.OFF_ID.unique():
 
-    if off_id in ingredients_data_dict:
-        ingredient = ingredients_data_dict[off_id]
+    if off_id in ingredients_data:
+        ingredient = ingredients_data[off_id]
     else:
         ingredient = {'id': off_id,
                       'source_nutri': 'fcen'}
@@ -105,7 +103,7 @@ for off_id in links.OFF_ID.unique():
         ingredient['nutriments'] = nutriments
 
         # Adding the ingredient to the main result
-        ingredients_data_dict[off_id] = ingredient
+        ingredients_data[off_id] = ingredient
 
 with open(INGREDIENTS_DATA_FILEPATH, 'w') as file:
-    json.dump(list(ingredients_data_dict.values()), file, indent=2, ensure_ascii=False)
+    json.dump(ingredients_data, file, indent=2, ensure_ascii=False)
