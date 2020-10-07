@@ -14,8 +14,11 @@ with open(OFF_TAXONOMY_FILEPATH, 'r') as file:
 
 # Data about OFF ingredients (impacts and nutriments)
 INGREDIENTS_DATA_FILEPATH = os.path.join(data_folder, 'ingredients_data.json')
-with open(INGREDIENTS_DATA_FILEPATH, 'r') as file:
-    ingredients_data = json.load(file)
+try:
+    with open(INGREDIENTS_DATA_FILEPATH, 'r') as file:
+        ingredients_data = json.load(file)
+except FileNotFoundError:
+    ingredients_data = []
 
 # Distribution of ingredients percentage by category in OFF
 INGREDIENTS_DISTRIBUTION_FILEPATH = os.path.join(data_folder, 'off_ingredients_percentage_distribution.csv')

@@ -14,10 +14,13 @@ links = pd.read_csv(FCEN_OFF_LINKING_TABLE_FILEPATH)
 with open(FCEN_DATA_FILEPATH, 'r') as file:
     fcen_data = json.load(file)
 
-with open(INGREDIENTS_DATA_FILEPATH, 'r') as file:
-    ingredients_data = json.load(file)
+try:
+    with open(INGREDIENTS_DATA_FILEPATH, 'r') as file:
+        ingredients_data = json.load(file)
+except FileNotFoundError:
+    ingredients_data = []
 
-ingredients_data_dict = {x['id']: x for x in ingredients_data.values()}
+ingredients_data_dict = {x['id']: x for x in ingredients_data}
 
 # Looping on all links to append fcen data to off ingredients
 for off_id in links.OFF_ID.unique():
@@ -25,7 +28,8 @@ for off_id in links.OFF_ID.unique():
     if off_id in ingredients_data_dict:
         ingredient = ingredients_data_dict[off_id]
     else:
-        ingredient = {'source_nutri': 'fcen'}
+        ingredient = {'id': off_id,
+                      'source_nutri': 'fcen'}
 
     nutriments = dict()
 
@@ -101,7 +105,7 @@ for off_id in links.OFF_ID.unique():
         ingredient['nutriments'] = nutriments
 
         # Adding the ingredient to the main result
-        ingredients_data[off_id] = ingredient
+        ingredients_data_dict[off_id] = ingredient
 
 with open(INGREDIENTS_DATA_FILEPATH, 'w') as file:
-    json.dump(ingredients_data, file, indent=2, ensure_ascii=False)
+    json.dump(list(ingredients_data_dict.values()), file, indent=2, ensure_ascii=False)
