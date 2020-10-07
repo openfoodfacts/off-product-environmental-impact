@@ -574,8 +574,10 @@ class RandomRecipeCreator:
 
         # Compute the total mass only if nutritional info are used and there is at least one top level category
         # nutriment in common
+        recipe = self.recipe_from_proportions(proportions, inf * 100)
+        recipe_nutriments = nutriments_from_recipe(recipe)
         if self.use_nutritional_info and any([f"{x}_100g" in self.product['nutriments']
-                                              for x in proportions
+                                              for x in recipe_nutriments
                                               if x in TOP_LEVEL_NUTRIMENTS_CATEGORIES]):
             for total_mass in np.arange(inf, sup, TOTAL_MASS_DISTRIBUTION_STEP / 100):
                 recipe = self.recipe_from_proportions(proportions, total_mass * 100)
