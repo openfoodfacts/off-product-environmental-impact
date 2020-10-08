@@ -1,5 +1,6 @@
+""" Nutritional characterization of OFF ingredients by manually collected data """
+
 import json
-import copy
 
 import pandas as pd
 
