@@ -1,7 +1,5 @@
 """ Variables used by the impact estimation program """
 
-import os
-
 # Nutriment categories taken into account for the recipe resolution
 TOP_LEVEL_NUTRIMENTS_CATEGORIES = ['proteins',
                                    'carbohydrates',
@@ -66,3 +64,20 @@ QUALITY_DATA_WARNINGS_FLAT = [x for y in QUALITY_DATA_WARNINGS.values() for x in
 
 # What is the mass (in g) for which ingredients impacts are given
 IMPACT_MASS_UNIT = 1000  # Ingredients impacts are given per kg
+
+AGRIBALYSE_IMPACT_CATEGORIES = [
+    "Score unique EF",
+    "Changement climatique",
+    "Appauvrissement de la couche d'ozone",
+    "Rayonnements ionisants",
+    "Formation photochimique d'ozone",
+    "Particules",
+    "Acidification terrestre et eaux douces",
+    "Eutrophisation terreste",
+    "Eutrophisation eaux douces",
+    "Eutrophisation marine",
+    "Utilisation du sol",
+    "Écotoxicité pour écosystèmes aquatiques d'eau douce",
+    "Épuisement des ressources eau",
+    "Épuisement des ressources énergétiques",
+    "Épuisement des ressources minéraux"]

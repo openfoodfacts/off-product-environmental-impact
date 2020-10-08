@@ -62,7 +62,7 @@ The function `impact_estimation.estimate_impacts()` accepts the following parame
 | Parameter                            | Type                   | Default                                  | Description                                                                                                                                                                                                                               |
 |--------------------------------------|------------------------|------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `product`                            | `dict`                 |                                          | Open Food Facts product to analyze                                                                                                                                                                                                        |
-| `impact_names`                       | `string` or `iterable` |                                          | Names of the impacts to compute. They must correspond to the impact categories used by Agribalyse. See list of available impact categories. LINKKKKKKKKKKKKKKKKKKKKKKK                                                                    |
+| `impact_names`                       | `string` or `iterable` |                                          | Names of the impacts to compute. They must correspond to the impact categories used by Agribalyse. See [list of available impact categories](#available-environmental-impact-categories).                                                                    |
 | `quantity`                           | `float`                | `100`                                    | Quantity of product in grams for which the impact must be calculated. If None, will use the 'product_quantity' attribute of the product. If 'product_quantity' is undefined, will use 100g by default.                                    |
 | `ignore_unknown_ingredients`         | `bool`                 | `True`                                   | Should ingredients absent of OFF taxonomy and without defined percentage be considered as parsing errors and ignored?                                                                                                                     |
 | `min_run_nb`                         | `int`                  | `30`                                     | Minimum number of run for the Monte-Carlo loop                                                                                                                                                                                            |
@@ -106,6 +106,26 @@ The result of `impact_estimation.estimate_impacts()` is a dictionary containing 
 | `mean_confidence_interval_distribution`       | Distributions of the confidence interval of the mean of the impacts of all sampled recipes in each impact category.                          |
 | `confidence_score_distribution`               | Distributions of the confidence score of all sampled recipes.                                                                                |
 
+### Available environmental impact categories
+The ingredients environmental impact data come from [_Agribalyse_](https://ecolab.ademe.fr/agribalyse). The impact categories are:
+
+| Agribalyse name                                     |                                           |
+|-----------------------------------------------------|-------------------------------------------|
+| Score unique EF                                     | Single score EF (Environmental Footprint) |
+| Changement climatique                               | Climate change                            |
+| Appauvrissement de la couche d'ozone                | Ozone depletion                           |
+| Rayonnements ionisants                              | Ionizing radiations                       |
+| Formation photochimique d'ozone                     | Photochemical ozone formation             |
+| Particules                                          | Particulate matter                        |
+| Acidification terrestre et eaux douces              | Terrestrial and freshwater acidification  |
+| Eutrophisation terreste                             | Terrestrial eutrophication                |
+| Eutrophisation eaux douces                          | Freshwater eutrophication                 |
+| Eutrophisation marine                               | Marine eutrophication                     |
+| Utilisation du sol                                  | Land use                                  |
+| Écotoxicité pour écosystèmes aquatiques d'eau douce | Freshwater ecotoxicity                    |
+| Épuisement des ressources eau                       | Water depletion                           |
+| Épuisement des ressources énergétiques              | Resource use, energy carriers             |
+| Épuisement des ressources minéraux                  | Resource use, minerals and metals         |
 
 ### Algorithm
 The algorithm used by this program is based on a Monte-Carlo approach to estimate the impact of a product.

@@ -926,10 +926,10 @@ class ImpactEstimator:
 
         Args:
             impact_names (str or list): Iterable containing impacts names or single impact name.
-            min_run_nb: Minimum number of run for the Monte-Carlo loop
+            min_run_nb (int): Minimum number of run for the Monte-Carlo loop
                 A too small number may result in a falsely converging value
-            max_run_nb: Maximum number of run for the Monte-Carlo loop
-            forced_run_nb: Used to bypass natural Monte-Carlo stopping criteria and force the number of runs
+            max_run_nb (int): Maximum number of run for the Monte-Carlo loop
+            forced_run_nb (int): Used to bypass natural Monte-Carlo stopping criteria and force the number of runs
             confidence_interval_width (float): Width of the confidence interval that will determine the convergence
                 detection.
             confidence_level (float): Confidence level of the confidence interval.
