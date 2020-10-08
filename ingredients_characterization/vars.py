@@ -17,6 +17,7 @@ LINKING_TABLES_DIR = os.path.join(os.path.dirname(__file__), 'linking_tables')
 FCEN_OFF_LINKING_TABLE_FILEPATH = os.path.join(LINKING_TABLES_DIR, 'fcen_off_links.csv')
 CIQUAL_OFF_LINKING_TABLE_FILEPATH = os.path.join(LINKING_TABLES_DIR, 'ciqual_off_links.csv')
 AGRIBALYSE_OFF_LINKING_TABLE_FILEPATH = os.path.join(LINKING_TABLES_DIR, 'agribalyse_off_links.csv')
+OFF_DUPLICATES_FILEPATH = os.path.join(LINKING_TABLES_DIR, 'off-duplicates.csv')
 
 # Conversion from FCEN nutritional data identifiers to off
 FCEN_NUTRIMENTS_TO_OFF = {255: 'water',
