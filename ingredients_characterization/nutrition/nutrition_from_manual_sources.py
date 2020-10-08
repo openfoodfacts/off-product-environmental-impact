@@ -19,7 +19,7 @@ for nutrition_data in manual_data.itertuples():
     if ingredient_name in ingredients_data:
         ingredient = ingredients_data[ingredient_name]
     else:
-        ingredient = dict()
+        ingredient = {'id': ingredient_name}
 
     for nutriment_name in NUTRIMENTS_CATEGORIES:
         if nutriment_name == 'other':

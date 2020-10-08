@@ -17,7 +17,7 @@ except FileNotFoundError:
 
 for link in links.itertuples():
     if link.off_id not in ingredients_data:
-        ingredients_data[link.off_id] = dict()
+        ingredients_data[link.off_id] = {'id': link.off_id}
 
     if 'LCI' not in ingredients_data[link.off_id]:
         ingredients_data[link.off_id]['LCI'] = []
