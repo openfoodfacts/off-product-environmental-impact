@@ -26,9 +26,9 @@ for off_id in links.OFF_ID.unique():
     if off_id in ingredients_data:
         ingredient = ingredients_data[off_id]
     else:
-        ingredient = {'id': off_id,
-                      'source_nutri': 'fcen'}
+        ingredient = {'id': off_id}
 
+    ingredient['source_nutri'] = 'fcen'
     nutriments = dict()
 
     # Looping on fcen products related to this off ingredient
