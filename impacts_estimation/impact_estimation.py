@@ -36,7 +36,7 @@ ing_with_ref_prct_dist = list(ref_ing_dist.id.unique())
 
 class RandomRecipeCreator:
 
-    def __init__(self, product, use_defined_prct=True, use_nutritional_info=True, maximum_evaporation=0.8,
+    def __init__(self, product, use_defined_prct=True, use_nutritional_info=True, maximum_evaporation=0.4,
                  total_mass_used=None, min_prct_dist_size=30, dual_gap_type='absolute', dual_gap_limit=0.001,
                  solver_time_limit=60, time_limit_dual_gap_limit=0.01):
         """
@@ -911,7 +911,7 @@ class ImpactEstimator:
 
     def estimate_impacts(self, impact_names, min_run_nb=30, max_run_nb=1000, forced_run_nb=None,
                          confidence_interval_width=0.05, confidence_level=0.95, use_nutritional_info=True,
-                         maximum_evaporation=0.8, total_mass_used=None, min_prct_dist_size=30, dual_gap_type='absolute',
+                         maximum_evaporation=0.4, total_mass_used=None, min_prct_dist_size=30, dual_gap_type='absolute',
                          dual_gap_limit=0.001, solver_time_limit=60, time_limit_dual_gap_limit=0.01,
                          confidence_weighting=True, use_ingredients_impact_uncertainty=True,
                          quantiles_points=(0.05, 0.25, 0.5, 0.75, 0.95)):
@@ -1235,7 +1235,7 @@ class ImpactEstimator:
 
 def estimate_impacts(product, impact_names, quantity=None, ignore_unknown_ingredients=True, min_run_nb=30,
                      max_run_nb=1000, forced_run_nb=None, confidence_interval_width=0.05, confidence_level=0.95,
-                     use_nutritional_info=True, use_defined_prct=True, maximum_evaporation=0.8, total_mass_used=None,
+                     use_nutritional_info=True, use_defined_prct=True, maximum_evaporation=0.4, total_mass_used=None,
                      min_prct_dist_size=30, dual_gap_type='absolute', dual_gap_limit=0.001, solver_time_limit=60,
                      time_limit_dual_gap_limit=0.01, confidence_weighting=True, use_ingredients_impact_uncertainty=True,
                      quantiles_points=(0.05, 0.25, 0.5, 0.75, 0.95)):
