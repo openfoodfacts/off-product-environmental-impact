@@ -582,7 +582,9 @@ class RandomRecipeCreator:
             for total_mass in np.arange(inf, sup, TOTAL_MASS_DISTRIBUTION_STEP / 100):
                 recipe = self.recipe_from_proportions(proportions, total_mass * 100)
                 recipe_nutriments = nutriments_from_recipe(recipe)
-                conf_score = confidence_score(recipe_nutriments, self.product['nutriments'])
+                conf_score = confidence_score(nutri=recipe_nutriments,
+                                              reference_nutri=self.product['nutriments'],
+                                              total_mass=total_mass * 100)
 
                 # If the conf score is higher than the max, update the result and the max
                 if conf_score > max_conf_score:
@@ -1033,8 +1035,9 @@ class ImpactEstimator:
             if use_nutritional_info and any([f"{x}_100g" in self.product['nutriments']
                                              for x in recipe_nutriments
                                              if x in TOP_LEVEL_NUTRIMENTS_CATEGORIES]):
-                conf_score = confidence_score(recipe_nutriments,
-                                              self.product['nutriments'])
+                conf_score = confidence_score(nutri=recipe_nutriments,
+                                              reference_nutri=self.product['nutriments'],
+                                              total_mass=sum([x for x in recipe_100g.values()]))
             else:
                 # If the nutritional information is not used, all recipes are supposed to have the same confidence
                 # level.

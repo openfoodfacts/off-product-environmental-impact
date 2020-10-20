@@ -118,21 +118,25 @@ def nutriments_from_recipe(recipe):
     return result
 
 
-def confidence_score(nutri, reference_nutri):
+def confidence_score(nutri, reference_nutri, total_mass):
     """
     Calculate the confidence score of a nutritional composition using the euclidean distance between the reference
     nutritional composition and the assessed nutritional composition in the space of all considered nutriments
-    contents.
+    contents and the total mass of ingredients used. The closer the nutritional composition is from the reference, the
+    higher the confidence score is. The lower the total mass of ingredients is, the higher the confidence score is.
 
     A score of 1 correspond to the lowest match between compositions. The higher the score, the better the match.
 
     Args:
         nutri (dict): Nutritional composition to evaluate.
         reference_nutri (dict): Nutritional composition of the reference product.
+        total_mass (float): Total mass of ingredients used in g.
 
     Returns:
         float: Confidence score
     """
+    assert float(total_mass) >= 100
+    total_mass = total_mass / 100
 
     squared_differences = []
     n = 0
@@ -153,7 +157,7 @@ def confidence_score(nutri, reference_nutri):
 
     # Returning the inverse of the distance normalized by the biggest possible distance between two compositions in the
     #  n-dimensional space (sqrt(n))
-    return sqrt(n) / distance
+    return sqrt(n) / (distance * total_mass)
 
 
 def natural_bounds(rank, nb_ingredients):
