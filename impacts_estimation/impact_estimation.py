@@ -6,11 +6,11 @@ from statistics import mean
 import copy
 import math
 
-# <-- FOR plotting KDE
+# ### FOR DEBUG PURPOSE ONLY ###
 # import matplotlib.pyplot as plt
 # import seaborn as sns
-# import mpl_style
-# -->
+# sns.set()
+# ##############################
 
 import statsmodels.stats.api as sms
 import numpy as np
@@ -572,6 +572,11 @@ class RandomRecipeCreator:
         max_conf_score = 0
         result = inf
 
+        # ### FOR DEBUG PURPOSE ONLY ###
+        # total_masses = []
+        # conf_scores = []
+        # ##############################
+
         # Compute the total mass only if nutritional info are used and there is at least one top level category
         # nutriment in common
         recipe = self.recipe_from_proportions(proportions, inf * 100)
@@ -586,10 +591,20 @@ class RandomRecipeCreator:
                                               reference_nutri=self.product['nutriments'],
                                               total_mass=total_mass * 100)
 
+                # ### FOR DEBUG PURPOSE ONLY ###
+                # total_masses.append(total_mass)
+                # conf_scores.append(conf_score)
+                # ##############################
+
                 # If the conf score is higher than the max, update the result and the max
                 if conf_score > max_conf_score:
                     max_conf_score = conf_score
                     result = total_mass
+
+        # ### FOR DEBUG PURPOSE ONLY ###
+        # plt.plot(total_masses, conf_scores)
+        # plt.show()
+        # ##############################
 
         result *= 100
 
