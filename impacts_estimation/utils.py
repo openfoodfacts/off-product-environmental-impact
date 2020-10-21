@@ -135,7 +135,7 @@ def confidence_score(nutri, reference_nutri, total_mass):
     Returns:
         float: Confidence score
     """
-    assert float(total_mass) >= 100
+    assert float(total_mass) >= 99.99  # Not 100 to avoid precision issues
     total_mass = total_mass / 100
 
     squared_differences = []
