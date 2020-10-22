@@ -36,15 +36,17 @@ ing_with_ref_prct_dist = list(ref_ing_dist.id.unique())
 
 class RandomRecipeCreator:
 
-    def __init__(self, product, use_defined_prct=True, use_nutritional_info=True, maximum_evaporation=0.4,
-                 total_mass_used=None, min_prct_dist_size=30, dual_gap_type='absolute', dual_gap_limit=0.001,
-                 solver_time_limit=60, time_limit_dual_gap_limit=0.01):
+    def __init__(self, product, use_defined_prct=True, use_nutritional_info=True, const_relax_coef=0,
+                 maximum_evaporation=0.4, total_mass_used=None, min_prct_dist_size=30, dual_gap_type='absolute',
+                 dual_gap_limit=0.001, solver_time_limit=60, time_limit_dual_gap_limit=0.01):
         """
         Args:
             product (dict): Dict containing an OpenFoodFact product.
                 It must contain the keys "ingredients" and "nutriments"
             use_defined_prct (bool): Should ingredients percentages defined in the product be used?
             use_nutritional_info (bool): Should nutritional information be used to estimate recipe?
+            const_relax_coef (float): Constraints relaxation coefficient. Allows to relax constraints on nutriments,
+                water and mass balance to increase chances to get a result.
             maximum_evaporation (float): Upper bound of the evaporation coefficient [0-1[. I.e. maximum proportion of
                 ingredients water that can evaporate.
             total_mass_used (float): Total mass of ingredient used in grams, if known.
@@ -63,6 +65,7 @@ class RandomRecipeCreator:
         self.product = product
         self.use_defined_prct = use_defined_prct
         self.use_nutritional_info = use_nutritional_info
+        self.const_relax_coef = const_relax_coef
         self.min_dist_size = min_prct_dist_size
         self.total_mass_used = total_mass_used
         # Remove subingredients from the list of ingredients, keeping them only as nested ingredients
@@ -211,7 +214,7 @@ class RandomRecipeCreator:
                      for ing in self.ingredient_vars
                      if ing in self.leaf_ingredients_names])
             ))
-            <= 1,
+            <= (1 + self.const_relax_coef),
             name="Product mass evaporation lower bound"
         )
 
@@ -222,7 +225,7 @@ class RandomRecipeCreator:
                      for ing in self.ingredient_vars
                      if ing in self.leaf_ingredients_names])
             ))
-            >= 1,
+            >= (1 - self.const_relax_coef),
             name="Product mass evaporation upper bound"
         )
 
@@ -240,7 +243,7 @@ class RandomRecipeCreator:
                     for ingredient in self.leaf_ingredients_names
                 ])
             )
-            <= 1,
+            <= (1 + self.const_relax_coef),
             name="Product mass upper bound"
         )
 
@@ -253,7 +256,7 @@ class RandomRecipeCreator:
                            for nutriment in TOP_LEVEL_NUTRIMENTS_CATEGORIES + ['ash']]))
                      for ingredient in self.leaf_ingredients_names])
             )
-            >= 1,
+            >= (1 - self.const_relax_coef),
             name="Product mass upper bound"
         )
 
@@ -286,7 +289,7 @@ class RandomRecipeCreator:
 
             # Lower bound
             self.model.addCons(
-                (absolute_margin + (1 + relative_margin) * product_nutriment / 100)
+                ((absolute_margin + (1 + relative_margin) * product_nutriment / 100) + self.const_relax_coef)
                 >=
                 (self.total_mass_var *
                  sum([var * self.ingredients_data[name][nutri_item]['min'] / 100
@@ -297,7 +300,7 @@ class RandomRecipeCreator:
 
             # Upper bound
             self.model.addCons(
-                (-absolute_margin + (1 - relative_margin) * product_nutriment / 100)
+                ((-absolute_margin + (1 - relative_margin) * product_nutriment / 100) - self.const_relax_coef)
                 <=
                 (self.total_mass_var *
                  (sum([var * self.ingredients_data[name][nutri_item]['max'] / 100
@@ -928,10 +931,10 @@ class ImpactEstimator:
 
     def estimate_impacts(self, impact_names, min_run_nb=30, max_run_nb=1000, forced_run_nb=None,
                          confidence_interval_width=0.05, confidence_level=0.95, use_nutritional_info=True,
-                         maximum_evaporation=0.4, total_mass_used=None, min_prct_dist_size=30, dual_gap_type='absolute',
-                         dual_gap_limit=0.001, solver_time_limit=60, time_limit_dual_gap_limit=0.01,
-                         confidence_weighting=True, use_ingredients_impact_uncertainty=True,
-                         quantiles_points=(0.05, 0.25, 0.5, 0.75, 0.95)):
+                         const_relax_coef=0, maximum_evaporation=0.4, total_mass_used=None, min_prct_dist_size=30,
+                         dual_gap_type='absolute', dual_gap_limit=0.001, solver_time_limit=60,
+                         time_limit_dual_gap_limit=0.01, confidence_weighting=True,
+                         use_ingredients_impact_uncertainty=True, quantiles_points=(0.05, 0.25, 0.5, 0.75, 0.95)):
         """
         Looping by calculating a new random recipe at each loop and stopping when the geometric mean of recipes impacts
         values are stabilized within a given confidence interval.
@@ -951,6 +954,8 @@ class ImpactEstimator:
                 detection.
             confidence_level (float): Confidence level of the confidence interval.
             use_nutritional_info (bool): Should nutritional information be used to estimate recipe?
+            const_relax_coef (float): Constraints relaxation coefficient. Allows to relax constraints on nutriments,
+                water and mass balance to increase chances to get a result.
             maximum_evaporation (float): Upper bound of the evaporation coefficient [0-1[. I.e. maximum proportion of
                 ingredients water that can evaporate.
             total_mass_used (float): Total mass of ingredient used in grams, if known.
@@ -991,18 +996,13 @@ class ImpactEstimator:
         use_nutritional_info = use_nutritional_info if self.use_nutritional_info_override is None \
             else self.use_nutritional_info_override
 
-        recipe_creator = RandomRecipeCreator(
-            product=self.product,
-            use_defined_prct=self.use_defined_prct,
-            maximum_evaporation=maximum_evaporation,
-            total_mass_used=total_mass_used,
-            use_nutritional_info=use_nutritional_info,
-            min_prct_dist_size=min_prct_dist_size,
-            dual_gap_type=dual_gap_type,
-            dual_gap_limit=dual_gap_limit,
-            solver_time_limit=solver_time_limit,
-            time_limit_dual_gap_limit=time_limit_dual_gap_limit
-        )
+        recipe_creator = RandomRecipeCreator(product=self.product, use_defined_prct=self.use_defined_prct,
+                                             use_nutritional_info=use_nutritional_info,
+                                             const_relax_coef=const_relax_coef, maximum_evaporation=maximum_evaporation,
+                                             total_mass_used=total_mass_used, min_prct_dist_size=min_prct_dist_size,
+                                             dual_gap_type=dual_gap_type, dual_gap_limit=dual_gap_limit,
+                                             solver_time_limit=solver_time_limit,
+                                             time_limit_dual_gap_limit=time_limit_dual_gap_limit)
 
         run = 0
         impact_names = [impact_names] if type(impact_names) is str else impact_names
@@ -1253,10 +1253,10 @@ class ImpactEstimator:
 
 def estimate_impacts(product, impact_names, quantity=None, ignore_unknown_ingredients=True, min_run_nb=30,
                      max_run_nb=1000, forced_run_nb=None, confidence_interval_width=0.05, confidence_level=0.95,
-                     use_nutritional_info=True, use_defined_prct=True, maximum_evaporation=0.4, total_mass_used=None,
-                     min_prct_dist_size=30, dual_gap_type='absolute', dual_gap_limit=0.001, solver_time_limit=60,
-                     time_limit_dual_gap_limit=0.01, confidence_weighting=True, use_ingredients_impact_uncertainty=True,
-                     quantiles_points=(0.05, 0.25, 0.5, 0.75, 0.95)):
+                     use_nutritional_info=True, const_relax_coef=0, use_defined_prct=True, maximum_evaporation=0.4,
+                     total_mass_used=None, min_prct_dist_size=30, dual_gap_type='absolute', dual_gap_limit=0.001,
+                     solver_time_limit=60, time_limit_dual_gap_limit=0.01, confidence_weighting=True,
+                     use_ingredients_impact_uncertainty=True, quantiles_points=(0.05, 0.25, 0.5, 0.75, 0.95)):
     """ Simple wrapper for impact estimation using ImpactEstimator class """
 
     impact_estimator = ImpactEstimator(product=product,
@@ -1271,6 +1271,7 @@ def estimate_impacts(product, impact_names, quantity=None, ignore_unknown_ingred
                                              confidence_interval_width=confidence_interval_width,
                                              confidence_level=confidence_level,
                                              use_nutritional_info=use_nutritional_info,
+                                             const_relax_coef=const_relax_coef,
                                              maximum_evaporation=maximum_evaporation,
                                              total_mass_used=total_mass_used,
                                              min_prct_dist_size=min_prct_dist_size,
@@ -1294,9 +1295,30 @@ def estimate_impacts_safe(product, impact_names, **kwargs):
     except (RecipeCreationError, SolverTimeoutError) as original_exception:
         # Preparing kwargs to loop on, with decreasing constraints
         constraints_levels = [
-            {'use_defined_prct': False, 'use_nutritional_info': True},
-            {'use_defined_prct': True, 'use_nutritional_info': False},
-            {'use_defined_prct': False, 'use_nutritional_info': False},
+            {'use_defined_prct': True, 'const_relax_coef': 0.01},
+            {'use_defined_prct': True, 'const_relax_coef': 0.05},
+            {'use_defined_prct': True, 'const_relax_coef': 0.1},
+            {'use_defined_prct': True, 'const_relax_coef': 0.2},
+            {'use_defined_prct': True, 'const_relax_coef': 0.3},
+            {'use_defined_prct': True, 'const_relax_coef': 0.4},
+            {'use_defined_prct': True, 'const_relax_coef': 0.5},
+            {'use_defined_prct': True, 'const_relax_coef': 0.6},
+            {'use_defined_prct': True, 'const_relax_coef': 0.7},
+            {'use_defined_prct': True, 'const_relax_coef': 0.8},
+            {'use_defined_prct': True, 'const_relax_coef': 0.9},
+            {'use_defined_prct': True, 'const_relax_coef': 1},
+            {'use_defined_prct': False, 'const_relax_coef': 0.01},
+            {'use_defined_prct': False, 'const_relax_coef': 0.05},
+            {'use_defined_prct': False, 'const_relax_coef': 0.1},
+            {'use_defined_prct': False, 'const_relax_coef': 0.2},
+            {'use_defined_prct': False, 'const_relax_coef': 0.3},
+            {'use_defined_prct': False, 'const_relax_coef': 0.4},
+            {'use_defined_prct': False, 'const_relax_coef': 0.5},
+            {'use_defined_prct': False, 'const_relax_coef': 0.6},
+            {'use_defined_prct': False, 'const_relax_coef': 0.7},
+            {'use_defined_prct': False, 'const_relax_coef': 0.8},
+            {'use_defined_prct': False, 'const_relax_coef': 0.9},
+            {'use_defined_prct': False, 'const_relax_coef': 1}
         ]
 
         for constraints_level in constraints_levels:
@@ -1305,8 +1327,15 @@ def estimate_impacts_safe(product, impact_names, **kwargs):
 
             for kwarg, value in constraints_level.items():
                 # Avoid to use a more restrictive parameter than the kwargs provided
-                original_kwarg_value = kwargs.get(kwarg, True)
-                new_value = value and original_kwarg_value
+                if kwarg == 'use_defined_prct':
+                    original_kwarg_value = kwargs.get(kwarg, True)
+                    new_value = value and original_kwarg_value
+                elif kwarg == 'const_relax_coef':
+                    original_kwarg_value = kwargs.get(kwarg, 0)
+                    new_value = max(value, original_kwarg_value)
+                else:
+                    raise Exception('Not implemented.')
+
                 new_kwargs.update({kwarg: new_value})
 
                 # Add the change of parameter in the warnings
