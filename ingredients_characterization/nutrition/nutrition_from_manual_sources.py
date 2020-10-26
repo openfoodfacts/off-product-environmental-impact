@@ -35,7 +35,9 @@ for nutrition_data in manual_data.itertuples():
             if 'nutriments' not in ingredient:
                 ingredient['nutriments'] = dict()
 
-            ingredient['nutriments'][nutriment_name] = {'value': value}
+            ingredient['nutriments'][nutriment_name] = {'value': value,
+                                                        'min': value,
+                                                        'max': value}
 
     if ('nutriments' in ingredient) and len(ingredient['nutriments']) > 0:
         nutriments_sum = sum([v['value'] for k, v in ingredient['nutriments'].items()
