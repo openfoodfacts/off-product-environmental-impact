@@ -121,8 +121,12 @@ class RandomRecipeCreator:
 
         # If water is not present in the ingredient list, add it as water under 5% hasn't to be declared
         if 'en:water' not in self.top_level_ingredients_names:
-            self.ingredient_vars['en:water'] = self.model.addVar('en:water', vtype="C", lb=0, ub=0.05)
-            self.leaf_ingredients_names.append('en:water')
+            # Water may be in leaf ingredients but not in top level ingredients, in that case it must be individualized
+            water_name = 'en:water'
+            while water_name in self.leaf_ingredients_names:
+                water_name += '*'
+            self.ingredient_vars[water_name] = self.model.addVar(water_name, vtype="C", lb=0, ub=0.05)
+            self.leaf_ingredients_names.append(water_name)
 
         # Creating a dict with ingredients nutritional data
         self.ingredients_data = dict()
@@ -665,12 +669,12 @@ class RandomRecipeCreator:
             self._add_defined_percentage_constraints(self.product)
 
         # Shuffling the ingredients
-        ingredients_names = self.leaf_ingredients_names.copy()  # Creating a copy to avoid messing with the original
-        shuffle(ingredients_names)
+        leaf_ingredients_names = self.leaf_ingredients_names.copy()  # Creating a copy to avoid messing with original
+        shuffle(leaf_ingredients_names)
 
         # Looping over ingredients to pick a random proportion in their possible values interval
         proportions = dict()
-        for ingredient_name in ingredients_names:
+        for ingredient_name in leaf_ingredients_names:
             inf, sup = self._get_variable_bounds(self.ingredient_vars[ingredient_name])
 
             # Now the possible values interval has been calculated,
