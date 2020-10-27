@@ -822,6 +822,13 @@ class ImpactEstimator:
         if 'ingredients' not in self.product:
             raise NoCharacterizedIngredientsError
 
+        # If there are still ingredients but none with impact, abort the program
+        if len([ing
+                for ing in find_ingredients_graph_leaves(self.product)
+                if ing['id'] in ingredients_data
+                   and 'impacts' in ingredients_data[ing['id']]]) == 0:
+            raise NoCharacterizedIngredientsError
+
         # If the only ingredient with an impact is en:water, abort the program
         ingredients_with_impacts = [x['id']
                                     for x in self.product['ingredients']
