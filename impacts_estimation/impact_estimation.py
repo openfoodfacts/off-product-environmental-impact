@@ -1087,6 +1087,14 @@ class ImpactEstimator:
             for impact_name in impact_names:
                 recipe_impact = impact_from_recipe(recipe, impact_name,
                                                    use_uncertainty=use_ingredients_impact_uncertainty)
+                if recipe_impact == 0:
+                    # In case of null impact values, the geometric approach is not applicable
+                    # TODO: In that case use a linear approach
+                    impact_names.remove(impact_name)
+                    self.warnings.append(f'Geometric mean could not be calculated for impact: {impact_name}.\n'
+                                         f'This impact has been ignored.')
+                    continue
+
                 recipe_impact_log = math.log(abs(recipe_impact))  # Switching to log space
                 impact_distributions[impact_name].append(recipe_impact)
                 impact_log_distributions[impact_name].append(recipe_impact_log)
