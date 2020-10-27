@@ -1027,9 +1027,23 @@ class ImpactEstimator:
         mean_confidence_interval_distribution = {impact_name: [] for impact_name in impact_names}
         impact_sign = {impact_name: None for impact_name in impact_names}
         ingredients_impact_share = {impact: dict() for impact in impact_names}
+        convergence_reached = {impact_name: False for impact_name in impact_names}
         impacts_units = dict()
         impacts_quantiles = dict()
         impacts_interquartile = dict()
+
+        # Used to handle impacts that are skipped
+        skipped_impacts = []
+
+        def skip_impact(impact_name):
+            skipped_impacts.append(impact_name)
+            del impact_distributions[impact_name]
+            del impact_log_distributions[impact_name]
+            del log_means[impact_name]
+            del mean_confidence_interval_distribution[impact_name]
+            del impact_sign[impact_name]
+            del ingredients_impact_share[impact_name]
+            del convergence_reached[impact_name]
 
         while True:
             # Increment the run counter
@@ -1082,22 +1096,20 @@ class ImpactEstimator:
                 self.uncharacterized_ingredients_mass_distribution[characterization].append(
                     uncharacterized_ingredients_mass)
 
-            convergence_reached = {impact_name: False for impact_name in impact_names}
-            skipped_impacts = []
             # Computing the impact of the recipe for all impact categories
             for impact_name in impact_names:
-                if impact_name in skipped_impacts:
-                    continue
-
                 recipe_impact = impact_from_recipe(recipe, impact_name,
                                                    use_uncertainty=use_ingredients_impact_uncertainty)
                 if recipe_impact == 0:
                     # In case of null impact values, the geometric approach is not applicable
                     # TODO: In that case use a linear approach
-                    skipped_impacts.append(impact_name)
+                    skip_impact(impact_name)
                     self.warnings.append(f'Geometric mean could not be calculated for impact: {impact_name}.\n'
                                          f'This impact has been ignored.')
                     continue
+
+                if impact_name == "Écotoxicité pour écosystèmes aquatiques d'eau douce":
+                    a=0
 
                 recipe_impact_log = math.log(abs(recipe_impact))  # Switching to log space
                 impact_distributions[impact_name].append(recipe_impact)
@@ -1112,7 +1124,7 @@ class ImpactEstimator:
                     # TODO: In that case, instead of not calculating the impact, use a linear approach, by considering
                     #  the distribution of the impacts normal and looking for the impact convergence (not the impact
                     #  logs).
-                    skipped_impacts.append(impact_name)
+                    skip_impact(impact_name)
                     self.warnings.append(f'Geometric mean could not be calculated for impact: {impact_name}.\n'
                                          f'This impact has been ignored.')
                     continue
@@ -1164,7 +1176,7 @@ class ImpactEstimator:
                     # If the convergence has been reached for all impacts, ends the main while loop
                     if all(convergence_reached.values()):
                         break_main_loop = True
-                        break
+                        # break
 
                 if run >= max_run_nb:
                     break_main_loop = True
@@ -1177,6 +1189,9 @@ class ImpactEstimator:
                 if run == forced_run_nb:
                     break_main_loop = True
                     break
+
+            # Once the loop is over, impacts_names can be edited
+            impact_names = [x for x in impact_names if x not in skipped_impacts]
 
             if break_main_loop:
                 break
