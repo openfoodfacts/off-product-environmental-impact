@@ -1083,14 +1083,18 @@ class ImpactEstimator:
                     uncharacterized_ingredients_mass)
 
             convergence_reached = {impact_name: False for impact_name in impact_names}
+            skipped_impacts = []
             # Computing the impact of the recipe for all impact categories
             for impact_name in impact_names:
+                if impact_name in skipped_impacts:
+                    continue
+
                 recipe_impact = impact_from_recipe(recipe, impact_name,
                                                    use_uncertainty=use_ingredients_impact_uncertainty)
                 if recipe_impact == 0:
                     # In case of null impact values, the geometric approach is not applicable
                     # TODO: In that case use a linear approach
-                    impact_names.remove(impact_name)
+                    skipped_impacts.append(impact_name)
                     self.warnings.append(f'Geometric mean could not be calculated for impact: {impact_name}.\n'
                                          f'This impact has been ignored.')
                     continue
@@ -1108,7 +1112,7 @@ class ImpactEstimator:
                     # TODO: In that case, instead of not calculating the impact, use a linear approach, by considering
                     #  the distribution of the impacts normal and looking for the impact convergence (not the impact
                     #  logs).
-                    impact_names.remove(impact_name)
+                    skipped_impacts.append(impact_name)
                     self.warnings.append(f'Geometric mean could not be calculated for impact: {impact_name}.\n'
                                          f'This impact has been ignored.')
                     continue
