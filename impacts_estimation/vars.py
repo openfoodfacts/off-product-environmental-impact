@@ -73,7 +73,7 @@ AGRIBALYSE_IMPACT_CATEGORIES = [
     "Formation photochimique d'ozone",
     "Particules",
     "Acidification terrestre et eaux douces",
-    "Eutrophisation terreste",
+    "Eutrophisation terrestre",
     "Eutrophisation eaux douces",
     "Eutrophisation marine",
     "Utilisation du sol",
