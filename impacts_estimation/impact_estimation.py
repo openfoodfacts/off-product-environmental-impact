@@ -934,7 +934,8 @@ class ImpactEstimator:
                          const_relax_coef=0, maximum_evaporation=0.4, total_mass_used=None, min_prct_dist_size=30,
                          dual_gap_type='absolute', dual_gap_limit=0.001, solver_time_limit=60,
                          time_limit_dual_gap_limit=0.01, confidence_weighting=True,
-                         use_ingredients_impact_uncertainty=True, quantiles_points=(0.05, 0.25, 0.5, 0.75, 0.95)):
+                         use_ingredients_impact_uncertainty=True, quantiles_points=(0.05, 0.25, 0.5, 0.75, 0.95),
+                         distributions_as_result=False):
         """
         Looping by calculating a new random recipe at each loop and stopping when the geometric mean of recipes impacts
         values are stabilized within a given confidence interval.
@@ -974,6 +975,8 @@ class ImpactEstimator:
             confidence_weighting (bool): Should the recipes be weighted by their confidence score (deviation of
              the recipes nutritional composition to the reference product).
             quantiles_points (iterable): List of impacts quantiles cutting points to return in the result.
+            distributions_as_result (bool): Should the distributions of the impact, the mean confidence interval and the
+                confidence score be added to the result?
 
         Returns:
             dict: Dictionary containing the result (the average impacts of all computed recipes) as well as other
@@ -1243,10 +1246,12 @@ class ImpactEstimator:
                   'number_of_runs': run,
                   'number_of_ingredients': len(self.leaf_ingredients),
                   'calculation_time': time.time() - self.start_time,
-                  'impact_distributions': impact_distributions,
-                  'mean_confidence_interval_distribution': mean_confidence_interval_distribution,
-                  'confidence_score_distribution': confidence_score_distribution
                   }
+
+        if distributions_as_result:
+            result.update({'impact_distributions': impact_distributions,
+                           'mean_confidence_interval_distribution': mean_confidence_interval_distribution,
+                           'confidence_score_distribution': confidence_score_distribution})
 
         return result
 
@@ -1256,7 +1261,8 @@ def estimate_impacts(product, impact_names, quantity=None, ignore_unknown_ingred
                      use_nutritional_info=True, const_relax_coef=0, use_defined_prct=True, maximum_evaporation=0.4,
                      total_mass_used=None, min_prct_dist_size=30, dual_gap_type='absolute', dual_gap_limit=0.001,
                      solver_time_limit=60, time_limit_dual_gap_limit=0.01, confidence_weighting=True,
-                     use_ingredients_impact_uncertainty=True, quantiles_points=(0.05, 0.25, 0.5, 0.75, 0.95)):
+                     use_ingredients_impact_uncertainty=True, quantiles_points=(0.05, 0.25, 0.5, 0.75, 0.95),
+                     distributions_as_result=False):
     """ Simple wrapper for impact estimation using ImpactEstimator class """
 
     impact_estimator = ImpactEstimator(product=product,
