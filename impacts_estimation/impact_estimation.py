@@ -26,7 +26,8 @@ from impacts_estimation.vars import NUTRIMENTS_CATEGORIES, QUALITY_DATA_WARNINGS
 from settings import VERBOSITY, IMPACT_INTERQUARTILE_WARNING_THRESHOLD, \
     UNCHARACTERIZED_INGREDIENTS_MASS_WARNING_THRESHOLD, \
     UNCHARACTERIZED_INGREDIENTS_RATIO_WARNING_THRESHOLD, MAX_CONSECUTIVE_RECIPE_CREATION_ERROR, \
-    DECREASING_PROPORTION_ORDER_LIMIT, TOTAL_MASS_DISTRIBUTION_STEP
+    DECREASING_PROPORTION_ORDER_LIMIT, TOTAL_MASS_DISTRIBUTION_STEP, \
+    MAX_CONSECUTIVE_NULL_IMPACT_CHARACTERIZED_INGREDIENTS_MASS
 from data import ref_ing_dist, ingredients_data
 from impacts_estimation.exceptions import RecipeCreationError, NoKnownIngredientsError, SolverTimeoutError, \
     NoCharacterizedIngredientsError
@@ -1051,6 +1052,7 @@ class ImpactEstimator:
             del ingredients_impact_share[impact_name]
             del convergence_reached[impact_name]
 
+        consecutive_null_impact_characterized_ingredients_mass = 0
         while True:
             # Increment the run counter
             run += 1
@@ -1120,8 +1122,16 @@ class ImpactEstimator:
                     # Rolling back changes
                     run -= 1
                     confidence_score_distribution.pop()
+                    consecutive_null_impact_characterized_ingredients_mass += 1
+
+                    if consecutive_null_impact_characterized_ingredients_mass >= \
+                            MAX_CONSECUTIVE_NULL_IMPACT_CHARACTERIZED_INGREDIENTS_MASS:
+                        raise NoCharacterizedIngredientsError
 
                     break  # Breaking impact loop
+
+                else:
+                    consecutive_null_impact_characterized_ingredients_mass = 0
 
                 recipe_impact_log = math.log(abs(recipe_impact))  # Switching to log space
                 impact_distributions[impact_name].append(recipe_impact)

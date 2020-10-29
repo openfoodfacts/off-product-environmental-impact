@@ -23,5 +23,8 @@ SOLVER_TIMEOUT = 120
 # Maximum consecutive composition creation error before to raise CompositionCreationError
 MAX_CONSECUTIVE_RECIPE_CREATION_ERROR = 3
 
+# Maximum consecutive composition creation error before to raise NoCharacterizedIngredientsError
+MAX_CONSECUTIVE_NULL_IMPACT_CHARACTERIZED_INGREDIENTS_MASS = 3
+
 # Step of the total mass confidence score distribution estimation in g
 TOTAL_MASS_DISTRIBUTION_STEP = 1
