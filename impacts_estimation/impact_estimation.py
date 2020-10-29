@@ -1108,6 +1108,15 @@ class ImpactEstimator:
                                          f'This impact has been ignored.')
                     continue
 
+                # In some cases, the recipe impact is None (for ex: if all the ingredients with a characterized impact
+                # have a null mass). In that case, rollback this loop run and continue
+                if recipe_impact is None:
+                    # Rolling back changes
+                    run -= 1
+                    confidence_score_distribution.pop()
+
+                    break  # Breaking impact loop
+
                 recipe_impact_log = math.log(abs(recipe_impact))  # Switching to log space
                 impact_distributions[impact_name].append(recipe_impact)
                 impact_log_distributions[impact_name].append(recipe_impact_log)
