@@ -1108,9 +1108,6 @@ class ImpactEstimator:
                                          f'This impact has been ignored.')
                     continue
 
-                if impact_name == "Écotoxicité pour écosystèmes aquatiques d'eau douce":
-                    a=0
-
                 recipe_impact_log = math.log(abs(recipe_impact))  # Switching to log space
                 impact_distributions[impact_name].append(recipe_impact)
                 impact_log_distributions[impact_name].append(recipe_impact_log)
