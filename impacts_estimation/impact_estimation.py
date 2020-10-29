@@ -594,9 +594,15 @@ class RandomRecipeCreator:
             for total_mass in np.arange(inf, sup, TOTAL_MASS_DISTRIBUTION_STEP / 100):
                 recipe = self.recipe_from_proportions(proportions, total_mass * 100)
                 recipe_nutriments = nutriments_from_recipe(recipe)
-                conf_score = confidence_score(nutri=recipe_nutriments,
-                                              reference_nutri=self.product['nutriments'],
-                                              total_mass=total_mass * 100)
+
+                # In some cases, the total mass is too high and will give impossible nutritional composition, in that
+                # case the confidence score calculation will raise a ValueError
+                try:
+                    conf_score = confidence_score(nutri=recipe_nutriments,
+                                                  reference_nutri=self.product['nutriments'],
+                                                  total_mass=total_mass * 100)
+                except ValueError:
+                    continue
 
                 # ### FOR DEBUG PURPOSE ONLY ###
                 # total_masses.append(total_mass)
