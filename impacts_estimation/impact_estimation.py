@@ -952,8 +952,8 @@ class ImpactEstimator:
                          const_relax_coef=0, maximum_evaporation=0.4, total_mass_used=None, min_prct_dist_size=30,
                          dual_gap_type='absolute', dual_gap_limit=0.001, solver_time_limit=60,
                          time_limit_dual_gap_limit=0.01, confidence_weighting=True,
-                         use_ingredients_impact_uncertainty=True, quantiles_points=(0.05, 0.25, 0.5, 0.75, 0.95),
-                         distributions_as_result=False):
+                         use_ingredients_impact_uncertainty=True,
+                         quantiles_points=('0.05', '0.25', '0.5', '0.75', '0.95'), distributions_as_result=False):
         """
         Looping by calculating a new random recipe at each loop and stopping when the geometric mean of recipes impacts
         values are stabilized within a given confidence interval.
@@ -1257,9 +1257,10 @@ class ImpactEstimator:
             quantiles = sms.DescrStatsW(data=impact_distributions[impact_name],
                                         weights=confidence_score_distribution
                                         if confidence_weighting
-                                        else None).quantile(quantiles_points)
+                                        else None).quantile([float(x) for x in quantiles_points])
 
-            impacts_quantiles[impact_name] = dict(quantiles)
+            impacts_quantiles[impact_name] = {str(quantiles_points[index]): value
+                                              for index, value in enumerate(quantiles)}
 
             # Relative interquartile
             if '0.25' in quantiles:
@@ -1321,7 +1322,7 @@ def estimate_impacts(product, impact_names, quantity=None, ignore_unknown_ingred
                      use_nutritional_info=True, const_relax_coef=0, use_defined_prct=True, maximum_evaporation=0.4,
                      total_mass_used=None, min_prct_dist_size=30, dual_gap_type='absolute', dual_gap_limit=0.001,
                      solver_time_limit=60, time_limit_dual_gap_limit=0.01, confidence_weighting=True,
-                     use_ingredients_impact_uncertainty=True, quantiles_points=(0.05, 0.25, 0.5, 0.75, 0.95),
+                     use_ingredients_impact_uncertainty=True, quantiles_points=('0.05', '0.25', '0.5', '0.75', '0.95'),
                      distributions_as_result=False):
     """ Simple wrapper for impact estimation using ImpactEstimator class """
 
@@ -1347,7 +1348,8 @@ def estimate_impacts(product, impact_names, quantity=None, ignore_unknown_ingred
                                              time_limit_dual_gap_limit=time_limit_dual_gap_limit,
                                              confidence_weighting=confidence_weighting,
                                              use_ingredients_impact_uncertainty=use_ingredients_impact_uncertainty,
-                                             quantiles_points=quantiles_points)
+                                             quantiles_points=quantiles_points,
+                                             distributions_as_result=distributions_as_result)
 
 
 def estimate_impacts_safe(product, impact_names, **kwargs):
