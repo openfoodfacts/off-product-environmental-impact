@@ -1152,7 +1152,7 @@ class ImpactEstimator:
                     continue
 
                 # Computing the average share of impact due to each ingredient
-                for ingredient in recipe:
+                for ingredient in [x for x in recipe if x not in self.ignored_unknown_ingredients]:
                     try:
                         ingredient_impact = float(recipe[ingredient]) * \
                                             ingredients_data[ingredient]['impacts'][impact_name]['amount'] \
