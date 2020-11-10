@@ -1033,7 +1033,7 @@ class ImpactEstimator:
         log_means = {impact_name: [] for impact_name in impact_names}
         mean_confidence_interval_distribution = {impact_name: [] for impact_name in impact_names}
         impact_sign = {impact_name: None for impact_name in impact_names}
-        ingredients_impact_share = {impact: dict() for impact in impact_names}
+        ingredients_impacts_share = {impact: dict() for impact in impact_names}
         convergence_reached = {impact_name: False for impact_name in impact_names}
         impacts_units = dict()
         impacts_quantiles = dict()
@@ -1049,7 +1049,7 @@ class ImpactEstimator:
             del log_means[impact_name]
             del mean_confidence_interval_distribution[impact_name]
             del impact_sign[impact_name]
-            del ingredients_impact_share[impact_name]
+            del ingredients_impacts_share[impact_name]
             del convergence_reached[impact_name]
 
         consecutive_null_impact_characterized_ingredients_mass = 0
@@ -1163,17 +1163,17 @@ class ImpactEstimator:
                             impacts_units[impact_name] = ingredients_data[ingredient]['impacts'][impact_name]['unit']
 
                         if run == 1:
-                            ingredients_impact_share[impact_name][ingredient] = ingredient_impact_share
+                            ingredients_impacts_share[impact_name][ingredient] = ingredient_impact_share
                         else:
                             # Iterative weighted arithmetic mean of the ingredient impact share
-                            ingredients_impact_share[impact_name][ingredient] = \
-                                ((sum(confidence_score_distribution[:- 1]) * ingredients_impact_share[impact_name][
+                            ingredients_impacts_share[impact_name][ingredient] = \
+                                ((sum(confidence_score_distribution[:- 1]) * ingredients_impacts_share[impact_name][
                                     ingredient]) +
                                  (confidence_score_distribution[-1] * ingredient_impact_share)) / sum(
                                     confidence_score_distribution)
 
                     except KeyError:
-                        ingredients_impact_share[impact_name][ingredient] = None
+                        ingredients_impacts_share[impact_name][ingredient] = None
 
                 # Adding the weighted mean of the impacts logs distribution to the list of means
                 log_means[impact_name].append(float(sms.DescrStatsW(data=impact_log_distributions[impact_name],
@@ -1235,7 +1235,7 @@ class ImpactEstimator:
 
         # Exponential used to switch back to linear space as the geometric mean is the exponential of the arithmetic
         #  mean of the logs
-        impact_geom_means = {
+        impacts_geom_means = {
             impact: impact_sign[impact] * math.exp(
                 sms.DescrStatsW(data=impact_log_distributions[impact],
                                 weights=confidence_score_distribution
@@ -1245,7 +1245,7 @@ class ImpactEstimator:
             impact_distributions}
 
         # The geometric stdev is the exponential of the square root of the variance of the log of the data
-        impact_geom_stdevs = {impact: math.exp(math.sqrt(sms.DescrStatsW(data=impact_log_distributions[impact],
+        impacts_geom_stdevs = {impact: math.exp(math.sqrt(sms.DescrStatsW(data=impact_log_distributions[impact],
                                                                          weights=confidence_score_distribution
                                                                          if confidence_weighting
                                                                          else None).var))
@@ -1292,11 +1292,11 @@ class ImpactEstimator:
                     f"The impact relative interquartile is high for {impact_name}"
                     f" ({impacts_interquartile[impact_name]:.0%})")
 
-        result = {'impact_geom_means': impact_geom_means,
-                  'impact_geom_stdevs': impact_geom_stdevs,
+        result = {'impacts_geom_means': impacts_geom_means,
+                  'impacts_geom_stdevs': impacts_geom_stdevs,
                   'impacts_quantiles': impacts_quantiles,
                   'impacts_interquartile': impacts_interquartile,
-                  'ingredients_impact_share': ingredients_impact_share,
+                  'ingredients_impacts_share': ingredients_impacts_share,
                   'impacts_units': impacts_units,
                   'product_quantity': self.product_quantity,
                   'warnings': self.warnings,
