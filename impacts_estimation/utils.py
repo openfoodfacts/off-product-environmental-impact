@@ -3,6 +3,7 @@
 import copy
 import numpy as np
 from math import sqrt
+import random
 
 from impacts_estimation.vars import NUTRIMENTS_CATEGORIES, TOP_LEVEL_NUTRIMENTS_CATEGORIES, IMPACT_MASS_UNIT
 from data import ingredients_data, off_taxonomy
@@ -42,32 +43,35 @@ def impact_from_recipe(recipe, impact_name, use_uncertainty=True):
             # to False, simply use the default value. Else pick a value using the uncertainty parameters.
             ingredient_impact_data = ingredients_data[ingredient]['impacts'][impact_name]
             rng = np.random.default_rng()
-            if ('uncertainty' not in ingredient_impact_data) or (not use_uncertainty):
+            if ('uncertainty_distributions' not in ingredient_impact_data) or (not use_uncertainty):
                 ingredient_impact = ingredient_impact_data['amount']
-            elif ingredient_impact_data['uncertainty'] == 'normal':
-                ingredient_impact = rng.normal(ingredient_impact_data['mean'],
-                                               ingredient_impact_data['standard deviation'])
-            elif ingredient_impact_data['uncertainty'] == 'lognormal':
-                if ingredient_impact_data['geometric mean'] >= 0:
-                    # Numpy requires the mean and std of the underlying normal distribution, which are the logs of the
-                    # mean and std of the lognormal distribution.
-                    ingredient_impact = rng.lognormal(np.log(ingredient_impact_data['geometric mean']),
-                                                      np.log(ingredient_impact_data['geometric standard deviation']))
-                # If the geometric mean is negative, then simply take the opposite of the value generated
-                # with the opposite of the geometric mean
-                if ingredient_impact_data['geometric mean'] < 0:
-                    ingredient_impact = - rng.lognormal(np.log(-ingredient_impact_data['geometric mean']),
-                                                        np.log(ingredient_impact_data['geometric standard deviation']))
-            elif ingredient_impact_data['uncertainty'] == 'triangular':
-                ingredient_impact = rng.triangular(ingredient_impact_data['minimum'],
-                                                   ingredient_impact_data['mode'],
-                                                   ingredient_impact_data['maximum'])
-            elif ingredient_impact_data['uncertainty'] == 'uniform':
-                ingredient_impact = rng.uniform(ingredient_impact_data['minimum'],
-                                                ingredient_impact_data['maximum'])
             else:
-                raise ValueError(f"Unknown uncertainty type {ingredient_impact_data['uncertainty']}"
-                                 f" for ingredient {ingredient}")
+                # Pick a random uncertainty distribution
+                uncertainty_distribution = random.choice(ingredient_impact_data['uncertainty_distributions'])
+                if uncertainty_distribution['distribution'] == 'normal':
+                    ingredient_impact = rng.normal(uncertainty_distribution['mean'],
+                                                   uncertainty_distribution['standard deviation'])
+                elif uncertainty_distribution['distribution'] == 'lognormal':
+                    if uncertainty_distribution['geometric mean'] >= 0:
+                        # Numpy requires the mean and std of the underlying normal distribution, which are the logs of the
+                        # mean and std of the lognormal distribution.
+                        ingredient_impact = rng.lognormal(np.log(uncertainty_distribution['geometric mean']),
+                                                          np.log(uncertainty_distribution['geometric standard deviation']))
+                    # If the geometric mean is negative, then simply take the opposite of the value generated
+                    # with the opposite of the geometric mean
+                    if uncertainty_distribution['geometric mean'] < 0:
+                        ingredient_impact = - rng.lognormal(np.log(-uncertainty_distribution['geometric mean']),
+                                                            np.log(uncertainty_distribution['geometric standard deviation']))
+                elif uncertainty_distribution['distribution'] == 'triangular':
+                    ingredient_impact = rng.triangular(uncertainty_distribution['minimum'],
+                                                       uncertainty_distribution['mode'],
+                                                       uncertainty_distribution['maximum'])
+                elif uncertainty_distribution['distribution'] == 'uniform':
+                    ingredient_impact = rng.uniform(uncertainty_distribution['minimum'],
+                                                    uncertainty_distribution['maximum'])
+                else:
+                    raise ValueError(f"Unknown distribution type {uncertainty_distribution['distribution']}"
+                                     f" for ingredient {ingredient}")
 
             # Adding the impact to the result
             result += float(recipe[ingredient]) * ingredient_impact / IMPACT_MASS_UNIT
