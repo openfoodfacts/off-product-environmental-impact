@@ -7,7 +7,6 @@ from scipy.stats import gmean, gstd
 
 from data import INGREDIENTS_DATA_FILEPATH
 from ingredients_characterization.vars import AGRIBALYSE_DATA_FILEPATH
-from ingredients_characterization.impact.utils import gsd_from_dqr
 from impacts_estimation.vars import IMPACT_MASS_UNIT
 
 with open(INGREDIENTS_DATA_FILEPATH, 'r') as file:
@@ -31,7 +30,6 @@ for ingredient in ingredients_data.values():
     if 'LCI' in ingredient:
         ingredient['impacts'] = dict()
         lcis_impacts = dict()
-        lcis_dqrs = dict()
 
         # Retrieving the impacts of the corresponding LCIs
         for process_name in ingredient['LCI']:
@@ -76,44 +74,26 @@ for ingredient in ingredients_data.values():
                 ingredient['impacts'][impact_category]['amount'] = mean(impacts.values())
 
         # Adding the impact uncertainty distributions to the ingredient
-        for process_name in ingredient['LCI']:
+        if len(ingredient['LCI']) > 1:
+            for process_name in ingredient['LCI']:
 
-            # Computing the geometric standard deviation from the DQR
-            dqr_data = agribalyse_impacts[process_name]['DQR']
-            gsd = gsd_from_dqr(precision=dqr_data['P'],
-                               temp_repr=dqr_data['TiR'],
-                               geo_repr=dqr_data['GR'],
-                               tech_repr=dqr_data['TeR'])
-
-            # For each impact, adding one log-normal uncertainty distribution per LCI
-            for impact_category, impacts in lcis_impacts.items():
-                # Skip if the impact value is null
-                if impacts[process_name] == 0:
-                    continue
-
-                distribution_data = {'distribution': 'lognormal',
-                                     'geometric mean': impacts[process_name],
-                                     'geometric standard deviation': gsd}
-
-                if 'uncertainty_distributions' not in ingredient['impacts'][impact_category]:
-                    ingredient['impacts'][impact_category]['uncertainty_distributions'] = []
-
-                ingredient['impacts'][impact_category]['uncertainty_distributions'].append(distribution_data)
-
-            # If all linked LCIs have the same DQR and the same impact, only add one
-            all_same = True
-            for other_process_name in [x for x in ingredient['LCI'] if x != process_name]:
-                if agribalyse_impacts[other_process_name]['DQR'] != agribalyse_impacts[process_name]['DQR']:
-                    all_same = False
-                    break
-
+                # For each impact, adding one uniform uncertainty distribution per LCI
+                # Given that uncertainty data is not known fo Agribalyse processes, a uniform distribution with same
+                # minimum and maximum is used to still allow the algorithm to pick a random value in cases of multiple
+                # LCIs corresponding to one ingredient.
                 for impact_category, impacts in lcis_impacts.items():
-                    if impacts[other_process_name] != impacts[process_name]:
-                        all_same = False
-                        break
+                    # If all linked LCIs have the same impact, don't add uncertainty to this ingredient
+                    if all(impacts[x] == impacts[process_name] for x in ingredient['LCI']):
+                        continue
 
-            if all_same:
-                break
+                    distribution_data = {'distribution': 'uniform',
+                                         'minimum': impacts[process_name],
+                                         'maximum': impacts[process_name]}
+
+                    if 'uncertainty_distributions' not in ingredient['impacts'][impact_category]:
+                        ingredient['impacts'][impact_category]['uncertainty_distributions'] = []
+
+                    ingredient['impacts'][impact_category]['uncertainty_distributions'].append(distribution_data)
 
 with open(INGREDIENTS_DATA_FILEPATH, 'w') as file:
     json.dump(ingredients_data, file, indent=2, ensure_ascii=False)

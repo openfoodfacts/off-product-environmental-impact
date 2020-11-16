@@ -53,8 +53,8 @@ def impact_from_recipe(recipe, impact_name, use_uncertainty=True):
                                                    uncertainty_distribution['standard deviation'])
                 elif uncertainty_distribution['distribution'] == 'lognormal':
                     if uncertainty_distribution['geometric mean'] >= 0:
-                        # Numpy requires the mean and std of the underlying normal distribution, which are the logs of the
-                        # mean and std of the lognormal distribution.
+                        # Numpy requires the mean and std of the underlying normal distribution, which are the logs of
+                        # the mean and std of the lognormal distribution.
                         ingredient_impact = rng.lognormal(np.log(uncertainty_distribution['geometric mean']),
                                                           np.log(uncertainty_distribution['geometric standard deviation']))
                     # If the geometric mean is negative, then simply take the opposite of the value generated
