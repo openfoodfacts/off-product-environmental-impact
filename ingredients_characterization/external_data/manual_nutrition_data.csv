@@ -121,7 +121,7 @@ en:e460,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:e141,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:e307a,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:e340,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-fr:proteines-de-ble,,0.0,,100.0,0.0,0.0,0.0,0.0,0.0,0.0
+en:wheat-protein,,0.0,,100.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:protein,,0.0,0.0,100.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:e524,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:e235,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
@@ -155,14 +155,14 @@ en:e579,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:e473,,0.0,,0.0,,,,0.0,,0.0
 en:e920,,0.0,,,0.0,0.0,0.0,0.0,0.0,0.0
 en:sodium-chloride,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,100.0
-fr:eau-de-cuisson,,100.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+en:cooking-water,,100.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
 en:e952,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:e110,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:lysozyme-from-eggs,,0.0,,100.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:e464,,0.0,0.0,0.0,,0.0,0.0,0.0,0.0,0.0
 en:ferric-diphosphate,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:magnesium,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-fr:jus-de-soja,https://fr.openfoodfacts.org/produit/3256223377437/boisson-bio-au-jus-de-soja-nature-u-bio,92.0,41.0,3.8,1.4,2.1,0.7,0.6,0.4,0.01
+en:soy-base,https://fr.openfoodfacts.org/produit/3256223377437/boisson-bio-au-jus-de-soja-nature-u-bio,92.0,41.0,3.8,1.4,2.1,0.7,0.6,0.4,0.01
 en:sodium,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
 en:e1103,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:liquorice,https://fr.openfoodfacts.org/produit/3760149914374/reglisse-bio-en-batons-bio-reglisse,,,4.0,6.0,0.0,2.0,,0.0,0.0
@@ -218,13 +218,12 @@ en:e477,,0.0,,0.0,0.0,,0.0,0.0,,0.0
 en:salted-butter-caramel,https://fr.openfoodfacts.org/produit/20290009/caramel-au-beurre-sale-saveurs-de-nos-regions,,410.0,4.0,70.0,14.0,58.0,0.0,10.0,0.6
 en:goji,https://fr.openfoodfacts.org/produit/3270720005174/baies-de-goji-daco-bello,,354.0,13.1,58.7,3.5,46.3,17.9,0.6,1.2
 en:e345,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-en:sodium-phosphate,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:e123,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:milk-minerals,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:d-pantothenate-calcium,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:brine,https://fr.wikipedia.org/wiki/Saumure,65.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,35.0
 en:calcium-pantothenate,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-fr:jus-de-betterave,https://fr.openfoodfacts.org/produit/4015533052392/betteraves-rouges-100-pur-jus-voelkel,,37.0,1.1,8.0,0.0,7.5,0.0,0.0,0.0
+en:beetroot-juice,https://fr.openfoodfacts.org/produit/4015533052392/betteraves-rouges-100-pur-jus-voelkel,,37.0,1.1,8.0,0.0,7.5,0.0,0.0,0.0
 en:quinine,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:di-and-triphosphates,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:copper,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
@@ -236,6 +235,5 @@ en:iodine,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:e261,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:e526,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:crepe,https://fr.openfoodfacts.org/produit/3322680010290/12-crepes-de-landerneau-le-ster,,408.0,8.2,57.0,16.0,24.0,,9.1,1.7
-en:e124,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:manganese,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 en:e444,,0.0,,0.0,,0.0,,0.0,0.0,0.0

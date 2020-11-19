@@ -1,5 +1,5 @@
 OFF_FR,FCEN_FR,OFF_EN,FCEN_EN,OFF_ID,FCEN_ID
-Flocons d'épeautre complet,"Céréale, prête-à-manger, flocons d'épeautre, Nature's Path",,"Cereal, ready to eat, Spelt Flakes, Nature's Path",de:dinkelvollkornflocken,502055
+Flocons d'épeautre complet,"Céréale, prête-à-manger, flocons d'épeautre, Nature's Path",,"Cereal, ready to eat, Spelt Flakes, Nature's Path",en:whole-grain-spelt-flakes,502055
 Farine blanche,"Grains céréaliers, farine de blé, blanche, farine à gâteau",,"Grains, wheat flour, white, cake flour",de:weissmehl,4446
 Farine blanche,"Grains céréaliers, farine de blé, blanche, préparation pour tortilla",,"Grains, wheat flour, white, tortilla mix",de:weissmehl,4447
 Farine blanche,"Grains céréaliers, farine de blé, blanche, farine à pain",,"Grains, wheat flour, white, bread flour",de:weissmehl,4445
@@ -42,8 +42,8 @@ Vergeoise,"Confiseries, sucre, brun (cassonade)",Brown sugar,"Sweets, sugar, bro
 Babeurre,"Babeurre, liquide, culture, 2% M.G.",Buttermilk,"Milk, fluid, buttermilk, cultured, 2% M.F.",en:buttermilk,5487
 Babeurre,"Babeurre, liquide, culture, 1% M.G.",Buttermilk,"Milk, fluid, buttermilk, cultured, 1% M.F.",en:buttermilk,124
 Babeurre en poudre,"Babeurre, poudre, crème douce",Buttermilk powder,"Milk, dry, buttermilk, sweet cream",en:buttermilk-powder,67
-Caroube,"Caroube, farine",Carob,"Carob (St. John's bread), flour",en:carob,3278
-Farine de graines de caroube,"Caroube, farine",Carob flour,"Carob (St. John's bread), flour",en:carob-flour,3278
+Caroube,"Caroube, farine",Carob,"Carob (St. John's bread), flour",en:carob-seeds,3278
+Farine de graines de caroube,"Caroube, farine",Carob flour,"Carob (St. John's bread), flour",en:carob-seed-flour,3278
 Graines de céleri,"Épices, céleri, graines",Celery seed,"Spices, celery seed",en:celery-seed,175
 Céréale,"Bébé, céréale, mélange de grains, sèche",Cereal,"Babyfood, cereal, mixed grain, dry",en:cereal,285
 Peau de poulet,"Poulet à griller, peau seulement, pâte à frire, frit",Chicken skin,"Chicken, broiler, skin only, batter dipped, fried",en:chicken-skin,569
@@ -95,9 +95,6 @@ Biche,"Gibier, viande de  chevreuil (venaison), haché, cru",Deer,"Game meat, de
 Biche,"Gibier, viande, chevreuil (venaison), cru",Deer,"Game meat, deer (venison), raw",en:deer,3579
 Biche,"Gibier, viande, autochtone, cerf de Sitka (venaison), cru",Deer,"Game meat, native, deer (venison), sitka, raw",en:deer,5902
 Oignons déshydratés,"Oignon, flocons déshydratés",Dehydrated onion,"Onion, dehydrated flakes",en:dehydrated-onion,2138
-Piment rouge séché,"Piment, ancho, déshydraté",Dried chili pepper,"Pepper, ancho, dried",en:dried-chili-pepper,4859
-Piment rouge séché,"Piment, fort du Chili, rouge, séché au soleil",Dried chili pepper,"Pepper, hot chili, red, sun-dried",en:dried-chili-pepper,2355
-Piment rouge séché,"Piment, pasilla, déshydraté",Dried chili pepper,"Pepper, pasilla, dried",en:dried-chili-pepper,4863
 Aneth deshydraté,"Épices, aneth, déshydraté",Dried dill,"Spices, dill weed, dried",en:dried-dill,185
 Extrait de malt en poudre,"Grains céréaliers, orge, malt, extrait, déshydraté",Dried malt extract,"Grains, barley, malt extract, dried",en:dried-malt-extract,219
 Durian,"Durion, cru ou congelé",Durian,"Durian, raw or frozen",en:durian,4847
@@ -138,14 +135,13 @@ Glaçage,"Glaçage, chocolat, crémeux, mélange sec, préparé avec margarine",
 Glaçage,"Glaçage, fondant, fait maison",Glaze,"Icing (frosting), glaze, homemade",en:glaze,4340
 Gluten,"Blé, gluten de blé vital",Gluten,"Wheat, vital wheat gluten",en:gluten,501814
 ,"Pain, seigle",Grated rye bread,"Bread, rye",en:grated-rye-bread,4065
-,"Haricots, ""great northern"", crus",Great northern beans,"Beans, great northern, raw",en:great-northern-beans,3259
 Oignon vert,"Oignon, vert (inclus le bout et le bulbe), cru",Green onion,"Onion, spring (green) or scallion (includes tops and bulb), raw",en:green-onion,2144
 Oignon vert,"Oignon vert (ciboule), cru",Green onion,"Onion, Welsh, raw",en:green-onion,2145
 Aubergine grillée,"Aubergine, crue",Grilled aubergines,"Eggplant (aubergine, brinjal), raw",en:grilled-aubergines,2088
 Graines de chanvre,"Graines de chanvre, décortiquées",Hemp seed,"Seeds, hemp seeds, hulled",en:hemp-seed,503362
 Sirop de maïs à haute teneur en fructose,"Confiseries, sirop de maïs, élevé en fructose",High fructose corn syrup,"Sweets, syrups, corn, high-fructose",en:high-fructose-corn-syrup,4324
 Piment fort,"Piment, fort du Chili, rouge ou verts, cru",Hot chili peppers,"Pepper, hot chili, red or green, raw",en:hot-chili-peppers,2322
-Piments jalapeño,"Piment, jalapeno, cru",Jalapeno peppers,"Pepper, jalapeno, raw",en:jalapeno-peppers,4860
+Piments jalapeño,"Piment, jalapeno, cru",Jalapeno peppers,"Pepper, jalapeno, raw",en:jalapeno,4860
 ,"Haricots, lima, secs, gros, crus",Large lima beans,"Beans, lima, dry, large, raw",en:large-lima-beans,3288
 Farine de lentilles,"Lentilles, farine",Lentil flour,"Lentils, flour",en:lentil-flour,6183
 ,"Haricots, lima, crus",Lima beans,"Beans, lima, raw",en:lima-beans,2003
@@ -158,7 +154,7 @@ Emmental fondu,Fromage suisse (emmental),Melted Emmental cheese,"Cheese, swiss (
 Protéine de lait,"Boisson, poudre protéinée à base de lactosérum",Milk proteins,"Beverage, protein powder, whey based, powder",en:milk-proteins,502447
 Millet,"Grains céréaliers, millet, sec",Millet,"Grains, millet, dry",en:millet,4491
 Graine de moutarde,"Épices, graines de moutarde, jaunes",Mustard seed,"Spices, mustard seed, yellow",en:mustard-seed,192
-,"Haricots, petits blancs, crus",Navy beans,"Beans, navy, raw",en:navy-beans,3383
+,"Haricots, petits blancs, crus",Navy beans,"Beans, navy, raw",en:white-beans,3383
 Ortie,"Grande Ortie (ortie commune), autochtone, blanchie",Nettle,"Stinging Nettles, native, blanched",en:nettle,502144
 Nigari,"Tofu, régulier; mou, ou ferme, préparé avec chlorure de magnésium (nigari)",Nigari,"Tofu, regular; soft or firm, prepared with magnesium chloride (nigari)",en:nigari,4909
 Graisse de palme non hydrogénée,"Margarine, tartinade, molle, non hydrogénée, huiles mélangées, 68% M.G.",Non-hydrogenated palm fat,"Margarine-like spread (including garlic flavoured), tub, non-hydrogenated, mixed vegetable oils, 68% fat",en:non-hydrogenated-palm-fat,502780
@@ -288,14 +284,14 @@ Extrait de levure,"Extrait de levure, tartinade",Yeast extract,Yeast extract spr
 Extrait de levure en poudre,"Extrait de levure, tartinade",Yeast extract powder,Yeast extract spread,en:yeast-extract-powder,5605
 Graines de moutarde jaunes,"Épices, graines de moutarde, jaunes",Yellow mustard seed,"Spices, mustard seed, yellow",en:yellow-mustard-seed,192
 Raisin de Corinthe,"Raisins de corinthe (zante), secs",Zante currant,"Currant, zante, dried",en:zante-currant,1542
-Café décaféiné,"Café infusé, espresso, préparation restaurant, décaféiné",,"Coffee, brewed, espresso, restaurant-prepared, decaffeinated",fr:cafe-decafeine,5422
-Café décaféiné,"Café infusé, préparé avec eau municipale, décaféiné",,"Coffee, brewed, prepared with municipal water, decaffeinated",fr:cafe-decafeine,4981
-Café décaféiné,"Café instantané, décaféiné, poudre",,"Coffee, instant, decaffeinated, powder",fr:cafe-decafeine,2876
-Canneberges séchées,"Canneberge, séchée, sucrée",,"Cranberry, dried, sweetened",fr:canneberges-sechees,5390
+Café décaféiné,"Café infusé, espresso, préparation restaurant, décaféiné",,"Coffee, brewed, espresso, restaurant-prepared, decaffeinated",en:decaffeinated-coffee,5422
+Café décaféiné,"Café infusé, préparé avec eau municipale, décaféiné",,"Coffee, brewed, prepared with municipal water, decaffeinated",en:decaffeinated-coffee,4981
+Café décaféiné,"Café instantané, décaféiné, poudre",,"Coffee, instant, decaffeinated, powder",en:decaffeinated-coffee,2876
+Canneberges séchées,"Canneberge, séchée, sucrée",,"Cranberry, dried, sweetened",en:dried-cranberries,5390
 Farine de graines de caroube et farine de graines de guar,"Caroube, farine",,"Carob (St. John's bread), flour",fr:farine-de-graines-de-caroube-et-farine-de-graines-de-guar,3278
-Farine de lentilles corail,"Lentilles, farine",,"Lentils, flour",fr:farine-de-lentilles-corail,6183
+Farine de lentilles corail,"Lentilles, farine",,"Lentils, flour",en:red-lentil-flour,6183
 Farine de pois cassés,"Pois, cassés, crus",,"Peas, split, raw",fr:farine-de-pois-casses,3394
-Farine de pomme de terre,"Pomme de terre, farine",,Potato flour,fr:farine-de-pomme-de-terre,2440
+Farine de pomme de terre,"Pomme de terre, farine",,Potato flour,en:potato-flour,2440
 Farine mi-blanche,"Grains céréaliers, farine de blé, blanche, tout usage, non blanchie",,"Grains, wheat flour, white, all purpose, unbleached",fr:farine-mi-blanche,501865
 Farine mi-blanche,"Grains céréaliers, farine de blé, blanche, teneur élevée en gluten",,"Grains, wheat flour, white, high gluten",fr:farine-mi-blanche,4530
 Farine mi-blanche,"Grains céréaliers, farine de blé, blanche, tout usage, blanchie",,"Grains, wheat flour, white, all purpose, bleached",fr:farine-mi-blanche,4501
@@ -305,13 +301,12 @@ Farine mi-blanche,"Grains céréaliers, farine de blé, blanche, farine à pain"
 Farines de graines et céréales,"Grains céréaliers, farine de blé entier",,"Grains, wheat flour, whole-wheat",fr:farines-de-graines-et-cereales,4500
 Feuilles de frêne,"Feuilles de saule, autochtone, tendres, hachées",,"Willow, native, young leaves, chopped",fr:feuilles-de-frene,5909
 Flocons d'épeautre,"Céréale, prête-à-manger, flocons d'épeautre, Nature's Path",,"Cereal, ready to eat, Spelt Flakes, Nature's Path",fr:flocons-d-epeautre,502055
-Foie de boeuf,"Boeuf, foie de, cru",,"Beef, liver, raw",fr:foie-de-boeuf,2788
+Foie de boeuf,"Boeuf, foie de, cru",,"Beef, liver, raw",en:beef-liver,2788
 Friture,"Shortening, industriel, friture (solide), soya",,"Shortening, industrial, for frying (solid), soybean",fr:friture,542
 Friture,"Shortening, industriel, friture (solide), canola",,"Shortening, industrial, for frying (solid), canola",fr:friture,541
 Friture,"Shortening, industriel, friture (liquide), canola",,"Shortening, industrial, for frying (liquid), canola",fr:friture,540
 Friture,"Shortening, industriel, friture (liquide), soya",,"Shortening, industrial, for frying (liquid), soybean",fr:friture,523
 Gluten vital de blé,"Blé, gluten de blé vital",,"Wheat, vital wheat gluten",fr:gluten-vital-de-ble,501814
-Graines de céleri,"Épices, céleri, graines",,"Spices, celery seed",fr:graines-de-celeri,175
 Graines de moutarde moulues,"Épices, graines de moutarde, jaunes",,"Spices, mustard seed, yellow",fr:graines-de-moutarde-moulues,192
 Graines grillées,"Graines, tournesol, graines, grillées",,"Seeds, sunflower seed kernels, toasted",fr:graines-grillees,2528
 Graisse de porc,"Gras animal, saindoux (porc)",,"Animal fat, lard (pork)",fr:graisse-de-porc,464
@@ -319,29 +314,29 @@ Haricots blancs précuits,"Haricots, blancs, bouillis",,"Beans, white, boiled",f
 Haricots blancs précuits,"Haricots, blancs, crus",,"Beans, white, raw",fr:haricots-blancs-precuits,3385
 Haricots blancs réhydratés,"Haricots, blancs, bouillis",,"Beans, white, boiled",fr:haricots-blancs-rehydrates,3386
 Haricots blancs secs trempés,"Haricots, blancs, crus",,"Beans, white, raw",fr:haricots-blancs-secs-trempes,3385
-Lait écrémé concentré sucré,"Lait, concentré, écrémé, conserve, non dilué, 0.2% M.G.",,"Milk, evaporated, skim, canned, undiluted, 0.2% M.F.",fr:lait-ecreme-concentre-sucre,112
-Lait écrémé concentré sucré,"Lait, concentré, sucré, conserve",,"Milk, condensed, sweetened, canned",fr:lait-ecreme-concentre-sucre,68
+Lait écrémé concentré sucré,"Lait, concentré, écrémé, conserve, non dilué, 0.2% M.G.",,"Milk, evaporated, skim, canned, undiluted, 0.2% M.F.",en:sweetened-skimmed-condensed-milk,112
+Lait écrémé concentré sucré,"Lait, concentré, sucré, conserve",,"Milk, condensed, sweetened, canned",en:sweetened-skimmed-condensed-milk,68
 Lait écrémé concentré ou en poudre,"Lait, en poudre, écrémé",,"Milk, dry, skim, powder, regular",fr:lait-ecreme-condense-sucre,134
 Lentilles rouges décortiquées,"Lentilles, roses, crues",,"Lentils, pink, raw",fr:lentilles-rouges-decortiquees,4869
 Oignon fumé en poudre,"Épices, oignon, poudre",,"Spices, onion powder",fr:oignon-fume-en-poudre,194
 Oignon grillé en poudre,"Épices, oignon, poudre",,"Spices, onion powder",fr:oignon-grille-en-poudre,194
-Oignon jaune,"Oignon, jaune, sauté",,"Onion, yellow, sauteed",fr:oignon-jaune,5960
-Piment de la jamaïque,"Piments de la Jamaïque, conserve",,"Pimento, canned",fr:piment-de-la-jamaique,2496
+Oignon jaune,"Oignon, jaune, sauté",,"Onion, yellow, sauteed",en:yellow-onion,5960
+Piment de la jamaïque,"Piments de la Jamaïque, conserve",,"Pimento, canned",en:allspice,2496
 Pistaches en coques,"Noix, pistaches, crues",,"Nuts, pistachio nuts, raw",fr:pistaches-en-coques,2644
 Protéines de lait en poudre,"Boisson, isolat de protéines de lactosérum, poudre",,"Beverage, whey protein isolate, powder",fr:proteines-de-lait-en-poudre,502445
 Purée de pruneaux,"Pruneau, purée",,Prune puree,fr:puree-de-pruneaux,4879
 Raisins secs rehydratés,"Raisins secs, épépinés",,"Raisin, seeded",fr:raisins-secs-rehydrates,1746
 Riz précuit,"Grains céréaliers, riz blanc, grain long, précuit ou instantané, enrichi, sec",,"Grains, rice, white, long-grain, pre-cooked or instant, enriched, dry",fr:riz-precuit,4481
 Sauce au vinaigre balsamique,"Vinaigre, balsamique",,"Vinegar, balsamic",fr:sauce-au-vinaigre-balsamique,6196
-Sirop de blé,"Confiseries, sirop de malt",,"Sweets, syrups, malt",fr:sirop-de-ble,4325
-Sirop de blé,"Confiseries, sirop de sorgho",,"Sweets, syrups, sorghum",fr:sirop-de-ble,4327
-Sirop de blé,"Confiseries, sirop de table, maïs, sirop de raffinerie et sucre",,"Sweets, syrups, table blends, corn, refiner's syrup and sugar",fr:sirop-de-ble,4330
-Sirop de blé,"Confiseries, sirop de maïs, foncé",,"Sweets, syrups, corn, dark",fr:sirop-de-ble,4322
-Sirop de blé,"Confiseries, sirop de maïs, élevé en fructose",,"Sweets, syrups, corn, high-fructose",fr:sirop-de-ble,4324
-Sirop de blé,"Confiseries, sirop de maïs, clair",,"Sweets, syrups, corn light",fr:sirop-de-ble,4323
-Sirop de sucre candi,"Confiseries, sirop de table, maïs, sirop de raffinerie et sucre",,"Sweets, syrups, table blends, corn, refiner's syrup and sugar",fr:sirop-de-sucre-candi,4330
-Sirop de sucre de canne,"Confiserie, sirop, canne à sucre",,"Sweets, syrups, cane",fr:sirop-de-sucre-de-canne,502358
+Sirop de blé,"Confiseries, sirop de malt",,"Sweets, syrups, malt",en:wheat-syrup,4325
+Sirop de blé,"Confiseries, sirop de sorgho",,"Sweets, syrups, sorghum",en:wheat-syrup,4327
+Sirop de blé,"Confiseries, sirop de table, maïs, sirop de raffinerie et sucre",,"Sweets, syrups, table blends, corn, refiner's syrup and sugar",en:wheat-syrup,4330
+Sirop de blé,"Confiseries, sirop de maïs, foncé",,"Sweets, syrups, corn, dark",en:wheat-syrup,4322
+Sirop de blé,"Confiseries, sirop de maïs, élevé en fructose",,"Sweets, syrups, corn, high-fructose",en:wheat-syrup,4324
+Sirop de blé,"Confiseries, sirop de maïs, clair",,"Sweets, syrups, corn light",en:wheat-syrup,4323
+Sirop de sucre candi,"Confiseries, sirop de table, maïs, sirop de raffinerie et sucre",,"Sweets, syrups, table blends, corn, refiner's syrup and sugar",fr:sirop-de-candi,4330
+Sirop de sucre de canne,"Confiserie, sirop, canne à sucre",,"Sweets, syrups, cane",en:cane-sugar-syrup,502358
 Sons de moutarde,"Épices, graines de moutarde, jaunes",,"Spices, mustard seed, yellow",fr:sons-de-moutarde,192
 Vermicelle de pois,"Vermicelle de soya, cuits",,"Vermicelli, made from soy, cooked",fr:vermicelle-de-pois,5920
 Zestes de citron confits,"Confits, citron, pelure",,"Candied foods, lemon peel",fr:zestes-de-citron-confits,4402
-,,,,en:rosehip,501549
+,,,,en:rose-hip,501549
