@@ -24,7 +24,8 @@ for link in links.itertuples():
 
     ingredients_data[link.off_id]['source_impact'] = 'Agribalyse'
 
-    ingredients_data[link.off_id]['LCI'].append(link.agribalyse_en)
+    if link.agribalyse_en not in ingredients_data[link.off_id]['LCI']:
+        ingredients_data[link.off_id]['LCI'].append(link.agribalyse_en)
 
 with open(INGREDIENTS_DATA_FILEPATH, 'w') as file:
     json.dump(ingredients_data, file, indent=2, ensure_ascii=False)

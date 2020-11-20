@@ -3292,3 +3292,641 @@ fr:vanille-bourbon-naturelle-en-gousse,"Vanilla, alcoholic extract","Vanille, ex
 en:natural-vanilla,"Vanilla, alcoholic extract","Vanille, extrait alcoolique"
 fr:viande-de-boeuf-en-poudre,"Burger, beef based, 15% fat, raw","Haché à base de bœuf ou Préparation de viande hachée de boeuf, 15% MG, cru"
 fr:yaourt-maigre-en-poudre,"Milk, powder, skimmed","Lait en poudre, écrémé"
+de:grissini,Grissini or bread stick,Gressins
+en:acacia-honey-from-france,Honey,Miel
+en:alcohol,Pure alcohol,Alcool pur
+en:almond-paste,"Almond paste or marzipan, prepacked","Pâte d'amande, préemballée"
+en:anchovy-filets,"Anchovy, fillets, in oil, semi-preserved, drained","Anchois, filets à l'huile, semi-conserve, égoutté"
+en:apple-vinegar,Vinegar,Vinaigre
+en:asiago,"Asiago cheese, from cow's milk",Asiago
+en:atlantic-mackerel,"Mackerel, raw","Maquereau, cru"
+en:balsamic-vinegar-of-modena,"Vinegar, balsamic",Vinaigre balsamique
+en:barley,"Barley, whole, raw","Orge entière, crue"
+en:barley,"Pearled barley, raw","Orge perlée, crue"
+en:barley-malt-vinegar,Vinegar,Vinaigre
+en:bearnaise-sauce,"Bearnaise sauce, prepacked","Sauce béarnaise, préemballée"
+en:beef-tripe,"Tripe, beef, raw","Tripes, boeuf, crues"
+en:belgian-dark-chocolate,"Dark chocolate bar, more than 40% cocoa, for cooking","Chocolat noir à 40% de cacao minimum, à pâtisser, tablette"
+en:belgian-dark-chocolate,"Dark chocolate bar, more than 70% cocoa","Chocolat noir à 70% cacao minimum, extra, dégustation, tablette"
+en:belgian-milk-chocolate,Milk chocolate bar,"Chocolat au lait, tablette"
+en:black-cardamom,"Cardamom, powder","Cardamome, poudre"
+en:black-grape,"Grape, red, raw","Raisin noir, cru"
+en:black-mustard-seed,Mustard,Moutarde
+en:black-olives-oil,"Olive oil, extra virgin",Huile d'olive vierge extra
+en:black-pudding,"Black pudding (blood sausage), refrigerated","Boudin noir, rayon frais"
+en:black-radish,"Radish, black, raw","Radis noir, cru"
+en:blackcurrant-concentrate,"Black currant, raw","Cassis, cru"
+en:blood-orange,"Orange, pulp, raw","Orange, pulpe, crue"
+en:blue-cheese,"Blue cheese, from cow's milk",Fromage bleu au lait de vache
+en:blue-poppy-seed,"Poppy, seed","Pavot, graine"
+en:bourbon-vanilla-extract,"Vanilla, aqueous extract","Vanille, extrait aqueux"
+en:brandy,Clear fruit brandy or eau-de-vie,Eau de vie
+en:breast,"Pork, belly, raw","Porc, poitrine, crue"
+en:breast,"Veal, breast, raw","Veau, poitrine, crue"
+en:breast,"Guinea fowl, breast, raw","Pintade, poitrine, crue"
+en:breast,"Chicken, breast, meat and skin, raw","Poulet, poitrine, viande et peau, cru"
+en:bresaola,Bresaola,Bresaola
+en:brie,"Brie cheese, from cow's milk","Brie, sans précision"
+en:british-pork-belly,"Pork, belly, raw","Porc, poitrine, crue"
+en:british-rapeseed-oil,Rapeseed oil,Huile de colza
+en:brown-sugar-syrup,"Sugar, brown",Sucre roux
+en:cane-sugar-molasses,Cane molasses,Mélasse de canne
+en:caramelized-pecan-nuts,Pecan nut,Noix de pécan
+en:caraway-seeds,"Caraway, seed","Carvi, graine"
+en:cardamom,"Cardamom, powder","Cardamome, poudre"
+en:cardamom-seed,"Cardamom, powder","Cardamome, poudre"
+en:cardoon,"Cardoon, raw","Cardon, cru"
+en:cassava,"Cassava or manioc, roots, raw","Manioc, racine crue"
+en:caster-sugar,"Sugar, white",Sucre blanc
+en:cauliflower-florets,"Cauliflower, raw","Chou-fleur, cru"
+en:celery-salt,Celery salt,Sel au céleri
+en:charentes-butter-pdo,"Butter, 82% fat, unsalted","Beurre à 82% MG, doux"
+en:chartreuse-liqueur,Liqueur,Liqueur
+en:cheese-sauce,"Cheese sauce for risotto or pasta, prepacked","Sauce au fromage pour risotto ou pâtes, préemballée"
+en:chicken-breast,"Chicken, breast, without skin, raw","Poulet, filet, sans peau, cru"
+en:chicken-breast,"Chicken cooked ham, in slices",Jambon de poulet ou Blanc de poulet en tranche
+en:chicken-breast-fillet,"Chicken, breast, without skin, raw","Poulet, filet, sans peau, cru"
+en:chicken-fillet-with-skin,"Chicken, breast, meat and skin, raw","Poulet, poitrine, viande et peau, cru"
+en:chicken-meat-including-chicken-juices,"Chicken, meat, raw","Poulet, viande, crue"
+en:chicken-meat-including-natural-chicken-juices,"Chicken, meat, raw","Poulet, viande, crue"
+en:chickpea-flour,Chick pea flour,Farine de pois chiche
+en:chocolate-cream,"Custard cream with eggs (a small jar of chocolate or vanilla cream or other flavour), refrigerated","Crème aux œufs (petit pot de crème chocolat, vanille, etc.), rayon frais"
+en:chocolate-glaze,Chocolate sauce,Sauce au chocolat
+en:chub-mackerel,"Atlantic chub mackerel, raw","Maquereau espagnol ou maquereau blanc ou billard, cru"
+en:cider,"Cider, sweet",Cidre doux
+en:cider,Cider,Cidre traditionnel
+en:cider,"Cider, dry",Cidre brut
+en:cider,Flavoured cider,Cidre aromatisé (framboise)
+en:cider,"Cider, half-dry",Cidre bouché demi-sec
+en:cider-apple-juice,"Apple juice, pure juice","Jus de pomme, pur jus"
+en:clover-honey,Honey,Miel
+en:cocoa-powder-processed-with-alkali,"Cocoa powder, without sugar, powder, instant","Cacao, non sucré, poudre soluble"
+en:coconut-flour,"Coconut, kernel, dried","Noix de coco, amande, sèche"
+en:coconut-milk-drink,Coconut milk or coconut cream,Lait de coco ou Crème de coco
+en:concentrated-blueberry-juice,"Blueberry, raw","Myrtille, crue"
+en:cooked-chickpeas,"Chick pea, cooked","Pois chiche, cuit"
+en:corn-kernel,"Sweet corn, canned, drained","Maïs doux, appertisé, égoutté"
+en:corn-tortilla,Corn chips or tortilla chips,Chips de maïs ou tortilla chips
+en:corn-tortilla,"Corn tortilla wrap, to be filled","Tortilla souple (à garnir), à base de maïs"
+en:cottonseed,Cottonseed oil,Huile de coton
+en:cream-sauce,Cream sauce,Sauce à la crème
+en:cress,"Garden cress, raw","Cresson alénois, cru"
+en:crunchy-peanut-butter,Peanut,Cacahuète ou Arachide
+en:cured-ham,Dry-cured ham,Jambon sec
+en:curly-endive,"Curly endive, raw","Salade ou chicorée frisée, crue"
+en:curry-paste,"Curry, powder","Curry, poudre"
+en:dandelion,"Dandelion, raw","Pissenlit, cru"
+en:dark-soy-sauce,"Soy sauce, prepacked","Sauce soja, préemballée"
+en:dark-wheat-flour,"Wheat flour, type 150",Farine de blé tendre ou froment T150
+en:decaffeinated-coffee,"Decaffeinated coffee, powder, instant","Café, décaféiné, poudre soluble"
+en:decaffeinated-coffee,"Decaffeinated not instant coffee, without sugar, ready-to-drink","Café décaféiné, non instantané, non sucré, prêt à boire"
+en:decaffeinated-coffee,"Decaffeinated instant coffee, without sugar, ready-to-drink","Café décaféiné, instantané, non sucré, prêt à boire"
+en:desiccated-coconut,"Coconut, kernel, dried","Noix de coco, amande, sèche"
+en:dijon-mustard,Mustard,Moutarde
+en:dill-flavouring,"Dill, fresh","Aneth, frais"
+en:distilled-vinegar,Vinegar,Vinaigre
+en:dried-kidney-beans,"Red kidney bean, dried","Haricot rouge, sec"
+en:duck-leg,"Duck, leg, meat and skin, raw","Canard, cuisse avec peau, sans os, crue"
+en:elderberry-juice,"Elderberry, berries, raw","Sureau, baie, crue"
+en:elderberry-juice-concentrate,"Elderberry, berries, raw","Sureau, baie, crue"
+en:elderberry-juice-from-concentrate,"Elderberry, berries, raw","Sureau, baie, crue"
+en:english-mustard,Mustard,Moutarde
+en:extra-mature-cheddar,"Cheddar cheese, from cow's milk",Cheddar
+en:falafel,Falafel,"Falafel ou Boulette de pois-chiche et/ou fève, frite"
+en:flat-bean,"Flat bean, raw","Haricot plat, cru"
+en:flour-blend,Maize/corn flour,Farine de maïs
+en:flour-blend,Rice flour,Farine de riz
+en:flour-blend,Millet flour,Farine de millet
+en:fontina,"Fontina cheese, from cow's milk",Fontina
+en:free-range-chicken,"Chicken, free-range, meat and skin, raw","Poulet fermier, viande et peau, cru"
+en:free-range-egg-white,"Egg white, raw","Oeuf, blanc (blanc d'oeuf), cru"
+en:full-fat-soft-cheese,"Soft-ripened washed-rind cheese, reduced fat, around 13% fat","Fromage à pâte molle et croûte lavée, allégé environ 13% MG"
+en:full-fat-soft-cheese,"Uncured soft cheese, spreadable, around 20% fat, in a tub","Spécialité fromagère non affinée environ 20% MG, type fromage en barquette à tartiner ou coque fromagère"
+en:full-fat-soft-cheese,"Soft-ripened cheese, triple cream, around 40% fat",Fromage à pâte molle triple crème environ 40% MG
+en:full-fat-soft-cheese,"Soft-ripened round cheese with bloomy rind, around 5% fat, Camembert-type cheese, reduced fat",Fromage rond à pâte molle et croûte fleurie environ 5% MG type camembert allégé en matière grasse
+en:full-fat-soft-cheese,"Soft-ripened round cheese with bloomy rind, around 11% fat, Coulommiers-type cheese, reduced fat",Fromage rond à pâte molle et croûte fleurie environ 11% MG type coulommiers allégé en matière grasse
+en:full-fat-soft-cheese,"Soft-ripened round cheese with bloomy rind, 5 to 11% fat, Camembert-type cheese, reduced fat",Fromage rond à pâte molle et croûte fleurie 5 à 11% MG type camembert allégé en matière grasse
+en:full-fat-soft-cheese,"Soft-ripened cheese, double cream, around 30% fat",Fromage à pâte molle double crème environ 30% MG
+en:full-fat-soft-cheese,"Uncured soft cheese, spreadable, around 25% fat, in a tub","Spécialité fromagère non affinée environ 25% MG, type fromage en barquette à tartiner ou coque fromagère"
+en:full-fat-soft-cheese,"Uncured soft cheese, spreadable, around 30-40% fat, flavoured (ex : garlic and herbs)",Spécialité fromagère non affinée à tartiner environ 30-40 % MG aromatisée (ex: ail et fines herbes)
+en:garam-masala,"Indian-style sauce, tandoori or garam masala type, prepacked","Sauce indienne type tandoori ou tikka masala, préemballée"
+en:garden-cress,"Garden cress, raw","Cresson alénois, cru"
+en:garfish,"Garfish, raw","Orphie commune, crue"
+en:gooseberry,"Gooseberry, raw","Groseille à maquereau, crue"
+en:gooseberry-juice,"Gooseberry, raw","Groseille à maquereau, crue"
+en:grain-vinegar,Vinegar,Vinaigre
+en:greek-yogurt,"Yogurt, Greek-style, plain","Yaourt à la grecque, nature"
+en:green-bell-pepper,"Sweet pepper, green, yellow or red, raw","Poivron, vert, jaune ou rouge, cru"
+en:green-cardamom,"Cardamom, powder","Cardamome, poudre"
+en:grey-salt,"Sea salt, grey, no enrichment","Sel marin gris, non iodé, non fluoré"
+en:grey-salt-from-guerande,"Sea salt, grey, no enrichment","Sel marin gris, non iodé, non fluoré"
+en:hot-sauce,"Harissa (hot spicy sauce), prepacked",Harissa (sauce condimentaire)
+en:hummus,Hummus,Houmous
+en:hydrogenated-palm-kernel-oil,Palm oil,"Huile de palme, sans précision"
+en:italian-raw-ham,"Cured ham, raw",Jambon cru
+en:kelp,"Kombu or Japanese kelp (Laminaria japonica), dried or dehydrated","Kombu ou kombu japonais (Laminaria japonica), séchée ou déshydratée"
+en:khorasan-wheat-flour,Khorasan wheat,"Blé de Khorasan, cru"
+en:lactose-free-milk,"Milk, semi-skimmed, reduced lactose","Lait demi-écrémé, à teneur réduite en lactose"
+en:laver,"Laver (Porphyra sp.), dried or dehydrated","Nori (Porphyra sp.), séchée ou déshydratée"
+en:lean-pork,"Pork tenderloin, lean, raw","Porc, filet, maigre, cru"
+en:lime-flavouring,"Lime, pulp, raw","Citron vert ou Lime, pulpe, cru"
+en:low-erucic-acid-rapeseed-oil,Rapeseed oil,Huile de colza
+en:marshmallow,"Candies, marshmallows",Guimauve ou marshmallow
+en:mature-cheddar,"Cheddar cheese, from cow's milk",Cheddar
+en:medium-fat-hard-cheese,"Hard cheese, emmental-type cheese, reduced fat","Fromage à pate pressée cuite type emmental ou emmenthal, allégé en matière grasse"
+en:medium-fat-soft-cheese,"Soft-ripened cheese, triple cream, around 40% fat",Fromage à pâte molle triple crème environ 40% MG
+en:medium-fat-soft-cheese,"Uncured soft cheese, spreadable, around 30-40% fat, flavoured (ex : garlic and herbs)",Spécialité fromagère non affinée à tartiner environ 30-40 % MG aromatisée (ex: ail et fines herbes)
+en:medium-fat-soft-cheese,"Soft-ripened round cheese with bloomy rind, around 11% fat, Coulommiers-type cheese, reduced fat",Fromage rond à pâte molle et croûte fleurie environ 11% MG type coulommiers allégé en matière grasse
+en:medium-fat-soft-cheese,"Soft-ripened round cheese with bloomy rind, 5 to 11% fat, Camembert-type cheese, reduced fat",Fromage rond à pâte molle et croûte fleurie 5 à 11% MG type camembert allégé en matière grasse
+en:medium-fat-soft-cheese,"Soft-ripened cheese, double cream, around 30% fat",Fromage à pâte molle double crème environ 30% MG
+en:mild-cheddar,"Cheddar cheese, from cow's milk",Cheddar
+en:milk-chocolate-chips,Milk chocolate bar,"Chocolat au lait, tablette"
+en:miso,Miso,Miso
+en:mixed-vegetables,"Mixed vegetables, frozen, raw","Légumes, mélange surgelé, crus"
+en:nile-perch,"Nile perch, raw","Perche du Nil, crue"
+en:oat-base,"Oat-based drink, plain","Boisson à base d'avoine, nature"
+en:oatmeal,Oatmeal flakes,Flocon d'avoine
+en:okra,"Okra, cooked, without salt","Gombo, fruit, cuit"
+en:oxtail,"Beef, oxtail, boiled/cooked in water","Boeuf, queue, bouillie/cuite à l'eau"
+en:pastry,"Puff pastry, pure butter, raw","Pâte feuilletée pur beurre, crue"
+en:pastry,"Short crust pastry, raw","Pâte brisée, crue"
+en:pastry,"Short crust pastry, pure butter, raw","Pâte brisée, pur beurre, crue"
+en:peanut-butter,Peanut butter or peanut paste,Beurre de cacahuète ou Pâte d'arachide
+en:peanut-paste,Peanut butter or peanut paste,Beurre de cacahuète ou Pâte d'arachide
+en:pepper,"Grey pepper, powder","Poivre gris, poudre"
+en:pepper,"White pepper, powder","Poivre blanc, poudre"
+en:pepper,"Black pepper, powder","Poivre noir, poudre"
+en:perch,"European perch, raw","Perche, crue"
+en:persimmon,"Persimmon, pulp, raw","Kaki, pulpe, cru"
+en:pesto,"Sauce, pesto, prepacked","Sauce pesto, préemballée"
+en:pita,Pita bread,Pain pita
+en:pitted-cherry,"Cherry, pitted, raw","Cerise, dénoyautée, crue"
+en:pitted-olive,"Tapenade (a puree of capers, pitted black olives, anchovy and herbs, with olive oil and lemon juice",Tapenade
+en:pizza-base,Tomato sauce for pizza base,Base de pizza tomatée
+en:pizza-base,"Pizza base, raw",Pâte à pizza crue
+en:pizza-base,cream sauce for pizza base,Base de pizza à la crème
+en:pizza-dough,"Pizza base, raw",Pâte à pizza crue
+en:plum,"Plum, raw","Prune, crue"
+en:pork-breast,"Pork, belly, raw","Porc, poitrine, crue"
+en:pork-kidney,"Kidney, pork, raw","Rognon, porc, cru"
+en:pork-shoulder,"Pork, shoulder, raw","Porc, épaule, crue"
+en:pre-gelatinized-wheat-flour,"Wheat flour, type 65",Farine de blé tendre ou froment T65
+en:pre-gelatinized-wheat-flour,"Wheat flour, type 80",Farine de blé tendre ou froment T80
+en:pre-gelatinized-wheat-flour,"Wheat flour, type 110",Farine de blé tendre ou froment T110
+en:pre-gelatinized-wheat-flour,"Wheat flour, type 150",Farine de blé tendre ou froment T150
+en:raspberry-filling,"Jam, raspberry",Confiture de framboise (extra ou classique)
+en:raw-salmon,"Salmon, raw, farmed","Saumon, cru, élevage"
+en:raw-sauerkraut,"Sauerkraut, without garnish, drained","Choucroute, sans garniture, égouttée"
+en:red-curry-paste,"Curry, powder","Curry, poudre"
+en:red-grape,"Grape, red, raw","Raisin noir, cru"
+en:red-miso-paste,Miso,Miso
+en:red-seedless-grape,"Grape, red, raw","Raisin noir, cru"
+en:red-seedless-grape,"Grape, raw","Raisin, cru"
+en:rice-bran,Rice bran,Son de riz
+en:rice-bran,Wheat bran,Son de blé
+en:royal-gala-apple,"Apple, pulp, raw","Pomme, pulpe, crue"
+en:royal-gala-apple,"Apple, pulp and peel, raw","Pomme, pulpe et peau, crue"
+en:rusk,Rusk,Biscotte classique
+en:rusk,"Rusk, wholemeal or rich in fibre",Biscotte complète ou riche en fibres
+en:sake,Sake or rice wine,Saké ou Alcool de riz
+en:salami,Salami,Salami
+en:serrano-raw-ham,Serrano dry-cured ham,Jambon sec Serrano
+en:sheep-and-goat-milk,"Sheep milk, whole","Lait de brebis, entier"
+en:sheep-and-goat-milk,"Goat milk, whole, UHT","Lait de chèvre, entier, UHT"
+en:sheep-and-goat-milk,"Goat milk, half skimmed, UHT pasteurized","Lait de chèvre, demi-écrémé, UHT"
+en:sheep-and-goat-milk,"Goat milk, whole, raw","Lait de chèvre, entier, cru"
+en:sherry-vinegar,Vinegar,Vinaigre
+en:smoked-breast,"Pork belly, smoked, raw","Poitrine de porc, fumée, crue"
+en:soft-cheese,"Soft-ripened round cheese with bloomy rind, around 11% fat, Coulommiers-type cheese, reduced fat",Fromage rond à pâte molle et croûte fleurie environ 11% MG type coulommiers allégé en matière grasse
+en:soft-cheese,"Soft-ripened round cheese with bloomy rind, around 5% fat, Camembert-type cheese, reduced fat",Fromage rond à pâte molle et croûte fleurie environ 5% MG type camembert allégé en matière grasse
+en:soft-cheese,"Soft-ripened cheese, double cream, around 30% fat",Fromage à pâte molle double crème environ 30% MG
+en:soft-cheese,"Soft-ripened cheese, from goat's milk, from pasteurised milk","Fromage de chèvre à pâte molle non pressée non cuite croûte naturelle, au lait pasteurisé"
+en:soft-cheese,"Uncured soft cheese, spreadable, around 25% fat, in a tub","Spécialité fromagère non affinée environ 25% MG, type fromage en barquette à tartiner ou coque fromagère"
+en:soft-cheese,"Soft -ripened washed, bloomy and coloured rind cheese",Fromage à pâte molle et croûte mixte (lavée et fleurie) colorée
+en:soft-cheese,"Soft-ripened cheese with bloomy rind, from goat's milk, Camembert-type cheese",Fromage de chèvre à pâte molle et croûte fleurie type camembert
+en:soft-cheese,"Soft-ripened washed-rind cheese, from pasteurised milk (Vieux pané-type cheese)","Fromage à pâte molle à croûte lavée, au lait pasteurisé (type Vieux Pané)"
+en:soft-cheese,"Soft-ripened washed-rind cheese, reduced fat, around 13% fat","Fromage à pâte molle et croûte lavée, allégé environ 13% MG"
+en:soft-cheese,"Soft-ripened cheese, triple cream, around 40% fat",Fromage à pâte molle triple crème environ 40% MG
+en:soft-cheese,"Soft-ripened round cheese with bloomy rind, 5 to 11% fat, Camembert-type cheese, reduced fat",Fromage rond à pâte molle et croûte fleurie 5 à 11% MG type camembert allégé en matière grasse
+en:soft-cheese,"Uncured soft cheese, spreadable, around 20% fat, in a tub","Spécialité fromagère non affinée environ 20% MG, type fromage en barquette à tartiner ou coque fromagère"
+en:soft-cheese,"Corsica soft ripened cheese, from ewe's milk",Fromage de brebis Corse à pâte molle
+en:soft-cheese,"Uncured soft cheese, spreadable, around 30-40% fat, flavoured (ex : garlic and herbs)",Spécialité fromagère non affinée à tartiner environ 30-40 % MG aromatisée (ex: ail et fines herbes)
+en:soft-cheese,"Soft ripened cheese with bloomy rind, from ewe's milk, Camembert-type cheese",Fromage de brebis à pâte molle et croûte fleurie
+en:sponge-cake,Dried sponge cake filled with fruits and covered with chocolate,Génoise sèche fourrée aux fruits et nappée de chocolat
+en:sprouted-lentils,"Lentils, sprouted","Lentille, germée"
+en:strawberry-jam,"Jam, strawberry",Confiture de fraise (extra ou classique)
+en:strawberry-juice,"Strawberry in season, raw","Fraise de saison, crue"
+en:sugar-beet,"Beetroot, raw","Betterave rouge, crue"
+en:sugar-beet-syrup,"Syrup, with sugar (to be diluted)","Sirop à diluer, sucré"
+en:sunflower-seed-flour,Sunflower seed,"Tournesol, graine"
+en:sweet-almond,"Almond, peeled, unpeeled or blanched","Amande, mondée, émondée ou blanchie"
+en:sweet-almond,"Almond, (with peel)",Amande (avec peau)
+en:sweet-paprika,Paprika,Paprika
+en:tamarind-extract,"Tamarind, immature fruit, pulp, raw","Tamarin, fruit immature, pulpe, cru"
+en:tarragon-vinegar,Vinegar,Vinaigre
+en:tortilla,Corn chips or tortilla chips,Chips de maïs ou tortilla chips
+en:tortilla,"Wheat tortilla wrap, to be filled","Tortilla souple (à garnir), à base de blé"
+en:tortilla,"Corn tortilla wrap, to be filled","Tortilla souple (à garnir), à base de maïs"
+en:vegetable-margarine,"Vegetable fat (like margarine), 80% fat, salted","Matière grasse végétale (type margarine) à 80% MG, salé"
+en:vegetable-margarine,"Vegetable fat (margarine type), 70% fat, unsalted","Matière grasse végétale (type margarine) à 70% MG, doux"
+en:vegetable-margarine,"Vegetable fat (margarine type), spreadable, 50-63% fat, light, unsalted","Matière grasse végétale (type margarine) à 50-63% MG, allégée, doux"
+en:vegetable-margarine,"Vegetable fat (margarine type), spreadable, 50-63% fat, light, unsalted, with plant sterols esters","Matière grasse végétale (type margarine) à 50-63% MG, allégée, doux, aux esters de stérol végétal"
+en:vodka,Vodka,Vodka
+en:waxy-corn,"Sweet corn, canned, drained","Maïs doux, appertisé, égoutté"
+en:wheat-flour-type-0,"Wheat flour, type 80",Farine de blé tendre ou froment T80
+en:wheat-flour-type-0,"Wheat flour, type 150",Farine de blé tendre ou froment T150
+en:wheat-flour-type-0,"Wheat flour, type 65",Farine de blé tendre ou froment T65
+en:wheat-flour-type-0,"Wheat flour, type 110",Farine de blé tendre ou froment T110
+en:wheat-flour-type-0,"Wheat flour, type 55 (for pastry)",Farine de blé tendre ou froment T45 (pour pâtisserie)
+en:wheat-flour-type-0,"Wheat flour, type 55 (for bread)",Farine de blé tendre ou froment T55 (pour pains)
+en:wheat-glucose-fructose-syrup,Fructose,Fructose
+en:wheat-malt-flour,"Wheat flour, type 65",Farine de blé tendre ou froment T65
+en:wheat-malt-flour,"Wheat flour, type 55 (for bread)",Farine de blé tendre ou froment T55 (pour pains)
+en:wheat-malt-flour,"Wheat flour, self-raising",Farine de blé tendre ou froment avec levure incorporée
+en:wheat-malt-flour,"Wheat flour, type 150",Farine de blé tendre ou froment T150
+en:wheat-malt-flour,"Wheat flour, type 55 (for pastry)",Farine de blé tendre ou froment T45 (pour pâtisserie)
+en:wheat-malt-flour,"Wheat flour, type 110",Farine de blé tendre ou froment T110
+en:wheat-malt-flour,"Wheat flour, type 80",Farine de blé tendre ou froment T80
+en:wheat-tortilla,"Wheat tortilla wrap, to be filled","Tortilla souple (à garnir), à base de blé"
+en:whisky,Whisky,Whisky
+en:white-corn,"Sweet corn, canned, drained","Maïs doux, appertisé, égoutté"
+en:white-peach,"Peach, pulp and peel, raw","Pêche, pulpe et peau, crue"
+en:white-seedless-grape,"Grape, white, raw","Raisin blanc, à gros grain (type Italia ou Dattier), cru"
+en:white-vinegar,Vinegar,Vinaigre
+en:white-wine-from-cava,"Wine, white, 11°",Vin blanc 11°
+en:whole-brown-cane-sugar,"Sugar, brown",Sucre roux
+en:whole-cane-sugar,"Sugar, brown",Sucre roux
+en:whole-grain-amaranth-flour,"Amaranth, raw","Amarante, crue"
+en:whole-grain-barley-flakes,"Barley, whole, raw","Orge entière, crue"
+en:whole-grain-buckwheat-flour,Buckwheat flour,Farine de sarrasin
+en:whole-grain-corn-flour,Maize/corn flour,Farine de maïs
+en:whole-grain-durum-wheat,"Durum wheat, whole, raw","Blé dur entier, cru"
+en:whole-grain-millet-flour,Millet flour,Farine de millet
+en:whole-grain-oat-flakes,Oatmeal flakes,Flocon d'avoine
+en:whole-lactose-free-milk,"Milk, whole, UHT","Lait entier, UHT"
+en:whole-rice-flour,Rice flour,Farine de riz
+en:whole-sorghum-flour,"Sorghum, whole, raw","Sorgho entier, cru"
+en:wholegrain-maize-semolina,Maize/corn flour,Farine de maïs
+en:wholemeal-rye-bread,"Bread, wholemeal or integral bread (made with flour type 150)",Pain complet ou intégral (à la farine T150)
+en:yam,"Yam or Indian potato, peeled, raw","Igname, épluchée, crue"
+en:yellow-and-brown-mustard-seeds,Mustard,Moutarde
+en:yellow-corn,"Sweet corn, canned, drained","Maïs doux, appertisé, égoutté"
+en:yellow-mustard-flour,Mustard,Moutarde
+fr:cerneaux-de-noix-aop,"Walnut, dried, husked","Noix, séchée, cerneaux"
+fr:cerneaux-de-noix-du-dauphine,"Walnut, dried, husked","Noix, séchée, cerneaux"
+fr:cerneaux-de-noix-invalides,"Walnut, dried, husked","Noix, séchée, cerneaux"
+fr:noix-de-grenoble,"Walnut, dried, husked","Noix, séchée, cerneaux"
+fr:noix-de-grenoble-seche,"Walnut, dried, husked","Noix, séchée, cerneaux"
+fr:noix-en-coques,"Walnut, dried, husked","Noix, séchée, cerneaux"
+fr:noix-en-coques-sechees,"Walnut, dried, husked","Noix, séchée, cerneaux"
+fr:noix-seches,"Walnut, dried, husked","Noix, séchée, cerneaux"
+fr:orange-a-jus,"Orange, pulp, raw","Orange, pulpe, crue"
+fr:pois-chiche-secs,"Chick pea, dried","Pois chiche, sec"
+fr:saucisses-de-toulouse,"Toulouse sausage, raw","Saucisse de Toulouse, crue"
+fr:sirop-de-sucre-inverti-cristallise,"Sugar, white",Sucre blanc
+fr:viande-hachee,"Burger, beef based, 15% fat, raw","Haché à base de bœuf ou Préparation de viande hachée de boeuf, 15% MG, cru"
+fr:haricots-blancs-precuits,"Haricot bean, dry","Haricot blanc, sec"
+fr:pignons-de-pin-decortiques,Pine nuts,Pignon de pin
+fr:lentilles-vertes-du-puy,"Lentil, green, dried","Lentille verte, sèche"
+en:poultry-skin,"Poultry, minced meat",Haché de volaille
+fr:mout-de-raisin-cuit,"Grape, red, raw","Raisin noir, cru"
+en:green-and-red-lentils,"Lentil, green, dried","Lentille verte, sèche"
+en:filtered-water,"Water, bottled",Eau embouteillée de source
+en:palm-stearin,"Palm oil, refined",Huile de palme raffinée
+en:carbonated-spring-water,"Water, bottled",Eau embouteillée de source
+en:fruit-juices-and-purees-from-concentrate,"Mixed fruits juice, reconstituted from a concentrate, multivitamin","Jus multifruit, à base de concentré, standard"
+fr:praline-aux-amandes-et-aux-noisettes,Cereal bar with almonds or hazelnuts,Barre céréalière aux amandes ou noisettes
+de:getreideflocken,Oatmeal flakes,Flocon d'avoine
+fr:viande-de-porc-cuite,"Pork loin, cooked","Porc, longe, cuite"
+fr:viande-de-porc-cuite,"Pork, shoulder, cooked","Porc, épaule, cuite"
+fr:viande-de-porc-cuite,"Pork, roast, cooked","Porc, rôti, cuit"
+en:glace-cherry,"Jam, cherry",Confiture de cerise (extra ou classique)
+en:mountain-spring-water,"Water, bottled",Eau embouteillée de source
+en:duck-gizzards,Duck fat,Graisse de canard
+en:duck-gizzards,Duck mousse,Mousse de canard
+en:duck-gizzards,"Rillettes, duck",Rillettes de canard
+en:duck-gizzards,Duck terrine,Terrine de canard
+en:duck-gizzards,Shepherd's pie with duck,Parmentier de canard
+en:duck-gizzards,"Duck, meat, raw","Canard, viande, crue"
+en:duck-gizzards,"Liver, duck, raw","Foie, canard, cru"
+fr:petales-de-tournesol,Sunflower seed,"Tournesol, graine"
+fr:lait-thermise,"Milk, skimmed, pasteurised","Lait écrémé, pasteurisé"
+en:fish-oil,Salmon oil,Huile de saumon
+fr:beurre-pasteurise-doux,"Butter, 82% fat, unsalted, easy-to-spread","Beurre à 82% MG, doux, tendre"
+en:risoni,Raisin,"Raisin, sec"
+en:calf-fat,"Sweetbread, calf, raw","Ris, veau, cru"
+fr:pruneaux-d-agen,Prune,"Pruneau, sec"
+en:tapioca-syrup,"Tapioca, raw","Tapioca ou Perles du Japon, cru"
+fr:pieces-de-tete-de-porc,Pork ear sat-cured,Oreille de porc demi-sel
+en:oligofructose,Fructose,Fructose
+en:lactose-powder,"Milk, powder, skimmed","Lait en poudre, écrémé"
+en:parsley-leaf,"Parsley, fresh","Persil, frais"
+en:wine,"Wine, white, dry, 11°",Vin blanc sec 11°
+en:wine,"Wine, white, 11°",Vin blanc 11°
+en:wine,"Wine, red, 13°",Vin rouge 13°
+en:wine,"Wine, rose, 11°",Vin rosé 11°
+en:wine,"Wine, red, 12°",Vin rouge 12°
+en:wine,"Wine, red, 11°",Vin rouge 11°
+en:wine,"Wine, red, 10°",Vin rouge 10°
+en:wine,"Wine, white, sparkling",Vin blanc mousseux
+fr:jus-de-clementine,"Clementine, pulp, raw","Clémentine, pulpe, crue"
+en:sweetened-plain-yogurt,"Yogurt, Greek-style, plain","Yaourt à la grecque, nature"
+fr:haricots-blancs-secs-trempes,"Haricot bean, dry","Haricot blanc, sec"
+fr:graines-de-soja-toastees,"Soybean, whole grain","Soja, graine entière"
+fr:cafe-soluble-lyophilise,"Coffee, powder, instant","Café, poudre soluble"
+en:yellow-onion,"Onion, raw","Oignon, cru"
+fr:sarrasin-rehydrate,Buckwheat flour,Farine de sarrasin
+fr:saucisses-fumees,"Swiss sausage, intended to be cook",Saucisse suisse à cuire
+fr:saucisses-fumees,"Sausage meat, raw","Chair à saucisse, crue"
+fr:saucisses-fumees,Morteaux sausage,Saucisse de Morteau
+fr:saucisses-fumees,"Sausage from Paris, smoked","Saucisson de Paris, fumé"
+fr:saucisses-fumees,Beer sausage,Saucisse de bière
+en:turkey-skin,Turkey fat,Graisse de dinde
+en:duck-foie-gras,"Liver, duck, raw","Foie, canard, cru"
+en:seaweed-extract,"Seaweed, agar, raw","Agar (algue), cru"
+en:tapioca-dextrin,"Tapioca, raw","Tapioca ou Perles du Japon, cru"
+en:garlic-salt,Celery salt,Sel au céleri
+fr:haricots-blancs-rehydrates,"Haricot bean, dry","Haricot blanc, sec"
+en:spring-water,"Water, bottled",Eau embouteillée de source
+fr:riz-basmati-precuit,"Basmati rice, raw","Riz thaï ou basmati, cru"
+en:white-cheddar,"Sugar, white",Sucre blanc
+fr:cereales-biscuitees,"Rusk, multigrain",Biscotte multicéréale
+fr:lentilles-brunes,"Lentil, blond, dried","Lentille blonde, sèche"
+fr:zestes-de-citron-confits,"Lemon zest, raw","Citron, zeste, cru"
+en:wheat-malt,Wheat bran,Son de blé
+en:wheat-sourdough,Wheat bran,Son de blé
+fr:pulpe-de-fruits,"Fruit salad, raw","Salade de fruits, crue"
+fr:oignons-coupes,"Onion, raw","Oignon, cru"
+fr:lait-ecreme-condense-sucre,"Milk, powder, skimmed","Lait en poudre, écrémé"
+fr:jus-d-oignon-concentre,"Onion, raw","Oignon, cru"
+fr:preparation-pain-d-epices,Gingerbread,Pain d'épices
+en:natural-spring-water,"Water, bottled",Eau embouteillée de source
+en:common-cuttlefish,"Squid, raw","Calmar ou calamar ou encornet, cru"
+fr:ecorces-de-mandarine,"Mandarin, pulp, raw","Mandarine, pulpe, crue"
+fr:haricots-coco-roses,"Haricot bean, dry","Haricot blanc, sec"
+fr:haricots-coco-roses,"Red kidney bean, dried","Haricot rouge, sec"
+fr:ecorces-de-pamplemousse,"Pummelo, pulp, raw","Pamplemousse chinois, pulpe, cru"
+fr:tomates-sechees-rehydratees,"Tomato, dried","Tomate, séchée"
+en:whole-grain-triticale,"Rye, whole, raw","Seigle entier, cru"
+en:mixed-fruit,Mixed fruits nectar,"Nectar multifruit, standard"
+en:dill-seeds,"Dill, fresh","Aneth, frais"
+fr:fromage-de-brebis-au-lait-pasteurise,"Semi-hard cheese, from ewe's milk",Fromage de brebis à pâte pressée
+fr:fromage-de-brebis-au-lait-pasteurise,"Corsica soft ripened cheese, from ewe's milk",Fromage de brebis Corse à pâte molle
+fr:fromage-de-brebis-au-lait-pasteurise,"Pyrénées cheese, from ewe's milk",Fromage de brebis des Pyrénées
+en:einkorn-wheat,Khorasan wheat,"Blé de Khorasan, cru"
+fr:pate-de-pistache,"Pistachio nut, grilled","Pistache, grillée"
+en:asiago-medium-cheese,"Asiago cheese, from cow's milk",Asiago
+fr:pommes-de-terre-de-consommation-a-chair-ferme-bio,"Ware potato, boiled/cooked in water, peeled","Pomme de terre de conservation, sans peau, bouillie/cuite à l'eau"
+en:tuna-steak,"Tuna, raw","Thon, cru"
+en:pork-belly,"Pork, belly, raw","Porc, poitrine, crue"
+fr:haricots-mogettes,"Red kidney bean, dried","Haricot rouge, sec"
+fr:emmental-francais-rape,"Emmental cheese, grated, from cow's milk",Emmental ou emmenthal râpé
+en:small-red-beans,"Red kidney bean, dried","Haricot rouge, sec"
+fr:crevettes-tropicale-decortique-crue,"Shrimp, frozen, raw","Crevette, surgelée, crue"
+fr:crevettes-tropicale-decortique-crue,"deep water pink shrimp, raw","Crevette rose, crue"
+en:non-hydrogenated-vegetable-oils,Combined oil (blended vegetable oils),Huile combinée (mélange d'huiles)
+en:algae,"Seaweed, agar, raw","Agar (algue), cru"
+fr:steak-hache-pur-boeuf,"Beef, minced steak, 5% fat, raw","Bœuf, steak haché 5% MG, cru"
+fr:steak-hache-pur-boeuf,"Beef, minced steak, 5% fat, cooked","Bœuf, steak haché 5% MG, cuit"
+fr:steak-hache-pur-boeuf,"Beef, minced steak, 10% fat, raw","Bœuf, steak haché 10% MG, cru"
+fr:steak-hache-pur-boeuf,"Beef, minced steak, 15% fat, raw","Bœuf, steak haché 15% MG, cru"
+fr:steak-hache-pur-boeuf,"Beef, minced steak, 20% fat, raw","Bœuf, steak haché 20% MG, cru"
+fr:pulpe-d-echalote,"Shallot, raw","Échalote, crue"
+fr:viande-et-gras-de-porc,"Hen, meat and skin, raw","Poule, viande et peau, crue"
+en:stale-wine,Red wine sauce,Sauce au vin rouge
+en:mashed-potato,"Potato, sautéed/pan-fried","Pomme de terre, sautée/poêlée"
+en:red-lentil-flour,"Lentil, pink or red, dried","Lentille corail, sèche"
+en:sugar-syrup,"Syrup, with sugar (to be diluted)","Sirop à diluer, sucré"
+fr:champignons-de-paris-eminces,"Morel, raw","Champignon, morille, crue"
+en:khorasan-wheat,Khorasan wheat,"Blé de Khorasan, cru"
+fr:cornet-biscuit,Biscuit for baby,Biscuit pour bébé
+fr:cornet-biscuit,Savoy-style sponge cake,Biscuit de Savoie
+en:dried-fenugreek-leaves,"Fenugreek, seed","Fenugrec, graine"
+en:pork-leg,"Pork, chop, raw","Porc, côte, crue"
+en:pork-leg,"Pork loin, cooked","Porc, longe, cuite"
+en:pork-leg,"Pork, shoulder, cooked","Porc, épaule, cuite"
+en:pork-leg,"Liver, pork, cooked","Foie, porc, cuit"
+en:pork-leg,"Pork, shoulder, raw","Porc, épaule, crue"
+en:pork-leg,"Pork loin, raw","Porc, longe, crue"
+en:pork-leg,"Pork, loin, raw","Porc, échine, crue"
+en:pork-leg,"Liver, pork, raw","Foie, porc, cru"
+en:pork-leg,"Tongue, pork, raw","Langue, porc, crue"
+en:pork-leg,"Pork, rind, raw","Porc, couenne, crue"
+fr:saucisses-pur-porc-fumees,"Sausage meat, pure pork, raw","Chair à saucisse, pur porc, crue"
+fr:saucisses-pur-porc-fumees,"Cooked sausage, pure pork",Saucisson cuit pur porc
+fr:saucisses-pur-porc-fumees,Ham sausage,Saucisse de jambon pur porc
+fr:saucisses-pur-porc-fumees,"Dry sausage, pure pork",Saucisson sec pur porc
+fr:saucisses-pur-porc-fumees,Morteaux sausage,Saucisse de Morteau
+en:grape-seeds,Grapeseed oil,Huile de pépins de raisin
+en:beetroot-juice,"Beetroot, raw","Betterave rouge, crue"
+fr:purees-de-fruits-a-base-de-concentres,"Mixed fruits juice, reconstituted from a concentrate, multivitamin","Jus multifruit, à base de concentré, standard"
+en:potato-flour,"Potato flakes, dehydrated, plain","Pomme de terre, flocons déshydratés, nature"
+en:forest-mushroom,"Morel, raw","Champignon, morille, crue"
+fr:pulpe-de-tomates-avec-morceaux-et-puree-de-tomates,"Tomato, roasted/baked, with skin","Tomate, pulpe et peau, rôtie/cuite au four"
+en:skimmed-milk-yogurt-powder,"Milk, powder, skimmed","Lait en poudre, écrémé"
+en:white-onion,"Onion, raw","Oignon, cru"
+en:coconut-milk-powder,Coconut milk or coconut cream,Lait de coco ou Crème de coco
+fr:preparation-de-viande-de-boeuf-cuite,"Beef, topside, raw","Boeuf, tende de tranche, crue"
+fr:preparation-de-viande-de-boeuf-cuite,"Burger, beef based, 15% fat, raw","Haché à base de bœuf ou Préparation de viande hachée de boeuf, 15% MG, cru"
+fr:pur-jus-de-citron,"Lemon, pulp, raw","Citron, pulpe, cru"
+fr:graines-grillees,"Sunflower seed, grilled, salted","Tournesol, graine, grillé, salé"
+fr:graines-grillees,"Almond, grilled, salted","Amande, grillée, salée"
+fr:courgettes-en-rondelles,"Courgettes, puree","Courgette, purée"
+en:basil-leaf,"Basil, fresh","Basilic, frais"
+fr:creme-patissiere,Pastry cream or custard,Crème pâtissière
+en:wheat-flour-type-00,"Wheat flour, type 80",Farine de blé tendre ou froment T80
+en:wheat-flour-type-00,"Wheat flour, type 110",Farine de blé tendre ou froment T110
+en:wheat-flour-type-00,"Wheat flour, type 150",Farine de blé tendre ou froment T150
+en:wheat-flour-type-00,"Wheat flour, type 65",Farine de blé tendre ou froment T65
+en:wheat-flour-type-00,"Wheat flour, type 55 (for bread)",Farine de blé tendre ou froment T55 (pour pains)
+en:wheat-flour-type-00,"Wheat flour, type 55 (for pastry)",Farine de blé tendre ou froment T45 (pour pâtisserie)
+en:wheat-flour-type-00,"Rye flour, type 170",Farine de seigle T170
+en:wheat-flour-type-00,"Rye flour, type 130",Farine de seigle T130
+fr:marrons-entiers-bio,"Chestnut, raw","Châtaigne, crue"
+en:chicken-skin,Chicken fat,Graisse de poulet
+en:chicken-skin,"Heart, chicken, cooked","Coeur, poulet, cuit"
+en:spicy-red-pepper,"Sweet pepper, red, raw","Poivron rouge, cru"
+fr:fromage-frais-a-0-de-matiere-grasse,"Cheese, buche, from goat's milk, light","Fromage de chèvre bûche, allégé en matière grasse"
+fr:pain-special-viennois,Panini bread,Pain panini
+fr:jus-de-mandarine,"Orange juice, home-made","Jus d'orange, maison"
+fr:preparation-de-tomates-decongelee,"Tomato in season, raw","Tomate de saison, crue"
+en:oat-flour,"Oat, raw","Avoine, crue"
+en:rice-koji,Rice flour,Farine de riz
+fr:jus-de-fruits-rouges-a-base-de-concentres,"Mixed fruits juice, reconstituted from a concentrate, multivitamin","Jus multifruit, à base de concentré, standard"
+en:banana-juice,"Banana, pulp, raw","Banane, pulpe, crue"
+en:sprouted-soybeans,"Soybean, whole grain","Soja, graine entière"
+en:chicory-root,"Red endive, raw","Chicorée rouge, crue"
+en:chicory-root,"Green endive, raw","Chicorée verte, crue"
+en:dried-cranberries,"Cranberry, raw","Canneberge ou cranberry, crue"
+en:animal-fat,Duck fat,Graisse de canard
+en:animal-fat,Turkey fat,Graisse de dinde
+fr:ricotta-de-brebis,"Feta cheese, from ewe's milk",Feta de brebis
+en:soya-flower,Soya flour,Farine de soja
+en:soy-protein,Soy lecithin,Lécithine de soja
+en:organic-tomato-cubes-in-organic-tomato-juice,"Tomato puree, canned","Tomate, purée, appertisée"
+en:champignon,"Morel, raw","Champignon, morille, crue"
+en:horseradish-flavouring,"Horseradish, fresh","Raifort, cru"
+en:blueberry-flavouring,"Blueberry, raw","Myrtille, crue"
+fr:riz-basmati-cuit,"Basmati rice, raw","Riz thaï ou basmati, cru"
+en:vegetable-oil,"Solid vegetable fat (margarine type), for frying",Matière grasse ou graisse végétale solide (type margarine) pour friture
+en:vegetable-oil,Frying oil,"Huile pour friture, sans précision"
+en:vegetable-oil,Palm oil,"Huile de palme, sans précision"
+en:vegetable-oil,"Palm oil, refined",Huile de palme raffinée
+en:vegetable-oil,Peanut oil,Huile d'arachide
+en:vegetable-oil,Rapeseed oil,Huile de colza
+en:vegetable-oil,Maize/corn oil,Huile de maïs
+en:vegetable-oil,Soy oil,Huile de soja
+en:vegetable-oil,Sunflower oil,Huile de tournesol
+en:vegetable-oil,Combined oil (blended vegetable oils),Huile combinée (mélange d'huiles)
+en:chicken-thigh,"Chicken, leg, meat and skin, raw","Poulet, cuisse, viande et peau, cru"
+en:elderberry-flavouring,"Elderberry, berries, raw","Sureau, baie, crue"
+en:linseed-seeds,Sesame seed,"Sésame, graine"
+en:linseed-seeds,Linseed oil,Huile de lin
+fr:saumon-cuit,"Salmon, steamed","Saumon, cuit à la vapeur"
+fr:farine-de-pois-casses,Chick pea flour,Farine de pois chiche
+en:caribbean-spiny-lobster,"Norway lobster, raw","Langoustine, crue"
+fr:vermicelles-cuits,"Rice noodle, cooked, unsalted","Vermicelle de riz, cuite, non salée"
+fr:puree-de-pruneaux,Prune,"Pruneau, sec"
+en:rye-malt,"Rye flour, type 85",Farine de seigle T85
+en:orange-marmalade,"Marmalade, orange",Marmelade d'orange
+en:wholemeal-cereal-flakes,Oatmeal flakes,Flocon d'avoine
+en:beetroot-juice-concentrate,"Beetroot, raw","Betterave rouge, crue"
+en:grape-juice,"Grape, raw","Raisin, cru"
+fr:graines-de-moutarde-moulues,"Mustard, with grains",Moutarde à l'ancienne
+fr:fromage-au-lait-cru-de-vache,"Blue cheese, from cow's milk",Fromage bleu au lait de vache
+fr:chipolatas-aux-herbes,"Chipolata slim sausage, raw","Chipolata, crue"
+fr:sauce-au-vinaigre-balsamique,"Vinegar, balsamic",Vinaigre balsamique
+de:zwiebeln-gegrillt,"Onion, cooked","Oignon, cuit"
+en:germinated-rice,"Rice, red, raw","Riz rouge, cru"
+en:beef-liver,"Liver, young cow, raw","Foie, génisse, cru"
+en:sweetened-skimmed-condensed-milk,"Condensed milk, with sugar, whole","Lait concentré sucré, entier"
+en:carrot-extract,"Carrot, raw","Carotte, crue"
+en:pregelatinized-rice-flour,Rice flour,Farine de riz
+en:wholemeal-rye-groats,"Rye, whole, raw","Seigle entier, cru"
+en:elderberry-extract,"Elderberry, berries, raw","Sureau, baie, crue"
+fr:farines-de-graines-et-cereales,"Mix of cereals and legumes, raw","Mélange de céréales et légumineuses, cru"
+fr:crevettes-entieres-crues,"deep water pink shrimp, raw","Crevette rose, crue"
+fr:crevettes-entieres-crues,"Shrimp or prawn, raw","Crevette, crue"
+en:cashew-nut-paste,"Cashew nut, grilled, salted","Noix de cajou, grillée, salée"
+en:flax-flour,Flaxseed,"Lin, graine"
+fr:puree-de-pommes-concentree,Apple compote,Compote de pomme
+en:sifted-rye-flour,"Rye flour, type 85",Farine de seigle T85
+en:sifted-rye-flour,"Rye flour, type 170",Farine de seigle T170
+en:sifted-rye-flour,"Rye flour, type 130",Farine de seigle T130
+en:baby-squid,"Squid, raw","Calmar ou calamar ou encornet, cru"
+en:quorn-mushroom-product,"Morel, raw","Champignon, morille, crue"
+en:onion-puree,"Onion, raw","Oignon, cru"
+en:hydrogenated-cottonseed-oil,Cottonseed oil,Huile de coton
+fr:queues-de-crevettes-decortiquees,"Shrimp, frozen, raw","Crevette, surgelée, crue"
+en:wholemeal-breadcrumbs,"Rusk, wholemeal or rich in fibre",Biscotte complète ou riche en fibres
+fr:betterave-rouge-deshydratee,"Beetroot, raw","Betterave rouge, crue"
+fr:filet-et-pointe-de-porc,"Pork belly, smoked, raw","Poitrine de porc, fumée, crue"
+fr:filet-et-pointe-de-porc,"Pork filet mignon, cooked","Porc, filet mignon, cuit"
+fr:epinards-haches,"Spinach, raw","Épinard, cru"
+fr:sirop-de-sucre-melasse,"Syrup, with sugar (to be diluted)","Sirop à diluer, sucré"
+fr:concentre-de-betterave,"Beetroot, raw","Betterave rouge, crue"
+en:rice-noodles,"Rice noodle, dried","Vermicelle de riz, sèche"
+fr:jus-de-betterave-rouge-concentre,"Beetroot, raw","Betterave rouge, crue"
+en:gai-lan,"Broccoli, raw","Brocoli, cru"
+fr:sesame-dore,Sesame seed,"Sésame, graine"
+fr:carottes-deshydratees,"Carrot, raw","Carotte, crue"
+fr:pur-jus-d-orange,"Orange juice, home-made","Jus d'orange, maison"
+en:hot-chili-peppers,"Chili pepper, raw","Piment, cru"
+en:red-chili-puree,"Chili pepper, raw","Piment, cru"
+en:turkey-breast,"Turkey, meat, raw","Dinde, viande, crue"
+en:game-animal,Game pâté,Pâté de gibier
+en:borlotti-bean,"Haricot bean, dry","Haricot blanc, sec"
+en:wholemeal-rye-flakes,Oatmeal flakes,Flocon d'avoine
+fr:poisson-blanc,White fish with tarragon sauce,Poisson blanc à l'estragon
+fr:poisson-blanc,Fish w bordelaise sauce,Poisson blanc à la bordelaise
+fr:poisson-blanc,White fish with sorrel sauce,Poisson blanc sauce oseille
+en:fruit-juice-from-concentrate,"Mixed fruits juice, reconstituted from a concentrate, multivitamin","Jus multifruit, à base de concentré, standard"
+fr:raisins-secs-rehydrates,Raisin,"Raisin, sec"
+en:white-grape-juice,"Grape, white, raw","Raisin blanc, à gros grain (type Italia ou Dattier), cru"
+en:malt-flour,Barley flour,Farine d'orge
+fr:foie-de-morue,Cod liver oil,Huile de foie de morue
+fr:sons-de-moutarde,Mustard,Moutarde
+en:reconstituted-passion-fruit-juice,"Mixed fruits juice, reconstituted from a concentrate, multivitamin","Jus multifruit, à base de concentré, standard"
+fr:carpaccio-de-boeuf,"Beef, shoulder, raw","Boeuf, épaule, crue"
+fr:the-vert-d-indonesie,"Green tea, brewed, without sugar","Thé vert, infusé, non sucré"
+en:distilled-water,"Water, bottled",Eau embouteillée de source
+en:sheeps-fat,"Sheep, foot, raw","Mouton, pied, cru"
+en:barley-gluten,Barley flour,Farine d'orge
+en:oat-protein,"Oat, raw","Avoine, crue"
+en:fruit,"Apricot, pitted, raw","Abricot, dénoyauté, cru"
+en:fruit,"Pineapple, pulp, raw","Ananas, pulpe, cru"
+en:fruit,"Banana, pulp, raw","Banane, pulpe, crue"
+en:fruit,"Black currant, raw","Cassis, cru"
+en:fruit,"Cherry, pitted, raw","Cerise, dénoyautée, crue"
+en:fruit,"Lemon, pulp, raw","Citron, pulpe, cru"
+en:fruit,"Quince, raw","Coing, cru"
+en:fruit,"Fig, raw","Figue, crue"
+en:fruit,"Strawberry in season, raw","Fraise de saison, crue"
+en:fruit,"Raspberry, raw","Framboise, crue"
+en:fruit,"Passion fruit, pulp and pips, raw","Fruit de la passion ou maracudja, pulpe et pépins, cru"
+en:fruit,"Pomegranate, pulp and pips, raw","Grenade, pulpe et pépins, crue"
+en:fruit,"Red currant, raw","Groseille, crue"
+en:fruit,"Gooseberry, raw","Groseille à maquereau, crue"
+en:fruit,"Kiwi fruit, pulp and seeds, raw","Kiwi, pulpe et graines, cru"
+en:fruit,"Lychee, pulp, raw","Litchi, pulpe, cru"
+en:fruit,"Melon, cantaloupe (ex Cavaillon or Charentais melon), pulp, raw","Melon cantaloup (par ex.: Charentais, de Cavaillon) pulpe, cru"
+en:fruit,"Blueberry, raw","Myrtille, crue"
+en:fruit,"Blackberry, raw","Mûre (de ronce), crue"
+en:fruit,"Nectarine, pulp and peel, raw","Nectarine ou brugnon, pulpe et peau, crue"
+en:fruit,"Orange, pulp, raw","Orange, pulpe, crue"
+en:fruit,"Papaya, pulp, raw","Papaye, pulpe, crue"
+en:fruit,"Watermelon, pulp, raw","Pastèque, pulpe, crue"
+en:fruit,"Pear, pulp and peel, raw","Poire, pulpe et peau, crue"
+en:fruit,"Apple, pulp and peel, raw","Pomme, pulpe et peau, crue"
+en:fruit,"Grapefruit, pulp, raw","Pomelo (dit Pamplemousse), pulpe, cru"
+en:fruit,"Greengage plum, raw","Prune Reine-Claude, crue"
+en:fruit,"Peach, pulp and peel, raw","Pêche, pulpe et peau, crue"
+en:fruit,"Grape, white, raw","Raisin blanc, à gros grain (type Italia ou Dattier), cru"
+en:fruit,"Grape, red, raw","Raisin noir, cru"
+en:fruit,"Apple, pulp, raw","Pomme, pulpe, crue"
+en:fruit,"Lime, pulp, raw","Citron vert ou Lime, pulpe, cru"
+en:fruit,"Black mulberry, raw","Mûre noire (du mûrier), crue"
+en:fruit,"Clementine, pulp, raw","Clémentine, pulpe, crue"
+en:fruit,"Guava, pulp, raw","Goyave, pulpe, crue"
+en:fruit,"Apple, Canada, pulp, raw","Pomme Canada, pulpe, crue"
+en:fruit,"Mandarin, pulp, raw","Mandarine, pulpe, crue"
+en:fruit,"Plum, raw","Prune, crue"
+en:fruit,"Pear, peeled, raw","Poire, pulpe, crue"
+en:fruit,"Morello cherry, raw","Griotte, crue"
+en:fruit,"Grape, raw","Raisin, cru"
+en:fruit,"Cranberry, raw","Canneberge ou cranberry, crue"
+en:fruit,"Lemon zest, raw","Citron, zeste, cru"
+en:fruit,"Elderberry, berries, raw","Sureau, baie, crue"
+en:fruit,"Blueberry, frozen, raw","Myrtille, surgelée, crue"
+en:fruit,"Blackberry, frozen, raw","Mûre (de ronce), surgelée, crue"
+en:fruit,"Grapefruit, yellow, pulp, raw","Pomelo (dit Pamplemousse) jaune, pulpe, cru"
+en:fruit,"Grapefruit, red or pink, pulp, raw","Pomelo (dit Pamplemousse) rose, pulpe, cru"
+en:fruit,"Apple, var. Golden, pulp and skin, raw","Pomme Golden, pulpe et peau, crue"
+en:fruit,"Melon, honeydew, pulp, raw","Melon miel ou melon honeydew, pulpe, cru"
+en:fruit,"Red berries (raspberries, strawberries, red currants, black currants) , raw","Fruits rouges, crus (framboises, fraises, groseilles, cassis)"
+fr:lait-frais-pasteurise,"Milk, semi-skimmed, pasteurised","Lait demi-écrémé, pasteurisé"
+fr:lait-frais-pasteurise,"Milk, whole, pasteurised","Lait entier, pasteurisé"
+fr:lentilles-noires,"Lentil, dried","Lentille, sèche"
+fr:lentilles-noires,"Lentil, green, dried","Lentille verte, sèche"
+en:broad-bean-protein,"Broad bean, dried","Fève, sèche"
+fr:sauce-aux-fruits-rouges,"Red berries (raspberries, strawberries, red currants, black currants) , raw","Fruits rouges, crus (framboises, fraises, groseilles, cassis)"
+en:cocoa-flavouring,Cocoa butter,Beurre de cacao
+en:concentrated-apple-juice,Apple compote,Compote de pomme
+en:sprouted-millet,"Millet, whole","Mil entier, cru"
+en:wheat-gluten,"Wheat flour, type 65",Farine de blé tendre ou froment T65
+fr:vin-blanc-reduit,"Wine, white, 11°",Vin blanc 11°
+fr:vin-blanc-reduit,"Wine, white, sparkling",Vin blanc mousseux
+fr:vin-blanc-reduit,"Wine, white, dry, 11°",Vin blanc sec 11°
+en:spelt-bran,"Spelt, raw","Épeautre, cru"
+fr:barre-de-chocolat-au-lait,"Chocolate confectionery or bar, with dairy filling",Barres ou confiserie chocolatées au lait
+fr:barre-de-chocolat-au-lait,Toblerone milk cholcolate bar w nougat,Barre chocolat au lait avec nougat
+fr:barre-de-chocolat-au-lait,Chocolate cereal bar,Barre céréalière chocolatée
+fr:barre-de-chocolat-au-lait,"Milk chocolate, filled",Chocolat au lait fourré
+fr:fromage-frais-au-lait-demi-ecreme-pasteurise,"Cheese, from goat's milk, fresh, from pasteurised milk","Fromage de chèvre frais, au lait pasteurisé (type bûchette fraîche)"
+fr:fromage-frais-au-lait-demi-ecreme-pasteurise,Feta-type cheese from cow's milk,"Fromage type feta, au lait de vache"
+fr:fromage-frais-au-lait-demi-ecreme-pasteurise,"Cheese, from goat's milk, fresh, from raw milk","Fromage de chèvre frais, au lait cru (type palet ou crottin frais)"
+fr:haricots-rouges-secs-trempes,"Red kidney bean, dried","Haricot rouge, sec"
+en:belgian-chocolate,Milk chocolate bar,"Chocolat au lait, tablette"
+en:rye-sourdough,"Rye flour, type 85",Farine de seigle T85
+en:rye-sourdough,"Rye flour, type 170",Farine de seigle T170
+en:rye-sourdough,"Rye flour, type 130",Farine de seigle T130
