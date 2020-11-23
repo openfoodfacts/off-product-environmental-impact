@@ -1083,12 +1083,18 @@ class ImpactEstimator:
             # Compute the confidence score only if nutritional info are used and there is at least one top level
             # category nutriment in common between the computed recipe and the product's nutritional composition
             recipe_nutriments = nutriments_from_recipe(recipe_100g)
-            if use_nutritional_info and any([f"{x}_100g" in self.product['nutriments']
-                                             for x in recipe_nutriments
-                                             if x in TOP_LEVEL_NUTRIMENTS_CATEGORIES]):
+            if use_nutritional_info and confidence_weighting and any([f"{x}_100g" in self.product['nutriments']
+                                                                      for x in recipe_nutriments
+                                                                      if x in TOP_LEVEL_NUTRIMENTS_CATEGORIES]):
                 conf_score = confidence_score(nutri=recipe_nutriments,
                                               reference_nutri=self.product['nutriments'],
                                               total_mass=sum([x for x in recipe_100g.values()]))
+
+                # In some cases, if the product has only one ingredient which is in Ciqual and its nutrition data are
+                # directly copied from Ciqual, the confidence score may be infinite as the two nutrition tables compared
+                # are the same. In that case, don't use the confidence score weighting.
+                if (conf_score == np.inf) and (len(self.product['ingredients']) == 1):
+                    confidence_weighting = False
             else:
                 # If the nutritional information is not used, all recipes are supposed to have the same confidence
                 # level.
@@ -1246,11 +1252,11 @@ class ImpactEstimator:
 
         # The geometric stdev is the exponential of the square root of the variance of the log of the data
         impacts_geom_stdevs = {impact: math.exp(math.sqrt(sms.DescrStatsW(data=impact_log_distributions[impact],
-                                                                         weights=confidence_score_distribution
-                                                                         if confidence_weighting
-                                                                         else None).var))
-                              for impact in
-                              impact_distributions}
+                                                                          weights=confidence_score_distribution
+                                                                          if confidence_weighting
+                                                                          else None).var))
+                               for impact in
+                               impact_distributions}
 
         # Computing the weighted quantiles of the impacts
         for impact_name in impact_names:

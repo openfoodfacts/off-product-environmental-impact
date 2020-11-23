@@ -56,12 +56,14 @@ def impact_from_recipe(recipe, impact_name, use_uncertainty=True):
                         # Numpy requires the mean and std of the underlying normal distribution, which are the logs of
                         # the mean and std of the lognormal distribution.
                         ingredient_impact = rng.lognormal(np.log(uncertainty_distribution['geometric mean']),
-                                                          np.log(uncertainty_distribution['geometric standard deviation']))
+                                                          np.log(
+                                                              uncertainty_distribution['geometric standard deviation']))
                     # If the geometric mean is negative, then simply take the opposite of the value generated
                     # with the opposite of the geometric mean
                     if uncertainty_distribution['geometric mean'] < 0:
                         ingredient_impact = - rng.lognormal(np.log(-uncertainty_distribution['geometric mean']),
-                                                            np.log(uncertainty_distribution['geometric standard deviation']))
+                                                            np.log(uncertainty_distribution[
+                                                                       'geometric standard deviation']))
                 elif uncertainty_distribution['distribution'] == 'triangular':
                     ingredient_impact = rng.triangular(uncertainty_distribution['minimum'],
                                                        uncertainty_distribution['mode'],
@@ -154,8 +156,11 @@ def confidence_score(nutri, reference_nutri, total_mass):
         if nutriment in TOP_LEVEL_NUTRIMENTS_CATEGORIES:
             if f"{nutriment}_100g" in reference_nutri:
                 n += 1  # Incrementing the number of considered dimensions (nutriments)
-                squared_difference = ((float(reference_nutri[f"{nutriment}_100g"]) / 100) -
-                                      (float(nutri[nutriment]) / 100)) ** 2
+                squared_difference = round(
+                    ((float(reference_nutri[f"{nutriment}_100g"]) / 100) -
+                     (float(nutri[nutriment]) / 100)) ** 2,
+                    6
+                )
 
                 if squared_difference > 1:
                     raise ValueError("The squared difference cannot be superior to 1.")
