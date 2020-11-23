@@ -142,6 +142,12 @@ def confidence_score(nutri, reference_nutri, total_mass):
     assert float(total_mass) >= 99.99  # Not 100 to avoid precision issues
     total_mass = total_mass / 100
 
+    # If all the nutriments contents for the reference product are null, (ex:water products), the confidence score
+    # is likely to be infinite, if the computed recipe has also only null values. In that case, return a confidence
+    # score of 1.
+    if all(reference_nutri.get(f"{nutriment}_100g", 0) == 0 for nutriment in TOP_LEVEL_NUTRIMENTS_CATEGORIES):
+        return 1
+
     squared_differences = []
     n = 0
     for nutriment in nutri:
