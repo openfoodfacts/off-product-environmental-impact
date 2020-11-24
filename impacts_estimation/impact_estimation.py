@@ -1089,12 +1089,6 @@ class ImpactEstimator:
                 conf_score = confidence_score(nutri=recipe_nutriments,
                                               reference_nutri=self.product['nutriments'],
                                               total_mass=sum([x for x in recipe_100g.values()]))
-
-                # In some cases, if the product has only one ingredient which is in Ciqual and its nutrition data are
-                # directly copied from Ciqual, the confidence score may be infinite as the two nutrition tables compared
-                # are the same. In that case, don't use the confidence score weighting.
-                if (conf_score == np.inf) and (len(self.product['ingredients']) == 1):
-                    confidence_weighting = False
             else:
                 # If the nutritional information is not used, all recipes are supposed to have the same confidence
                 # level.

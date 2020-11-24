@@ -131,7 +131,8 @@ def confidence_score(nutri, reference_nutri, total_mass):
     contents and the total mass of ingredients used. The closer the nutritional composition is from the reference, the
     higher the confidence score is. The lower the total mass of ingredients is, the higher the confidence score is.
 
-    A score of 1 correspond to the lowest match between compositions. The higher the score, the better the match.
+    A score of 1 correspond to the lowest match between compositions. The higher the score, the better the match. The
+    score is bounded to 1000.
 
     Args:
         nutri (dict): Nutritional composition to evaluate.
@@ -144,23 +145,19 @@ def confidence_score(nutri, reference_nutri, total_mass):
     assert float(total_mass) >= 99.99  # Not 100 to avoid precision issues
     total_mass = total_mass / 100
 
-    # If all the nutriments contents for the reference product are null, (ex:water products), the confidence score
-    # is likely to be infinite, if the computed recipe has also only null values. In that case, return a confidence
-    # score of 1.
-    if all(reference_nutri.get(f"{nutriment}_100g", 0) == 0 for nutriment in TOP_LEVEL_NUTRIMENTS_CATEGORIES):
-        return 1
-
     squared_differences = []
     n = 0
     for nutriment in nutri:
         if nutriment in TOP_LEVEL_NUTRIMENTS_CATEGORIES:
             if f"{nutriment}_100g" in reference_nutri:
                 n += 1  # Incrementing the number of considered dimensions (nutriments)
-                squared_difference = round(
-                    ((float(reference_nutri[f"{nutriment}_100g"]) / 100) -
-                     (float(nutri[nutriment]) / 100)) ** 2,
-                    6
-                )
+                difference = (float(reference_nutri[f"{nutriment}_100g"]) / 100) - (float(nutri[nutriment]) / 100)
+
+                # Setting a minimal difference to avoid extremely high confidence score values in case of very similar
+                # nutritional compositions
+                difference = max(difference, 0.001)
+
+                squared_difference = round(difference ** 2, 6)
 
                 if squared_difference > 1:
                     raise ValueError("The squared difference cannot be superior to 1.")
