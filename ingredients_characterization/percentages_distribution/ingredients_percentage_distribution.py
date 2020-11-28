@@ -19,9 +19,11 @@ db = client['off']
 products = db['products']
 query = {"ingredients": {"$elemMatch": {"percent": {"$exists": True}}}}
 
-cursor = products.find(query, {'ingredients.percent': 1,
-                               'ingredients.id': 1,
-                               'categories_tags': 1})
+cursor = products.find(query,
+                       {'ingredients.percent': 1,
+                        'ingredients.id': 1,
+                        'categories_tags': 1},
+                       no_cursor_timeout=True).batch_size(1000)
 
 # Looping on all products and all ingredients, adding the ingredient and its percentage to the dataframe if it is
 #  defined
