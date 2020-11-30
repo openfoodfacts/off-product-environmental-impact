@@ -727,9 +727,7 @@ class ImpactEstimator:
 
         Args:
             product (dict): Dict containing an Open Food Facts product. It must contain the keys "ingredients"
-            quantity (float): Quantity of product in grams for which the impact must be calculated. If None, will use
-                the 'product_quantity' attribute of the product. If 'product_quantity' is undefined, will use 100g by
-                default.
+            quantity (float): Quantity of product in grams for which the impact must be calculated. Default is 100g.
             ignore_unknown_ingredients (bool): Should ingredients absent of OFF taxonomy and without defined percentage
                 be considered as parsing errors and ignored?
             use_defined_prct (bool): Should ingredients percentages defined in the product be used?
@@ -741,16 +739,7 @@ class ImpactEstimator:
         self.ignored_unknown_ingredients = []
 
         # Defining the product quantity
-        if quantity:
-            self.product_quantity = quantity
-        elif 'product_quantity' in product:
-            try:
-                self.product_quantity = float(product['product_quantity'])
-            except ValueError:
-                self.product_quantity = 100
-                self.warnings.append("The product quantity could not be read, 100g was used instead.")
-        else:
-            self.product_quantity = 100
+        self.product_quantity = quantity if quantity is not None else 100
 
         # Assert the product has ingredients
         if 'ingredients' not in product:
@@ -1020,11 +1009,15 @@ class ImpactEstimator:
         use_nutritional_info = use_nutritional_info if self.use_nutritional_info_override is None \
             else self.use_nutritional_info_override
 
-        recipe_creator = RandomRecipeCreator(product=self.product, use_defined_prct=self.use_defined_prct,
+        recipe_creator = RandomRecipeCreator(product=self.product,
+                                             use_defined_prct=self.use_defined_prct,
                                              use_nutritional_info=use_nutritional_info,
-                                             const_relax_coef=const_relax_coef, maximum_evaporation=maximum_evaporation,
-                                             total_mass_used=total_mass_used, min_prct_dist_size=min_prct_dist_size,
-                                             dual_gap_type=dual_gap_type, dual_gap_limit=dual_gap_limit,
+                                             const_relax_coef=const_relax_coef,
+                                             maximum_evaporation=maximum_evaporation,
+                                             total_mass_used=total_mass_used,
+                                             min_prct_dist_size=min_prct_dist_size,
+                                             dual_gap_type=dual_gap_type,
+                                             dual_gap_limit=dual_gap_limit,
                                              solver_time_limit=solver_time_limit,
                                              time_limit_dual_gap_limit=time_limit_dual_gap_limit)
 
