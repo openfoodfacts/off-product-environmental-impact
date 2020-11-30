@@ -874,6 +874,9 @@ class ImpactEstimator:
             if ingredient.get('percent'):
                 bounds = natural_bounds(rank, self.nb_ing)
                 if not (bounds[0] <= float(ingredient['percent']) <= bounds[1]):
+                    self.warnings.append(f"Inconsistencies were found in the defined percentages of the ingredients. "
+                                         f"Defined percentage of \"{ingredient['id']}\" ({ingredient['percent']}%)"
+                                         f" has not been used.")
                     del ingredient['percent']
 
         # If the remaining ingredients percentages are not in decreasing order, then at least one ingredient percentage
