@@ -1026,6 +1026,7 @@ class ImpactEstimator:
         impact_distributions = {impact_name: [] for impact_name in impact_names}
         impact_log_distributions = {impact_name: [] for impact_name in impact_names}
         confidence_score_distribution = []
+        total_used_mass_distribution = []
         log_means = {impact_name: [] for impact_name in impact_names}
         mean_confidence_interval_distribution = {impact_name: [] for impact_name in impact_names}
         impact_sign = {impact_name: None for impact_name in impact_names}
@@ -1094,6 +1095,7 @@ class ImpactEstimator:
 
             # Computing the mass of unknown ingredients and adding it to the distribution
             total_mass = sum([float(x) for x in recipe.values()])
+            total_used_mass_distribution.append(total_mass)
             for characterization in 'nutrition', 'impact':
                 uncharacterized_ingredients_mass = \
                     sum([float(recipe[x]) / total_mass for x in self.uncharacterized_ingredients_ids[characterization]])
@@ -1288,6 +1290,9 @@ class ImpactEstimator:
                     f"The impact relative interquartile is high for {impact_name}"
                     f" ({impacts_interquartile[impact_name]:.0%})")
 
+        # Computing the average total used mass
+        average_total_used_mass = mean(total_used_mass_distribution)
+
         result = {'impacts_geom_means': impacts_geom_means,
                   'impacts_geom_stdevs': impacts_geom_stdevs,
                   'impacts_quantiles': impacts_quantiles,
@@ -1302,13 +1307,15 @@ class ImpactEstimator:
                   'uncharacterized_ingredients_mass_proportion': uncharacterized_ingredients_mass_proportion,
                   'number_of_runs': run,
                   'number_of_ingredients': len(self.leaf_ingredients),
+                  'average_total_used_mass': average_total_used_mass,
                   'calculation_time': time.time() - self.start_time,
                   }
 
         if distributions_as_result:
             result.update({'impact_distributions': impact_distributions,
                            'mean_confidence_interval_distribution': mean_confidence_interval_distribution,
-                           'confidence_score_distribution': confidence_score_distribution})
+                           'confidence_score_distribution': confidence_score_distribution,
+                           'total_used_mass_distribution': total_used_mass_distribution})
 
         return result
 
