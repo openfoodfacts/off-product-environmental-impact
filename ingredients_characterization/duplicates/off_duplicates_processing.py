@@ -20,15 +20,18 @@ for duplicate in duplicates.itertuples():
     except KeyError:
         continue
 
-    ingredient = {'id': duplicate.ingredient}
+    if duplicate.ingredient in ingredients_data:
+        ingredient = ingredients_data[duplicate.ingredient]
+    else:
+        ingredient = {'id': duplicate.ingredient}
 
     # Nutritional proxy
-    if (duplicate.proxy_type != 2) and ('nutriments' in proxy):
+    if (duplicate.proxy_type != 2) and ('nutriments' in proxy) and ('nutriments' not in ingredient):
         ingredient['nutriments'] = proxy['nutriments']
         ingredient['nutritional_proxy'] = duplicate.reference
 
     # Impact proxy
-    if (duplicate.proxy_type != 1) and ('LCI' in proxy):
+    if (duplicate.proxy_type != 1) and ('LCI' in proxy) and ('LCI' not in ingredient):
         ingredient['LCI'] = proxy['LCI']
         ingredient['impacts'] = proxy['impacts']
         ingredient['environmental_impact_proxy'] = duplicate.reference
