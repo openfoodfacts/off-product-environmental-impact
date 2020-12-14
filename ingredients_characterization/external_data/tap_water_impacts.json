@@ -1,0 +1,64 @@
+{
+  "impacts": {
+    "Score unique EF": {
+      "unit": "mPt",
+      "amount": 3.79876781e-07
+    },
+    "Changement climatique": {
+      "unit": "kg CO2 eq",
+      "amount": 0.00036
+    },
+    "Appauvrissement de la couche d'ozone": {
+      "unit": "E-06 kg CVC11 eq",
+      "amount": 2.74053e-11
+    },
+    "Rayonnements ionisants": {
+      "unit": "kBq U-235 eq",
+      "amount": 0.00013
+    },
+    "Formation photochimique d'ozone": {
+      "unit": "E-03 kg NMVOC eq",
+      "amount": 1.21586e-3
+    },
+    "Particules": {
+      "unit": "E-06 disease inc.",
+      "amount": 2.00790e-11
+    },
+    "Acidification terrestre et eaux douces": {
+      "unit": "mol H+ eq",
+      "amount": 2.51448e-6
+    },
+    "Eutrophisation terrestre": {
+      "unit": "mol N eq",
+      "amount": 5.58278e-6
+    },
+    "Eutrophisation eaux douces": {
+      "unit": "E-03 kg P eq",
+      "amount": 2.76564e-4
+    },
+    "Eutrophisation marine": {
+      "unit": "E-03 kg N eq",
+      "amount": 4.07708e-4
+    },
+    "Utilisation du sol": {
+      "unit": "Pt",
+      "amount": 0.00305
+    },
+    "Écotoxicité pour écosystèmes aquatiques d'eau douce": {
+      "unit": "CTUe",
+      "amount": 0.00053
+    },
+    "Épuisement des ressources eau": {
+      "unit": "m3 depriv.",
+      "amount": 0.04303
+    },
+    "Épuisement des ressources énergétiques": {
+      "unit": "MJ",
+      "amount": 0.00612
+    },
+    "Épuisement des ressources minéraux": {
+      "unit": "E-06 kg Sb eq",
+      "amount": 1.04001e-3
+    }
+  }
+}

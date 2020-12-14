@@ -11,6 +11,7 @@ CIQUAL_DATA_FILEPATH = os.path.join(CIQUAL_DATA_DIR, 'ciqual_data.json')
 AGRIBALYSE_DATA_DIR = os.path.join(EXTERNAL_DATA_DIR, 'agribalyse')
 AGRIBALYSE_DATA_FILEPATH = os.path.join(AGRIBALYSE_DATA_DIR, 'Agribalyse.json')
 MANUAL_SOURCES_NUTRITION_DATA_FILEPATH = os.path.join(EXTERNAL_DATA_DIR, 'manual_nutrition_data.csv')
+TAP_WATER_IMPACTS_DATA_FILEPATH = os.path.join(EXTERNAL_DATA_DIR, 'tap_water_impacts.json')
 
 # Tables for linking between external data and OFF ingredients
 LINKING_TABLES_DIR = os.path.join(os.path.dirname(__file__), 'linking_tables')
