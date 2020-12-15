@@ -711,7 +711,7 @@ class RandomRecipeCreator:
 
 
 class ImpactEstimator:
-    def __init__(self, product, quantity=None, ignore_unknown_ingredients=True, use_defined_prct=True):
+    def __init__(self, product, quantity=100, ignore_unknown_ingredients=True, use_defined_prct=True):
 
         """
         Estimate the environmental impact of an Open Food Facts product by a Monte-Carlo approach.
@@ -737,9 +737,7 @@ class ImpactEstimator:
         self.product = copy.deepcopy(product)
         self.ignore_unknown_ingredients = ignore_unknown_ingredients
         self.ignored_unknown_ingredients = []
-
-        # Defining the product quantity
-        self.product_quantity = quantity if quantity is not None else 100
+        self.product_quantity = quantity
 
         # Assert the product has ingredients
         if 'ingredients' not in product:
@@ -1320,7 +1318,7 @@ class ImpactEstimator:
         return result
 
 
-def estimate_impacts(product, impact_names, quantity=None, ignore_unknown_ingredients=True, min_run_nb=30,
+def estimate_impacts(product, impact_names, quantity=100, ignore_unknown_ingredients=True, min_run_nb=30,
                      max_run_nb=1000, forced_run_nb=None, confidence_interval_width=0.05, confidence_level=0.95,
                      use_nutritional_info=True, const_relax_coef=0, use_defined_prct=True, maximum_evaporation=0.4,
                      total_mass_used=None, min_prct_dist_size=30, dual_gap_type='absolute', dual_gap_limit=0.001,
