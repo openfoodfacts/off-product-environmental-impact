@@ -142,7 +142,6 @@ def confidence_score(nutri, reference_nutri, total_mass):
     Returns:
         float: Confidence score
     """
-    assert float(total_mass) >= 99.99  # Not 100 to avoid precision issues
     total_mass = total_mass / 100
 
     squared_differences = []
@@ -169,7 +168,7 @@ def confidence_score(nutri, reference_nutri, total_mass):
 
     # Returning the inverse of the distance normalized by the biggest possible distance between two compositions in the
     #  n-dimensional space (sqrt(n))
-    return sqrt(n) / (distance * total_mass)
+    return sqrt(n) / (distance * abs(total_mass - 100))
 
 
 def natural_bounds(rank, nb_ingredients):

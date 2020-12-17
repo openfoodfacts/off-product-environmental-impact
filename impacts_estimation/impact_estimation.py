@@ -6,11 +6,12 @@ from statistics import mean
 import copy
 import math
 
-# ### FOR DEBUG PURPOSE ONLY ###
-# import matplotlib.pyplot as plt
-# import seaborn as sns
-# sns.set()
-# ##############################
+### FOR DEBUG PURPOSE ONLY ###
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+sns.set()
+##############################
 
 import statsmodels.stats.api as sms
 import numpy as np
@@ -103,7 +104,7 @@ class RandomRecipeCreator:
 
         # Adding variables to the solver
         # Adding a variable for the total mass of ingredients used
-        self.total_mass_var = self.model.addVar('total_mass_used', vtype='C', lb=1)
+        self.total_mass_var = self.model.addVar('total_mass_used', vtype='C', lb=0.5)
 
         # If the total mass used is provided, add it as a constraint
         if self.total_mass_used is not None:
@@ -665,6 +666,9 @@ class RandomRecipeCreator:
         self._add_mass_order_constraints(self.product)
         self._add_evaporation_constraint()
 
+        total_mass_lower_bound_constraint = self.model.addCons(self.total_mass_var <= 0.99,
+                                                               'Total mass lower bound')
+
         # Checking that the product has no global data quality warnings related to nutrition before adding nutritional
         # constraints
         global_dqw = [x for x in QUALITY_DATA_WARNINGS['global'] if x in self.product.get('data_quality_tags', [])]
@@ -700,6 +704,11 @@ class RandomRecipeCreator:
                 self._remove_decreasing_order_constraint_from_rank(
                     self.top_level_ingredients_names.index(ingredient_name))
 
+        # Deleting the total mass lower bound constraint
+        # This allows for total masses under 1 to be picked but it is necessary to avoid a bias induced by a possible
+        # over-estimation of the total mass without possible under-estimation.
+        self.model.freeTransform()
+        self.model.delCons(total_mass_lower_bound_constraint)
         total_mass = self._pick_total_mass(proportions)
 
         self.recipe = self.recipe_from_proportions(proportions, total_mass)
