@@ -666,7 +666,7 @@ class RandomRecipeCreator:
         self._add_mass_order_constraints(self.product)
         self._add_evaporation_constraint()
 
-        total_mass_lower_bound_constraint = self.model.addCons(self.total_mass_var <= 0.99,
+        total_mass_lower_bound_constraint = self.model.addCons(self.total_mass_var >= 0.99,
                                                                'Total mass lower bound')
 
         # Checking that the product has no global data quality warnings related to nutrition before adding nutritional
