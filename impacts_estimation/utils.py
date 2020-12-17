@@ -153,11 +153,11 @@ def confidence_score(nutri, reference_nutri, total_mass):
                 n += 1  # Incrementing the number of considered dimensions (nutriments)
                 difference = (float(reference_nutri[f"{nutriment}_100g"]) / 100) - (float(nutri[nutriment]) / 100)
 
-                # Setting a minimal difference to avoid extremely high confidence score values in case of very similar
-                # nutritional compositions
-                difference = max(difference, 0.001)
-
                 squared_difference = round(difference ** 2, 6)
+
+                # Setting a minimal squared difference to avoid extremely high confidence score values in case of very
+                # similar nutritional compositions
+                squared_difference = max(squared_difference, 0.0000001)
 
                 if squared_difference > 1:
                     raise ValueError("The squared difference cannot be superior to 1.")
