@@ -1300,7 +1300,10 @@ class ImpactEstimator:
                     f" ({impacts_interquartile[impact_name]:.0%})")
 
         # Computing the average total used mass
-        average_total_used_mass = mean(total_used_mass_distribution)
+        average_total_used_mass = sms.DescrStatsW(data=total_used_mass_distribution,
+                                                  weights=confidence_score_distribution
+                                                  if confidence_weighting
+                                                  else None).mean
 
         result = {'impacts_geom_means': impacts_geom_means,
                   'impacts_geom_stdevs': impacts_geom_stdevs,
