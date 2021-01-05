@@ -225,15 +225,16 @@ class RandomRecipeCreator:
         )
 
         # Upper bound
-        self.model.addCons(
-            self.total_mass_var * (1 - self.evaporation_var * (
-                sum([self.ingredient_vars[ing] * self.ingredients_data[ing]['water']['min'] / 100
-                     for ing in self.ingredient_vars
-                     if ing in self.leaf_ingredients_names])
-            ))
-            >= (1 - self.const_relax_coef),
-            name="Product mass evaporation upper bound"
-        )
+        self.product_mass_evaporation_upper_bound_constraint = \
+            self.model.addCons(
+                self.total_mass_var * (1 - self.evaporation_var * (
+                    sum([self.ingredient_vars[ing] * self.ingredients_data[ing]['water']['min'] / 100
+                         for ing in self.ingredient_vars
+                         if ing in self.leaf_ingredients_names])
+                ))
+                >= (1 - self.const_relax_coef),
+                name="Product mass evaporation upper bound"
+            )
 
     def _add_product_mass_constraint(self):
         """ The product mass is bounded by the sum of all nutriments and the remaining water """
@@ -709,6 +710,7 @@ class RandomRecipeCreator:
         # over-estimation of the total mass without possible under-estimation.
         self.model.freeTransform()
         self.model.delCons(total_mass_lower_bound_constraint)
+        self.model.delCons(self.product_mass_evaporation_upper_bound_constraint)
         total_mass = self._pick_total_mass(proportions)
 
         self.recipe = self.recipe_from_proportions(proportions, total_mass)
