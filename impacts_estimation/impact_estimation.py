@@ -40,7 +40,8 @@ class RandomRecipeCreator:
 
     def __init__(self, product, use_defined_prct=True, use_nutritional_info=True, const_relax_coef=0,
                  maximum_evaporation=0.4, total_mass_used=None, min_prct_dist_size=30, dual_gap_type='absolute',
-                 dual_gap_limit=0.001, solver_time_limit=60, time_limit_dual_gap_limit=0.01):
+                 dual_gap_limit=0.001, solver_time_limit=60, time_limit_dual_gap_limit=0.01,
+                 allow_unbalanced_recipe=False):
         """
         Args:
             product (dict): Dict containing an OpenFoodFact product.
@@ -63,6 +64,9 @@ class RandomRecipeCreator:
                 Set to None or 0 to set no limit.
             time_limit_dual_gap_limit (float): Accepted precision of the solver in case of time limit hit.
                 Relative or absolute according to dual_gap_type.
+            allow_unbalanced_recipe (bool): If True, the total mass of ingredients used in the resulting recipe may be
+                less than the final mass of the product. This is not physically possible but may be necessary to avoid
+                systematical overestimation of the total mass of ingredients used.
         """
         self.product = product
         self.use_defined_prct = use_defined_prct
@@ -84,6 +88,7 @@ class RandomRecipeCreator:
         self.decreasing_order_limit_rank = None
         self.dual_gap_type = dual_gap_type.lower()
         self.time_limit_dual_gap_limit = time_limit_dual_gap_limit
+        self.allow_unbalanced_recipe = allow_unbalanced_recipe
 
         self.recipe = dict()
 
@@ -104,7 +109,9 @@ class RandomRecipeCreator:
 
         # Adding variables to the solver
         # Adding a variable for the total mass of ingredients used
-        self.total_mass_var = self.model.addVar('total_mass_used', vtype='C', lb=0.5)
+        self.total_mass_var = self.model.addVar('total_mass_used',
+                                                vtype='C',
+                                                lb=0.5 if self.allow_unbalanced_recipe else 1)
 
         # If the total mass used is provided, add it as a constraint
         if self.total_mass_used is not None:
@@ -705,12 +712,11 @@ class RandomRecipeCreator:
                 self._remove_decreasing_order_constraint_from_rank(
                     self.top_level_ingredients_names.index(ingredient_name))
 
-        # Deleting the total mass lower bound constraint
-        # This allows for total masses under 1 to be picked but it is necessary to avoid a bias induced by a possible
-        # over-estimation of the total mass without possible under-estimation.
-        self.model.freeTransform()
-        self.model.delCons(total_mass_lower_bound_constraint)
-        self.model.delCons(self.product_mass_evaporation_upper_bound_constraint)
+        if self.allow_unbalanced_recipe:
+            self.model.freeTransform()
+            self.model.delCons(total_mass_lower_bound_constraint)
+            self.model.delCons(self.product_mass_evaporation_upper_bound_constraint)
+
         total_mass = self._pick_total_mass(proportions)
 
         self.recipe = self.recipe_from_proportions(proportions, total_mass)
@@ -1018,6 +1024,8 @@ class ImpactEstimator:
         use_nutritional_info = use_nutritional_info if self.use_nutritional_info_override is None \
             else self.use_nutritional_info_override
 
+        # The use of allow_unbalanced_recipe=True is necessary to avoid overestimation of the ingredients total used
+        # mass and thus the of the product impacts.
         recipe_creator = RandomRecipeCreator(product=self.product,
                                              use_defined_prct=self.use_defined_prct,
                                              use_nutritional_info=use_nutritional_info,
@@ -1028,7 +1036,8 @@ class ImpactEstimator:
                                              dual_gap_type=dual_gap_type,
                                              dual_gap_limit=dual_gap_limit,
                                              solver_time_limit=solver_time_limit,
-                                             time_limit_dual_gap_limit=time_limit_dual_gap_limit)
+                                             time_limit_dual_gap_limit=time_limit_dual_gap_limit,
+                                             allow_unbalanced_recipe=True)
 
         run = 0
         impact_names = [impact_names] if type(impact_names) is str else impact_names
