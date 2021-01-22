@@ -132,6 +132,8 @@ The algorithm used by this program is based on a Monte-Carlo approach to estimat
 Its principle is to pick random possible recipes of the product and compute their impact until the geometric mean of the impacts of all sampled recipes stabilizes within a given confidence interval.
 The sampling of possible recipes is made as accurate as possible by the use of a non linear programming solver ([SCIP](http://scip.zib.de/)), and nutritional information of the product.
 
+## Disclaimer
+The results given by this tool are **estimates** of the environmental impact of a food product. These estimates are subject to potential bias and uncertainties due to the stochastic nature of the algorithm and the uncertainty inherent to the background data. Thus, the accuracy of the result cannot be guaranteed.
 
 ## References
 [_ADEME - Agribalyse_](https://ecolab.ademe.fr/agribalyse), 2020
@@ -139,3 +141,5 @@ The sampling of possible recipes is made as accurate as possible by the use of a
 [_Anses - Table de composition nutritionnelle des aliments Ciqual_](https://ciqual.anses.fr/), 2020
 
 [_Santé Canada - Fichier canadien sur les éléments nutritifs_](https://www.canada.ca/fr/sante-canada/services/aliments-nutrition/saine-alimentation/donnees-nutritionnelles/fichier-canadien-elements-nutritifs-propos-nous.html), 2015
+
+[_The SCIP Optimization Suite_](https://scipopt.org/)
