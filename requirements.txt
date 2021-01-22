@@ -25,9 +25,15 @@ seaborn
 # Packages below are not needed for impact estimation of OFF products but may be necessary to run other scripts #
 #  contained in the repository such as ingredients characterization scripts. Uncomment if needed.               #
 #################################################################################################################
+# OpenFoodFacts bindings
+# openfoodfacts
 
 # MongoDB
 # pymongo
+
+# Plots
+# matplotlib
+# seaborn
 
 # Progressbars
 # tqdm
