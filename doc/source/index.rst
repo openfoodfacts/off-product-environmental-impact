@@ -10,6 +10,7 @@ Welcome to Open Food Facts Product Environmental Impact's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   readme
    get-started
    food-product-modeling
    impact-estimation-algorithm

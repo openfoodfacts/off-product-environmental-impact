@@ -42,3 +42,4 @@ seaborn
 sphinx
 sphinx_rtd_theme
 sphinxcontrib-napoleon
+m2r2
