@@ -1314,6 +1314,23 @@ class ImpactEstimator:
                                                   if confidence_weighting
                                                   else None).mean
 
+        # Retrieving the databases entries related to each ingredient
+        data_sources = dict()
+        for ingredient in self.product['ingredients']:
+            if ingredient['id'] not in self.ignored_unknown_ingredients:
+                ingredient_data = ingredients_data[ingredient['id']]
+                ingredient_data_sources = dict()
+
+                if 'environmental_impact_data_sources' in ingredients_data:
+                    ingredient_data_sources['environmental_impact'] = ingredient_data[
+                        'environmental_impact_data_sources']
+
+                if 'nutritional_data_sources' in ingredients_data:
+                    ingredient_data_sources['nutrition'] = ingredient_data['nutritional_data_sources']
+
+                if len(ingredient_data_sources) > 0:
+                    data_sources[ingredient['id']] = ingredient_data_sources
+
         result = {'impacts_geom_means': impacts_geom_means,
                   'impacts_geom_stdevs': impacts_geom_stdevs,
                   'impacts_quantiles': impacts_quantiles,
@@ -1330,6 +1347,7 @@ class ImpactEstimator:
                   'number_of_ingredients': len(self.leaf_ingredients),
                   'average_total_used_mass': average_total_used_mass,
                   'calculation_time': time.time() - self.start_time,
+                  'data_sources': data_sources
                   }
 
         if distributions_as_result:

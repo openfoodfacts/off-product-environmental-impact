@@ -19,13 +19,12 @@ for link in links.itertuples():
     if link.off_id not in ingredients_data:
         ingredients_data[link.off_id] = {'id': link.off_id}
 
-    if 'LCI' not in ingredients_data[link.off_id]:
-        ingredients_data[link.off_id]['LCI'] = []
+    if 'environmental_impact_data_sources' not in ingredients_data[link.off_id]:
+        ingredients_data[link.off_id]['environmental_impact_data_sources'] = []
 
-    ingredients_data[link.off_id]['source_impact'] = 'Agribalyse'
-
-    if link.agribalyse_en not in ingredients_data[link.off_id]['LCI']:
-        ingredients_data[link.off_id]['LCI'].append(link.agribalyse_en)
+    if link.agribalyse_en not in [x['entry'] for x in ingredients_data[link.off_id]['environmental_impact_data_sources']]:
+        ingredients_data[link.off_id]['environmental_impact_data_sources'].append({'database': 'agribalyse',
+                                                                                   'entry': link.agribalyse_en})
 
 with open(INGREDIENTS_DATA_FILEPATH, 'w') as file:
     json.dump(ingredients_data, file, indent=2, ensure_ascii=False)

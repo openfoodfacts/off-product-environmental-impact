@@ -27,12 +27,15 @@ STEPS_TO_INCLUDE = [
 ]
 
 for ingredient in ingredients_data.values():
-    if 'LCI' in ingredient:
+    if 'environmental_impact_data_sources' in ingredient:
         ingredient['impacts'] = dict()
         lcis_impacts = dict()
 
         # Retrieving the impacts of the corresponding LCIs
-        for process_name in ingredient['LCI']:
+        process_names = [x['entry']
+                         for x in ingredient['environmental_impact_data_sources']
+                         if x['database'] == 'agribalyse']
+        for process_name in process_names:
             process_impacts = agribalyse_impacts[process_name]['impact_environnemental']
 
             for impact_category, impact_data in process_impacts.items():
@@ -74,8 +77,8 @@ for ingredient in ingredients_data.values():
                 ingredient['impacts'][impact_category]['amount'] = mean(impacts.values())
 
         # Adding the impact uncertainty distributions to the ingredient
-        if len(ingredient['LCI']) > 1:
-            for process_name in ingredient['LCI']:
+        if len(ingredient['environmental_impact_data_sources']) > 1:
+            for process_name in process_names:
 
                 # For each impact, adding one uniform uncertainty distribution per LCI
                 # Given that uncertainty data is not known fo Agribalyse processes, a uniform distribution with same
@@ -83,7 +86,7 @@ for ingredient in ingredients_data.values():
                 # LCIs corresponding to one ingredient.
                 for impact_category, impacts in lcis_impacts.items():
                     # If all linked LCIs have the same impact, don't add uncertainty to this ingredient
-                    if all(impacts[x] == impacts[process_name] for x in ingredient['LCI']):
+                    if all(impacts[x] == impacts[process_name] for x in process_names):
                         continue
 
                     distribution_data = {'distribution': 'uniform',

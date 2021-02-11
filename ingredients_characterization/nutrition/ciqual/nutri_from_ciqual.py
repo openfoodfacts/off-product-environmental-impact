@@ -28,7 +28,7 @@ for off_id in links.OFF_ID.unique():
     else:
         ingredient = {'id': off_id}
 
-    ingredient['source_nutri'] = 'ciqual'
+    ingredient['nutritional_data_sources'] = []
     nutriments = dict()
 
     # Looping on ciqual products related to this off ingredient
@@ -36,7 +36,11 @@ for off_id in links.OFF_ID.unique():
     if len(ciqual_ids) == 0:
         continue
     elif len(ciqual_ids) == 1:
-        ciqual_nutriments = ciqual_data[str(ciqual_ids[0])]['nutriments']
+        ciqual_product = ciqual_data[str(ciqual_ids[0])]
+        ciqual_nutriments = ciqual_product['nutriments']
+
+        ingredient['nutritional_data_sources'].append({'database': 'ciqual',
+                                                       'entry': ciqual_product['alim_nom_eng']})
 
         # Getting minimum and maximum value for each nutriment
         # If they are not present, uses the confidence code to deduce it from the reference value
@@ -73,6 +77,9 @@ for off_id in links.OFF_ID.unique():
         max_values = dict()
         for ciqual_id in ciqual_ids:
             ciqual_product = ciqual_data[str(ciqual_id)]
+
+            ingredient['nutritional_data_sources'].append({'database': 'ciqual',
+                                                           'entry': ciqual_product['alim_nom_eng']})
 
             for nutriment_name, nutriment_data in ciqual_product['nutriments'].items():
                 if (nutriment_data.get('value') is None) and (nutriment_data.get('min') is None):

@@ -63,11 +63,10 @@ for nutrition_data in manual_data.itertuples():
                                                                        for k, v in ingredient['nutriments'].items()
                                                                        if k in TOP_LEVEL_NUTRIMENTS_CATEGORIES]))
 
-    if pd.notnull(nutrition_data.SOURCE):
-        ingredient['source_nutri'] = nutrition_data.SOURCE
+    ingredient['nutritional_data_sources'] = {'database': 'manual sources',
+                                              'entry': nutrition_data.SOURCE if pd.notnull(nutrition_data.SOURCE) else None}
 
     ingredients_data[ingredient_name] = ingredient
-
 
 with open(INGREDIENTS_DATA_FILEPATH, 'w') as file:
     json.dump(ingredients_data, file, indent=2, ensure_ascii=False)

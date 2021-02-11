@@ -28,7 +28,7 @@ for off_id in links.OFF_ID.unique():
     else:
         ingredient = {'id': off_id}
 
-    ingredient['source_nutri'] = 'fcen'
+    ingredient['nutritional_data_sources'] = []
     nutriments = dict()
 
     # Looping on fcen products related to this off ingredient
@@ -36,7 +36,13 @@ for off_id in links.OFF_ID.unique():
     if len(fcen_ids) == 0:
         continue
     elif len(fcen_ids) == 1:
-        fcen_nutriments = fcen_data[str(fcen_ids[0])]['nutriments']
+
+        fcen_product = fcen_data[str(fcen_ids[0])]
+
+        ingredient['nutritional_data_sources'].append({'database': 'fcen',
+                                                       'entry': fcen_product['FoodDescription']})
+
+        fcen_nutriments = fcen_product['nutriments']
 
         # Getting minimum and maximum value for each nutriment using the standard deviation
         # The distribution of the nutriment amount is supposed to be normal and the minimum and maximum values are
@@ -71,6 +77,9 @@ for off_id in links.OFF_ID.unique():
         max_values = dict()
         for fcen_id in fcen_ids:
             fcen_product = fcen_data[str(fcen_id)]
+
+            ingredient['nutritional_data_sources'].append({'database': 'fcen',
+                                                           'entry': fcen_product['FoodDescription']})
 
             for nutriment_name, nutriment_data in fcen_product['nutriments'].items():
                 if nutriment_name not in values:

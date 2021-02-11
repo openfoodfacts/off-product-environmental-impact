@@ -28,11 +28,12 @@ for duplicate in duplicates.itertuples():
     # Nutritional proxy
     if (duplicate.proxy_type != 2) and ('nutriments' in proxy) and ('nutriments' not in ingredient):
         ingredient['nutriments'] = proxy['nutriments']
+        ingredient['nutritional_data_sources'] = proxy['nutritional_data_sources']
         ingredient['nutritional_proxy'] = duplicate.reference
 
     # Impact proxy
     if (duplicate.proxy_type != 1) and ('LCI' in proxy) and ('LCI' not in ingredient):
-        ingredient['LCI'] = proxy['LCI']
+        ingredient['environmental_impact_data_sources'] = proxy['environmental_impact_data_sources']
         ingredient['impacts'] = proxy['impacts']
         ingredient['environmental_impact_proxy'] = duplicate.reference
 
