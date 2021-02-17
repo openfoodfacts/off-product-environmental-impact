@@ -1138,6 +1138,11 @@ class ImpactEstimator:
                     # Rolling back changes
                     run -= 1
                     confidence_score_distribution.pop()
+                    impacts_to_rollback = impact_names[:impact_names.index(impact_name)]
+                    for impact_to_rollback in impacts_to_rollback:
+                        impact_distributions[impact_to_rollback].pop()
+                        impact_log_distributions[impact_to_rollback].pop()
+
                     consecutive_null_impact_characterized_ingredients_mass += 1
 
                     if consecutive_null_impact_characterized_ingredients_mass >= \
