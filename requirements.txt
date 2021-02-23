@@ -9,7 +9,7 @@ scipy
 pandas
 
 # Probability distribution estimation
-sklearn
+scikit-learn
 
 # Confidence interval estimation
 statsmodels
