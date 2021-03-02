@@ -18,7 +18,7 @@ import numpy as np
 from sklearn.neighbors import KernelDensity
 from pyscipopt import Model
 
-from impacts_estimation.utils import impact_from_recipe, natural_bounds, nutritional_error_margin, \
+from impacts_estimation.utils import RecipeImpactCalculator, natural_bounds, nutritional_error_margin, \
     clear_ingredient_graph, define_subingredients_percentage_type, find_ingredients_graph_leaves, \
     flat_ingredients_list, individualize_ingredients, original_id, nutriments_from_recipe, \
     remove_percentage_from_product, confidence_score, UnknownIngredientsRemover
@@ -1122,8 +1122,9 @@ class ImpactEstimator:
 
             # Computing the impact of the recipe for all impact categories
             for impact_name in impact_names:
-                recipe_impact = impact_from_recipe(recipe, impact_name,
-                                                   use_uncertainty=use_ingredients_impact_uncertainty)
+                recipe_impact_calculator = RecipeImpactCalculator(recipe, impact_name,
+                                                                  use_uncertainty=use_ingredients_impact_uncertainty)
+                recipe_impact = recipe_impact_calculator.get_recipe_impact()
                 if recipe_impact == 0:
                     # In case of null impact values, the geometric approach is not applicable
                     # TODO: In that case use a linear approach
@@ -1175,10 +1176,7 @@ class ImpactEstimator:
                 # Computing the average share of impact due to each ingredient
                 for ingredient in [x for x in recipe if x not in self.ignored_unknown_ingredients]:
                     try:
-                        ingredient_impact = float(recipe[ingredient]) * \
-                                            ingredients_data[ingredient]['impacts'][impact_name]['amount'] \
-                                            / IMPACT_MASS_UNIT
-                        ingredient_impact_share = ingredient_impact / recipe_impact
+                        ingredient_impact_share = recipe_impact_calculator.get_ingredient_impact_share(ingredient)
 
                         if impact_name not in impacts_units:
                             impacts_units[impact_name] = ingredients_data[ingredient]['impacts'][impact_name]['unit']
