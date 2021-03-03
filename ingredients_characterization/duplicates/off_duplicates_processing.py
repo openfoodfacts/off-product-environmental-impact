@@ -11,7 +11,7 @@ from data import INGREDIENTS_DATA_FILEPATH
 duplicates = pd.read_csv(OFF_DUPLICATES_FILEPATH)
 duplicates.columns = ['ingredient', 'reference', 'proxy_type']
 
-with open(INGREDIENTS_DATA_FILEPATH, 'r') as file:
+with open(INGREDIENTS_DATA_FILEPATH, 'r', encoding='utf8') as file:
     ingredients_data = json.load(file)
 
 for duplicate in duplicates.itertuples():
@@ -58,5 +58,5 @@ for ingredient_name, ingredient_data in ingredients_data.items():
     if 'environmental_impact_proxy' in ingredient_data:
         ingredient_data['environmental_impact_proxy'] = get_root_proxy(ingredient_data, 'environmental_impact_proxy')
 
-with open(INGREDIENTS_DATA_FILEPATH, 'w') as file:
+with open(INGREDIENTS_DATA_FILEPATH, 'w', encoding='utf8') as file:
     json.dump(ingredients_data, file, indent=2, ensure_ascii=False)
