@@ -1184,12 +1184,13 @@ class ImpactEstimator:
                         if run == 1:
                             ingredients_impacts_share[impact_name][ingredient] = ingredient_impact_share
                         else:
-                            # Iterative weighted arithmetic mean of the ingredient impact share
-                            ingredients_impacts_share[impact_name][ingredient] = \
-                                ((sum(confidence_score_distribution[:- 1]) * ingredients_impacts_share[impact_name][
-                                    ingredient]) +
-                                 (confidence_score_distribution[-1] * ingredient_impact_share)) / sum(
-                                    confidence_score_distribution)
+                            if ingredient_impact_share is not None:
+                                # Iterative weighted arithmetic mean of the ingredient impact share
+                                ingredients_impacts_share[impact_name][ingredient] = \
+                                    ((sum(confidence_score_distribution[:- 1]) * ingredients_impacts_share[impact_name][
+                                        ingredient]) +
+                                     (confidence_score_distribution[-1] * ingredient_impact_share)) / sum(
+                                        confidence_score_distribution)
 
                     except KeyError:
                         ingredients_impacts_share[impact_name][ingredient] = None
