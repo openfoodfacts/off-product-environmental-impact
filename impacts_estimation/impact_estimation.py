@@ -23,7 +23,7 @@ from impacts_estimation.utils import RecipeImpactCalculator, natural_bounds, nut
     flat_ingredients_list, individualize_ingredients, original_id, nutriments_from_recipe, \
     remove_percentage_from_product, confidence_score, UnknownIngredientsRemover
 from impacts_estimation.vars import NUTRIMENTS_CATEGORIES, QUALITY_DATA_WARNINGS, \
-    TOP_LEVEL_NUTRIMENTS_CATEGORIES, MAX_ASH_CONTENT, IMPACT_MASS_UNIT
+    TOP_LEVEL_NUTRIMENTS_CATEGORIES, MAX_ASH_CONTENT, FERMENTATION_AGENTS
 from settings import VERBOSITY, IMPACT_INTERQUARTILE_WARNING_THRESHOLD, \
     UNCHARACTERIZED_INGREDIENTS_MASS_WARNING_THRESHOLD, \
     UNCHARACTERIZED_INGREDIENTS_RATIO_WARNING_THRESHOLD, MAX_CONSECUTIVE_RECIPE_CREATION_ERROR, \
@@ -766,6 +766,9 @@ class ImpactEstimator:
         #  example)
         self.warnings = []
 
+        # Performing checks on product type
+        self._check_fermented_product()
+
         # Performing checks for multilevel ingredients
         self._check_ingredients()
 
@@ -813,6 +816,27 @@ class ImpactEstimator:
 
         # Perform checks on defined percentages of ingredients
         self._check_defined_percentages()
+
+    def _check_fermented_product(self):
+        """
+            Checks if the product is fermented (alcohol or cheese for example).
+            In that case, the carbohydrates should not be taken into account as the carbohydrates input of the
+            ingredients may not be the same than the output in the product.
+        """
+        identified_fermentation_agents = [x['id'] for x in flat_ingredients_list(self.product)
+                                          if x['id'] in FERMENTATION_AGENTS]
+
+        if identified_fermentation_agents:
+            for nutrition_item_to_delete in ('carbohydrates', 'sugars'):
+                try:
+                    del self.product['nutriments'][f"{nutrition_item_to_delete}_100g"]
+                except KeyError:
+                    pass
+
+        self.warnings.append(f"Fermentation agents are present in the product "
+                             f"({', '.join(identified_fermentation_agents)}). "
+                             f"Carbohydrates and sugars mass balance will not be considered to estimate potential "
+                             f"recipes")
 
     def _check_ingredients(self):
         """ Performs some checks on multilevel ingredients. """
