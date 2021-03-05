@@ -1366,6 +1366,7 @@ class ImpactEstimator:
                   'ingredients_impacts_share': ingredients_impacts_share,
                   'impacts_units': impacts_units,
                   'product_quantity': self.product_quantity,
+                  'const_relax_coef': const_relax_coef,
                   'warnings': self.warnings,
                   'ignored_unknown_ingredients': self.ignored_unknown_ingredients,
                   'uncharacterized_ingredients': self.uncharacterized_ingredients_ids,
