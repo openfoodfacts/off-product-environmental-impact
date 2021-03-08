@@ -113,3 +113,5 @@ FERMENTATION_AGENTS = ['en:selected-ferments',
                        'en:nutritional-yeast',
                        'en:yeast',
                        'de:trockenhefe']
+
+FERMENTED_FOOD_CATEGORIES = ['en:fermented-foods']
