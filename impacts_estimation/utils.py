@@ -166,25 +166,34 @@ def nutriments_from_recipe(recipe):
     return result
 
 
-def confidence_score(nutri, reference_nutri, total_mass):
+def confidence_score(nutri, reference_nutri, total_mass, min_possible_mass, max_possible_mass, weighting_factor=10):
     """
     Calculate the confidence score of a nutritional composition using the euclidean distance between the reference
     nutritional composition and the assessed nutritional composition in the space of all considered nutriments
     contents and the total mass of ingredients used. The closer the nutritional composition is from the reference, the
-    higher the confidence score is. The lower the total mass of ingredients is, the higher the confidence score is.
+    higher the confidence score is. The nearest of 100g/100g the total mass of ingredients is, the higher the confidence
+     score is.
 
-    A score of 1 correspond to the lowest match between compositions. The higher the score, the better the match. The
-    score is bounded to 1000.
+    The score is defined as the inverse of the sum of the nutritional distance and the absolute difference between the
+    total mass and 100g/100g weighted by a weighting factor.
 
     Args:
         nutri (dict): Nutritional composition to evaluate.
         reference_nutri (dict): Nutritional composition of the reference product.
         total_mass (float): Total mass of ingredients used in g.
+        min_possible_mass (float): Minimum possible total ingredient mass for a product in g
+        max_possible_mass (float): Maximum possible total ingredient mass for a product in g
+        weighting_factor (float): Weight of the nutritional distance against the absolute difference between
+         the total mass and 100g/100g.
 
     Returns:
         float: Confidence score
     """
+    assert round(min_possible_mass) <= round(total_mass) <= round(max_possible_mass)
+
     total_mass = total_mass / 100
+    min_possible_mass = min_possible_mass / 100
+    max_possible_mass = max_possible_mass / 100
 
     squared_differences = []
     n = 0
@@ -206,11 +215,14 @@ def confidence_score(nutri, reference_nutri, total_mass):
                 squared_differences.append(squared_difference)
 
     # The distance in the n-dimensional space is the square root of the sum of the squared differences
-    distance = sqrt(sum(squared_differences))
+    nutri_distance = sqrt(sum(squared_differences))
 
-    # Returning the inverse of the distance normalized by the biggest possible distance between two compositions in the
-    #  n-dimensional space (sqrt(n))
-    return sqrt(n) / (distance * abs(total_mass - 100))
+    if total_mass < 1:
+        mass_diff = (1 - total_mass) / (1 - min_possible_mass)
+    else:
+        mass_diff = (total_mass - 1) / (max_possible_mass - 1)
+
+    return 1 / ((nutri_distance * weighting_factor) + mass_diff)
 
 
 def natural_bounds(rank, nb_ingredients):

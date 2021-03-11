@@ -28,7 +28,7 @@ from settings import VERBOSITY, IMPACT_INTERQUARTILE_WARNING_THRESHOLD, \
     UNCHARACTERIZED_INGREDIENTS_MASS_WARNING_THRESHOLD, \
     UNCHARACTERIZED_INGREDIENTS_RATIO_WARNING_THRESHOLD, MAX_CONSECUTIVE_RECIPE_CREATION_ERROR, \
     DECREASING_PROPORTION_ORDER_LIMIT, TOTAL_MASS_DISTRIBUTION_STEP, \
-    MAX_CONSECUTIVE_NULL_IMPACT_CHARACTERIZED_INGREDIENTS_MASS
+    MAX_CONSECUTIVE_NULL_IMPACT_CHARACTERIZED_INGREDIENTS_MASS, MINIMUM_TOTAL_MASS_FOR_UNBALANCED_RECIPES
 from data import ref_ing_dist, ingredients_data
 from impacts_estimation.exceptions import RecipeCreationError, NoKnownIngredientsError, SolverTimeoutError, \
     NoCharacterizedIngredientsError
@@ -89,6 +89,7 @@ class RandomRecipeCreator:
         self.dual_gap_type = dual_gap_type.lower()
         self.time_limit_dual_gap_limit = time_limit_dual_gap_limit
         self.allow_unbalanced_recipe = allow_unbalanced_recipe
+        self.maximum_evaporation = maximum_evaporation
 
         self.recipe = dict()
 
@@ -111,7 +112,8 @@ class RandomRecipeCreator:
         # Adding a variable for the total mass of ingredients used
         self.total_mass_var = self.model.addVar('total_mass_used',
                                                 vtype='C',
-                                                lb=0.5 if self.allow_unbalanced_recipe else 1)
+                                                lb=MINIMUM_TOTAL_MASS_FOR_UNBALANCED_RECIPES
+                                                if self.allow_unbalanced_recipe else 1)
 
         # If the total mass used is provided, add it as a constraint
         if self.total_mass_used is not None:
@@ -120,7 +122,7 @@ class RandomRecipeCreator:
         # The evaporation coefficient is one variable of the solver describing how much of the unprocessed ingredients
         # water is lost during food processing. It is not bounded to 1 to avoid infinite value of the total mass used.
         assert 0 <= maximum_evaporation < 1
-        self.evaporation_var = self.model.addVar('evaporation', vtype="C", lb=0, ub=maximum_evaporation)
+        self.evaporation_var = self.model.addVar('evaporation', vtype="C", lb=0, ub=self.maximum_evaporation)
 
         # INGREDIENTS VARIABLES
         # One variable per ingredient, corresponding to its proportion of the ingredients masses used
@@ -610,7 +612,10 @@ class RandomRecipeCreator:
                 try:
                     conf_score = confidence_score(nutri=recipe_nutriments,
                                                   reference_nutri=self.product['nutriments'],
-                                                  total_mass=total_mass * 100)
+                                                  total_mass=total_mass * 100,
+                                                  min_possible_mass=MINIMUM_TOTAL_MASS_FOR_UNBALANCED_RECIPES * 100
+                                                  if self.allow_unbalanced_recipe else 100,
+                                                  max_possible_mass=100 / (1 - self.maximum_evaporation))
                 except ValueError:
                     continue
 
@@ -1137,7 +1142,9 @@ class ImpactEstimator:
                                                                       if x in TOP_LEVEL_NUTRIMENTS_CATEGORIES]):
                 conf_score = confidence_score(nutri=recipe_nutriments,
                                               reference_nutri=self.product['nutriments'],
-                                              total_mass=sum([x for x in recipe_100g.values()]))
+                                              total_mass=sum([x for x in recipe_100g.values()]),
+                                              min_possible_mass=MINIMUM_TOTAL_MASS_FOR_UNBALANCED_RECIPES * 100,
+                                              max_possible_mass=100 / (1 - maximum_evaporation))
             else:
                 # If the nutritional information is not used, all recipes are supposed to have the same confidence
                 # level.

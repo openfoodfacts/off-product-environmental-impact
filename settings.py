@@ -3,6 +3,8 @@
 # Proportion from which the ingredients don't have to be ordered by decreasing proportion in the ingredient list
 DECREASING_PROPORTION_ORDER_LIMIT = 0.02  # From EU regulations
 
+MINIMUM_TOTAL_MASS_FOR_UNBALANCED_RECIPES = 0.5
+
 # Ratio of uncharacterized ingredients (no nutritional or impact data) in the product from which the result
 #  should contain a warning
 UNCHARACTERIZED_INGREDIENTS_RATIO_WARNING_THRESHOLD = 0.25
