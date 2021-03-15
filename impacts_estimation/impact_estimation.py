@@ -837,7 +837,7 @@ class ImpactEstimator:
                                  f"Carbohydrates and sugars mass balance will not be considered to estimate potential "
                                  f"recipes")
 
-        identified_fermented_product_categories = [x for x in self.product['categories_tags']
+        identified_fermented_product_categories = [x for x in self.product.get('categories_tags', [])
                                                    if x in FERMENTED_FOOD_CATEGORIES]
 
         if identified_fermented_product_categories:
