@@ -41,7 +41,7 @@ class RandomRecipeCreator:
     def __init__(self, product, use_defined_prct=True, use_nutritional_info=True, const_relax_coef=0,
                  maximum_evaporation=0.4, total_mass_used=None, min_prct_dist_size=30, dual_gap_type='absolute',
                  dual_gap_limit=0.001, solver_time_limit=60, time_limit_dual_gap_limit=0.01,
-                 allow_unbalanced_recipe=False):
+                 allow_unbalanced_recipe=False, confidence_score_weighting_factor=10):
         """
         Args:
             product (dict): Dict containing an OpenFoodFact product.
@@ -67,6 +67,9 @@ class RandomRecipeCreator:
             allow_unbalanced_recipe (bool): If True, the total mass of ingredients used in the resulting recipe may be
                 less than the final mass of the product. This is not physically possible but may be necessary to avoid
                 systematical overestimation of the total mass of ingredients used.
+            confidence_score_weighting_factor (float): Weighting factor used for the confidence score calculation.
+                It corresponds to the weight of the nutritional distance against the absolute difference between the
+                 total mass and 100g/100g.
         """
         self.product = product
         self.use_defined_prct = use_defined_prct
@@ -90,6 +93,7 @@ class RandomRecipeCreator:
         self.time_limit_dual_gap_limit = time_limit_dual_gap_limit
         self.allow_unbalanced_recipe = allow_unbalanced_recipe
         self.maximum_evaporation = maximum_evaporation
+        self.confidence_score_weighting_factor = confidence_score_weighting_factor
 
         self.recipe = dict()
 
@@ -615,7 +619,8 @@ class RandomRecipeCreator:
                                                   total_mass=total_mass * 100,
                                                   min_possible_mass=MINIMUM_TOTAL_MASS_FOR_UNBALANCED_RECIPES * 100
                                                   if self.allow_unbalanced_recipe else 100,
-                                                  max_possible_mass=100 / (1 - self.maximum_evaporation))
+                                                  max_possible_mass=100 / (1 - self.maximum_evaporation),
+                                                  weighting_factor=self.confidence_score_weighting_factor)
                 except ValueError:
                     continue
 
@@ -999,7 +1004,8 @@ class ImpactEstimator:
                          dual_gap_type='absolute', dual_gap_limit=0.001, solver_time_limit=60,
                          time_limit_dual_gap_limit=0.01, confidence_weighting=True,
                          use_ingredients_impact_uncertainty=True,
-                         quantiles_points=('0.05', '0.25', '0.5', '0.75', '0.95'), distributions_as_result=False):
+                         quantiles_points=('0.05', '0.25', '0.5', '0.75', '0.95'), distributions_as_result=False,
+                         confidence_score_weighting_factor=10):
         """
         Looping by calculating a new random recipe at each loop and stopping when the geometric mean of recipes impacts
         values are stabilized within a given confidence interval.
@@ -1041,6 +1047,9 @@ class ImpactEstimator:
             quantiles_points (iterable): List of impacts quantiles cutting points to return in the result.
             distributions_as_result (bool): Should the distributions of the impact, the mean confidence interval and the
                 confidence score be added to the result?
+            confidence_score_weighting_factor (float): Weighting factor used for the confidence score calculation.
+                It corresponds to the weight of the nutritional distance against the absolute difference between the
+                 total mass and 100g/100g.
 
         Returns:
             dict: Dictionary containing the result (the average impacts of all computed recipes) as well as other
@@ -1076,7 +1085,8 @@ class ImpactEstimator:
                                              dual_gap_limit=dual_gap_limit,
                                              solver_time_limit=solver_time_limit,
                                              time_limit_dual_gap_limit=time_limit_dual_gap_limit,
-                                             allow_unbalanced_recipe=True)
+                                             allow_unbalanced_recipe=True,
+                                             confidence_score_weighting_factor=confidence_score_weighting_factor)
 
         run = 0
         impact_names = [impact_names] if type(impact_names) is str else impact_names
@@ -1411,7 +1421,7 @@ def estimate_impacts(product, impact_names, quantity=100, ignore_unknown_ingredi
                      total_mass_used=None, min_prct_dist_size=30, dual_gap_type='absolute', dual_gap_limit=0.001,
                      solver_time_limit=60, time_limit_dual_gap_limit=0.01, confidence_weighting=True,
                      use_ingredients_impact_uncertainty=True, quantiles_points=('0.05', '0.25', '0.5', '0.75', '0.95'),
-                     distributions_as_result=False):
+                     distributions_as_result=False, confidence_score_weighting_factor=10):
     """ Simple wrapper for impact estimation using ImpactEstimator class """
 
     impact_estimator = ImpactEstimator(product=product,
@@ -1437,7 +1447,8 @@ def estimate_impacts(product, impact_names, quantity=100, ignore_unknown_ingredi
                                              confidence_weighting=confidence_weighting,
                                              use_ingredients_impact_uncertainty=use_ingredients_impact_uncertainty,
                                              quantiles_points=quantiles_points,
-                                             distributions_as_result=distributions_as_result)
+                                             distributions_as_result=distributions_as_result,
+                                             confidence_score_weighting_factor=confidence_score_weighting_factor)
 
 
 def estimate_impacts_safe(product, impact_names, **kwargs):
