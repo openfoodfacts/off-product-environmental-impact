@@ -115,3 +115,7 @@ FERMENTATION_AGENTS = ['en:selected-ferments',
                        'de:trockenhefe']
 
 FERMENTED_FOOD_CATEGORIES = ['en:fermented-foods']
+
+# Dictionary containing the names of the categories with a high water loss potential as keys and the maximum evaporation
+# coefficient of the category as values
+HIGH_WATER_LOSS_CATEGORIES = {'en:cheeses': 0.9}

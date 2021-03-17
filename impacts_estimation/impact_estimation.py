@@ -23,7 +23,8 @@ from impacts_estimation.utils import RecipeImpactCalculator, natural_bounds, nut
     flat_ingredients_list, individualize_ingredients, original_id, nutriments_from_recipe, \
     remove_percentage_from_product, confidence_score, UnknownIngredientsRemover
 from impacts_estimation.vars import NUTRIMENTS_CATEGORIES, QUALITY_DATA_WARNINGS, \
-    TOP_LEVEL_NUTRIMENTS_CATEGORIES, MAX_ASH_CONTENT, FERMENTATION_AGENTS, FERMENTED_FOOD_CATEGORIES
+    TOP_LEVEL_NUTRIMENTS_CATEGORIES, MAX_ASH_CONTENT, FERMENTATION_AGENTS, FERMENTED_FOOD_CATEGORIES, \
+    HIGH_WATER_LOSS_CATEGORIES
 from settings import VERBOSITY, IMPACT_INTERQUARTILE_WARNING_THRESHOLD, \
     UNCHARACTERIZED_INGREDIENTS_MASS_WARNING_THRESHOLD, \
     UNCHARACTERIZED_INGREDIENTS_RATIO_WARNING_THRESHOLD, MAX_CONSECUTIVE_RECIPE_CREATION_ERROR, \
@@ -765,6 +766,7 @@ class ImpactEstimator:
         self.ignore_unknown_ingredients = ignore_unknown_ingredients
         self.ignored_unknown_ingredients = []
         self.product_quantity = quantity
+        self.adjusted_maximum_evaporation_coefficient = None
 
         # Assert the product has ingredients
         if 'ingredients' not in product:
@@ -778,6 +780,7 @@ class ImpactEstimator:
 
         # Performing checks on product type
         self._check_fermented_product()
+        self._check_product_water_loss()
 
         # Performing checks for multilevel ingredients
         self._check_ingredients()
@@ -857,6 +860,26 @@ class ImpactEstimator:
                     del self.product['nutriments'][f"{nutrition_item_to_delete}_100g"]
                 except KeyError:
                     pass
+
+    def _check_product_water_loss(self):
+        """
+           Some products (cheeses for example) may have a bigger water loss than other. If the product is in a category
+           with a high water loss potential, the maximum evaporation parameter will be automatically adjusted.
+        """
+        detected_high_water_loss_categories = [cat for cat in self.product.get('categories_tags')
+                                               if cat in HIGH_WATER_LOSS_CATEGORIES]
+
+        adjusted_coeff = 0
+        warning_message = None
+        for category in detected_high_water_loss_categories:
+            if HIGH_WATER_LOSS_CATEGORIES[category] > adjusted_coeff:
+                adjusted_coeff = HIGH_WATER_LOSS_CATEGORIES[category]
+                warning_message = f"The category {category} may have an important water loss. " \
+                                  f"The maximum evaporation coefficient has been adjusted to {adjusted_coeff}."
+
+        if detected_high_water_loss_categories:
+            self.adjusted_maximum_evaporation_coefficient = adjusted_coeff
+            self.warnings.append(warning_message)
 
     def _check_ingredients(self):
         """ Performs some checks on multilevel ingredients. """
@@ -1056,6 +1079,9 @@ class ImpactEstimator:
             attributes such as the standard deviation of the impacts of all computed recipes, the list of unknown
             ingredients contained in the product, the average mass percentage of unknown ingredients.
         """
+
+        if self.adjusted_maximum_evaporation_coefficient:
+            maximum_evaporation = self.adjusted_maximum_evaporation_coefficient
 
         if ('nutriments' not in self.product) and use_nutritional_info:
             raise AttributeError("The product has no nutriments field. Set use_nutritional_info=False to force a "
