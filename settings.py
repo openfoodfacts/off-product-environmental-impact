@@ -17,7 +17,7 @@ UNCHARACTERIZED_INGREDIENTS_MASS_WARNING_THRESHOLD = 0.10
 IMPACT_INTERQUARTILE_WARNING_THRESHOLD = 0.25
 
 # 0: No output, 1: ImpactEstimator output, 2: + RandomCompositionCreator outputs, 3: + Solver output
-VERBOSITY = 1
+VERBOSITY = 0
 
 # Duration of the solver timeout in seconds
 SOLVER_TIMEOUT = 120
