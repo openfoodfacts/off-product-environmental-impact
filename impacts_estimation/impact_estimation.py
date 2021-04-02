@@ -1,7 +1,7 @@
 """ Environmental impact estimation for Open Food Facts products  """
 
 import time
-from random import uniform, shuffle
+from random import uniform, shuffle, choice
 from statistics import mean
 import copy
 import math
@@ -63,7 +63,7 @@ class RecipeImpactCalculator:
                 self.ingredients_impacts[ingredient] = ingredient_impact_data['amount']
             else:
                 # Pick a random uncertainty distribution
-                uncertainty_distribution = random.choice(ingredient_impact_data['uncertainty_distributions'])
+                uncertainty_distribution = choice(ingredient_impact_data['uncertainty_distributions'])
                 if uncertainty_distribution['distribution'] == 'normal':
                     self.ingredients_impacts[ingredient] = rng.normal(uncertainty_distribution['mean'],
                                                                       uncertainty_distribution['standard deviation'])
@@ -984,7 +984,7 @@ class ImpactEstimator:
            Some products (cheeses for example) may have a bigger water loss than other. If the product is in a category
            with a high water loss potential, the maximum evaporation parameter will be automatically adjusted.
         """
-        detected_high_water_loss_categories = [cat for cat in self.product.get('categories_tags')
+        detected_high_water_loss_categories = [cat for cat in self.product.get('categories_tags', [])
                                                if cat in HIGH_WATER_LOSS_CATEGORIES]
 
         adjusted_coeff = 0
