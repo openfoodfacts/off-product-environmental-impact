@@ -697,8 +697,6 @@ class RandomRecipeCreator:
             float: Total mass of ingredients used in g.
         """
 
-        # TODO: See if it can be optimized. If there is only one maximum, stop when the score is decreasing
-
         if self.total_mass_used is not None:
             return self.total_mass_used
 
@@ -1261,6 +1259,8 @@ class ImpactEstimator:
             del convergence_reached[impact_name]
 
         consecutive_null_impact_characterized_ingredients_mass = 0
+
+        # Starting a loop that will end when the convergence is reached for all impacts
         while True:
             # Increment the run counter
             run += 1
