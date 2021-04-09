@@ -11,10 +11,10 @@
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+
+import os
+import sys
+sys.path.insert(0, os.path.abspath('../..'))
 
 
 # -- Project information -----------------------------------------------------
@@ -27,7 +27,6 @@ author = 'Gustave Coste'
 version = ''
 # The full version, including alpha/beta/rc tags
 release = ''
-
 
 # -- General configuration ---------------------------------------------------
 
@@ -42,6 +41,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
     'sphinx.ext.mathjax',
+    'sphinx-mathjax-offline',
     'sphinxcontrib.napoleon',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
@@ -74,7 +74,6 @@ exclude_patterns = []
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = None
-
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -110,7 +109,6 @@ html_static_path = ['_static']
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'OpenFoodFactsProductEnvironmentalImpactdoc'
 
-
 # -- Options for LaTeX output ------------------------------------------------
 
 latex_elements = {
@@ -135,20 +133,21 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'OpenFoodFactsProductEnvironmentalImpact.tex', 'Open Food Facts Product Environmental Impact Documentation',
+    (master_doc, 'OpenFoodFactsProductEnvironmentalImpact.tex',
+     'Open Food Facts Product Environmental Impact Documentation',
      'Gustave Coste', 'manual'),
 ]
-
 
 # -- Options for manual page output ------------------------------------------
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'openfoodfactsproductenvironmentalimpact', 'Open Food Facts Product Environmental Impact Documentation',
-     [author], 1)
+    (
+        master_doc, 'openfoodfactsproductenvironmentalimpact',
+        'Open Food Facts Product Environmental Impact Documentation',
+        [author], 1)
 ]
-
 
 # -- Options for Texinfo output ----------------------------------------------
 
@@ -156,11 +155,12 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'OpenFoodFactsProductEnvironmentalImpact', 'Open Food Facts Product Environmental Impact Documentation',
-     author, 'OpenFoodFactsProductEnvironmentalImpact', 'One line description of project.',
-     'Miscellaneous'),
+    (
+        master_doc, 'OpenFoodFactsProductEnvironmentalImpact',
+        'Open Food Facts Product Environmental Impact Documentation',
+        author, 'OpenFoodFactsProductEnvironmentalImpact', 'One line description of project.',
+        'Miscellaneous'),
 ]
-
 
 # -- Options for Epub output -------------------------------------------------
 
@@ -178,6 +178,5 @@ epub_title = project
 
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
-
 
 # -- Extension configuration -------------------------------------------------
