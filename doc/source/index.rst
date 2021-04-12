@@ -11,7 +11,7 @@ Welcome to Open Food Facts Product Environmental Impact's documentation!
    :caption: Contents:
 
    readme
-   food-product-modeling
+   food-product-modelling
    getting-possible-recipe-from-product-information
    calculating-recipe-confidence-score
    calculating-recipe-environmental-impact
