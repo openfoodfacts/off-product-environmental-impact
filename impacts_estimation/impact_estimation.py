@@ -49,17 +49,29 @@ class RecipeImpactCalculator:
         """
         self.recipe = recipe
         self.impact_name = impact_name
+        self.use_uncertainty = use_uncertainty
         self.ingredients_impacts = dict()
+        self.known_ingredients_mass = None
+        self.known_ingredients_impact = None
 
-        # Getting the impact of each ingredient. If the ingredient has no uncertainty parameters or use_uncertainty is
-        # set to False, simply use the default value. Else pick a value using the uncertainty parameters.
-        for ingredient in recipe:
+        self.impact_computed = False
+        self.impact_shares_computed = False
+
+        self._define_ingredients_impacts()
+
+    def _define_ingredients_impacts(self):
+        """
+        Getting the impact of each ingredient. If the ingredient has no uncertainty parameters or use_uncertainty is
+        set to False, simply use the default value. Else pick a value using the uncertainty parameters.
+        """
+
+        for ingredient in self.recipe:
             try:
-                ingredient_impact_data = ingredients_data[ingredient]['impacts'][impact_name]
+                ingredient_impact_data = ingredients_data[ingredient]['impacts'][self.impact_name]
             except KeyError:
                 continue
             rng = np.random.default_rng()
-            if ('uncertainty_distributions' not in ingredient_impact_data) or (not use_uncertainty):
+            if ('uncertainty_distributions' not in ingredient_impact_data) or (not self.use_uncertainty):
                 self.ingredients_impacts[ingredient] = ingredient_impact_data['amount']
             else:
                 # Pick a random uncertainty distribution
@@ -91,33 +103,44 @@ class RecipeImpactCalculator:
                     raise ValueError(f"Unknown distribution type {uncertainty_distribution['distribution']}"
                                      f" for ingredient {ingredient}")
 
+    def _compute_impact(self):
         # Computing the impact of the recipe
-        known_ingredients_impact = 0
-        known_ingredients_mass = 0
+        self.known_ingredients_impact = 0
+        self.known_ingredients_mass = 0
         total_mass = sum([float(x) for x in self.recipe.values()])
 
         # Looping on all ingredients that has a value for the considered impact
         for ingredient_name, ingredient_impact in self.ingredients_impacts.items():
             # Adding the ingredient to the known ingredients mass
-            known_ingredients_mass += float(self.recipe[ingredient_name])
+            self.known_ingredients_mass += float(self.recipe[ingredient_name])
 
             # Adding the impact to the result
-            known_ingredients_impact += float(self.recipe[ingredient_name]) * ingredient_impact / IMPACT_MASS_UNIT
+            self.known_ingredients_impact += float(self.recipe[ingredient_name]) * ingredient_impact / IMPACT_MASS_UNIT
 
-        if known_ingredients_mass == 0:
+        if self.known_ingredients_mass == 0:
             self._recipe_impact = None
         else:
             # Inflating the impact of the known ingredients to the impact of the total mass of these ingredients
-            self._recipe_impact = known_ingredients_impact * total_mass / known_ingredients_mass
+            self._recipe_impact = self.known_ingredients_impact * total_mass / self.known_ingredients_mass
+
+        self.impact_computed = True
+
+    def _compute_impact_shares(self):
+
+        # Compute impact if it has not been done yet
+        if not self.impact_computed:
+            self._compute_impact()
 
         # Computing the impact share for each ingredient
         self.ingredients_impacts_shares = dict()
-        if known_ingredients_mass != 0:
+        if self.known_ingredients_mass != 0:
             for ingredient_name, ingredient_impact in self.ingredients_impacts.items():
                 self.ingredients_impacts_shares[ingredient_name] = \
                     (self.ingredients_impacts[ingredient_name] * float(self.recipe[ingredient_name])
                      / IMPACT_MASS_UNIT) \
-                    / known_ingredients_impact
+                    / self.known_ingredients_impact
+
+        self.impact_shares_computed = True
 
     def get_recipe_impact(self):
         """
@@ -129,10 +152,20 @@ class RecipeImpactCalculator:
         Returns:
             float: Impact of the product
         """
+
+        # Compute impact if it has not been done yet
+        if not self.impact_computed:
+            self._compute_impact()
+
         return self._recipe_impact
 
     def get_ingredient_impact_share(self, ingredient):
         """ Returns the share of the recipe impact that is due to the given ingredient """
+
+        # Compute impact if it has not been done yet
+        if not self.impact_shares_computed:
+            self._compute_impact_shares()
+
         if ingredient not in self.recipe:
             return ValueError('The ingredient is not present in the recipe.')
 
