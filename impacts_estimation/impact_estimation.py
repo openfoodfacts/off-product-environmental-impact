@@ -495,8 +495,8 @@ class RandomRecipeCreator:
     def _remove_decreasing_order_constraint_from_rank(self, rank):
         """
         Removes the decreasing proportion order constraint for all ingredients from the given rank.
-        If an ingredient is below a certain proportion (2% in EU law), it may not be indicated in decreasing proportion
-        order.
+        If an ingredient is below a certain proportion (2% in EU regulation), it may not be indicated in decreasing
+        proportion order.
 
         Args:
             rank (int): Rank of the ingredient from which the decreasing proportion order constraint shall be replaced
