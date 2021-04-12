@@ -3,13 +3,15 @@ Food product modelling
 
 Among other information, the Open Food Facts database contains the ingredient list and nutritional composition of each product. Coupling this information to physical and regulatory constraints makes possible to guess the recipe of the product. In order to do this, the following conceptual framework have been developed.
 
-Let a product of mass :math:`F` be composed of a set of ingredients :math:`i \in I`. Let :math:`M` be the total mass of ingredients used
-before processing. Let :math:`m_i` be the mass of ingredient :math:`i` used and :math:`p_i` its proportion of the total mass :math:`M`.
+Let a product of mass :math:`F` be composed of a set of ingredients :math:`I`. Let :math:`M` be the total mass of ingredients used
+before processing. Let :math:`m_i` be the mass of ingredient :math:`i \in I` used and :math:`p_i` its proportion of the total mass :math:`M`.
 
 .. math::
     M = \sum_{i \in I}{m_i}\\
     \forall i \in I, m_i = M.p_i\\
 
+.. note::
+    This equation is implemented by :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_total_leaves_percentage_constraint`
 
 Ingredients order
 -----------------
@@ -18,6 +20,21 @@ The ingredient list is given by decreasing proportion at the moment of incorpora
 
 .. math::
     \forall i \in I, p_{i+1} \le \max(p_i, 0.02)
+
+.. note::
+    This equation is implemented by :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_mass_order_constraints` and :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._remove_decreasing_order_constraint_from_rank`.
+
+Compound ingredients
+--------------------
+
+The ingredients composing a food product can themselves be composed by sub-ingredients. Let :math:`i` be an ingredient of :math:`I`. Let :math:`m_j` be the mass of ingredient :math:`j \in i` used and :math:`p_i` its proportion of the mass :math:`m_i`.
+
+.. math::
+    m_i = \sum_{j \in i}{m_j}\\
+    \forall j \in i, m_j = m_i.p_j\\
+
+.. note::
+    This equation is implemented by :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_total_subingredients_percentages_constraint`
 
 Nutriments balance
 ------------------
@@ -76,6 +93,10 @@ Thus:
     M\sum_{i \in I}{p_i\cdot c_{max,n,i}} \ge (1 - \delta) F_n - \varepsilon_n  \\
     M\sum_{i \in I}{p_i\cdot c_{min,n,i}} \le (1 + \delta) F_n + \varepsilon_n
 
+.. note::
+    These equations are implemented by :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_nutritional_constraints`.
+    :func:`~impacts_estimation.utils.nutritional_error_margin` gives the relative and absolute margin for a nutriment and a value.
+
 Water balance
 -------------
 
@@ -95,6 +116,9 @@ Thus:
 .. math::
         M \left(1 - E \sum_{i \in I} p_i \cdot c_{max,w,i}\right) \le F \le M \left(1 - E \sum_{i \in I} p_i \cdot c_{min,w,i}\right)
 
+.. note::
+    This equation is implemented by :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_evaporation_constraint`
+
 Moreover, $F$ can be used to bound the value of the total mass used $M$.
 Indeed, in the case where the product is only made of water, we have:
 
@@ -105,6 +129,9 @@ By extending it to the general case, we can deduce:
 
 .. math::
     F \le M \le \frac{F}{1-E}
+
+.. note::
+    This equation is implemented by :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_used_mass_constraint`
 
 Mass balance
 ------------
@@ -119,6 +146,9 @@ Considering that food products consist only of water and nutrients, we have:
 
 .. math::
     M\sum_{i \in I}{p_i \left( (1-E) c_{min,w,i} + \sum_{n \in N}{c_{min,n,i}}\right)} \le F \le M\sum_{i \in I}{p_i \left( (1-E) c_{max,w,i} + \sum_{n \in N}{c_{max,n,i}}\right)}
+
+.. note::
+    This equation is implemented by :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_product_mass_constraint`
 
 Product environmental impact
 ----------------------------
