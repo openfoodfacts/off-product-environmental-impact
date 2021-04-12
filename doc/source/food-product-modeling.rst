@@ -159,3 +159,6 @@ The impact :math:`A_c` of the product in category :math:`c` is defined by the su
 
 .. math::
     \forall c \in C, A_c = \sum_{i\in I} m_i \cdot \alpha_{c,i}
+
+.. note::
+    This equation is implemented by :meth:`~impacts_estimation.impact_estimation.RecipeImpactCalculator._compute_impact`
