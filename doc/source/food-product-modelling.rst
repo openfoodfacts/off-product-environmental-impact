@@ -43,6 +43,7 @@ Let :math:`N` be the set of nutrient types considered. Let :math:`F_n` be the ma
 
 
 .. table:: Nutriment information error margins (source: INCO EU regulation)
+    :align: center
 
     +-------------------------------+------------------+--------------+
     | Nutrient                      | Content (g/100g) | Error margin |
