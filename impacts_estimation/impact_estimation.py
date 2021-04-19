@@ -38,7 +38,7 @@ ing_with_ref_prct_dist = list(ref_ing_dist.id.unique())
 
 
 class RecipeImpactCalculator:
-    def __init__(self, recipe, impact_name, use_uncertainty=True):
+    def __init__(self, recipe, impact_name, use_uncertainty=False):
         """
 
         Args:
@@ -179,7 +179,7 @@ class RecipeImpactCalculator:
         return self.ingredients_impacts_shares[ingredient]
 
 
-def impact_from_recipe(recipe, impact_name, use_uncertainty=True):
+def impact_from_recipe(recipe, impact_name, use_uncertainty=False):
     """ Wrapper for RecipeImpactCalculator """
     recipe_impact_calculator = RecipeImpactCalculator(recipe=recipe,
                                                       impact_name=impact_name,
