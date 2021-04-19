@@ -76,6 +76,7 @@ def confidence_score(nutri, reference_nutri, total_mass, min_possible_mass, max_
     min_possible_mass = min_possible_mass / 100
     max_possible_mass = max_possible_mass / 100
 
+    # Calculating nutritional distance
     squared_differences = []
     n = 0
     for nutriment in nutri:
@@ -98,12 +99,16 @@ def confidence_score(nutri, reference_nutri, total_mass, min_possible_mass, max_
     # The distance in the n-dimensional space is the square root of the sum of the squared differences
     nutri_distance = sqrt(sum(squared_differences))
 
+    # Normalizing by the maximum possible distance sqrt(n) to ignore the number of dimensions
+    normalized_nutri_distance = nutri_distance / sqrt(n)
+
+    # Calculating total mass likelihood coefficient
     if total_mass < 1:
         mass_diff = (1 - total_mass) / (1 - min_possible_mass)
     else:
         mass_diff = (total_mass - 1) / (max_possible_mass - 1)
 
-    return 1 / ((nutri_distance * weighting_factor) + mass_diff)
+    return 1 / ((normalized_nutri_distance * weighting_factor) + mass_diff)
 
 
 def natural_bounds(rank, nb_ingredients):
