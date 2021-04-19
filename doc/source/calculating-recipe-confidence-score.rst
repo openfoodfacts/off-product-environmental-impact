@@ -28,7 +28,7 @@ The total ingredients mass can also be used to assess the likelihood of a recipe
 
 A total ingredient mass likelihood indicator can easily be created by looking at how far the mass is from the product mass compared to the bounds.
 
-Let :math:`F` be the final mass of the product, :math:`M` the total mass of ingredients used, :math:`M_{min}` the minimum possible mass of ingredients used (:math:`M_{min} = F` if :code:`allow_unbalanced_recipe=False`) and :math:`M_{max}` the maximum possible mass of ingredients (:math:`M_{max} = \frac{F}{1-E}`). The total ingredient mass component of the confidence score :math:`S_{mass}` is defined as follows.
+Let :math:`F` be the final mass of the product, :math:`M` the total mass of ingredients used, :math:`M_{min}` the minimum possible mass of ingredients used (:math:`M_{min} = F` if ``allow_unbalanced_recipe=False``) and :math:`M_{max}` the maximum possible mass of ingredients (:math:`M_{max} = \frac{F}{1-E}`). The total ingredient mass component of the confidence score :math:`S_{mass}` is defined as follows.
 
 .. math::
     S_{mass} =
