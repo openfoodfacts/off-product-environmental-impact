@@ -46,21 +46,21 @@ Solver parameters
 
 The constructor of :class:`~impacts_estimation.impact_estimation.RandomRecipeCreator` accepts several parameters related to the solver setting.
 
-* :code:`dual_gap_type` allows to choose the type of measurement of the `duality gap <https://en.wikipedia.org/wiki/Duality_gap>`_. It can be seen as an expression of whether the precision of the variable optimization must be absolute or relative.
-* :code:`dual_gap_limit` determines the precision of the variable optimization by the solver. Relative or absolute according to :code:`dual_gap_type`.
-* :code:`solver_time_limit` allows to set a maximum time for the solver optimization (in seconds). Set to :code:`None` or :code:`0` to set no limit.
-* :code:`time_limit_dual_gap_limit` allows to set an alternative precision in case of time limit hit. If the time limit is hit and the duality gap is still higher than this parameter, a :class:`~impacts_estimation.exceptions.RecipeCreationError` is raised.
+* ``dual_gap_type`` allows to choose the type of measurement of the `duality gap <https://en.wikipedia.org/wiki/Duality_gap>`_. It can be seen as an expression of whether the precision of the variable optimization must be absolute or relative.
+* ``dual_gap_limit`` determines the precision of the variable optimization by the solver. Relative or absolute according to ``dual_gap_type``.
+* ``solver_time_limit`` allows to set a maximum time for the solver optimization (in seconds). Set to ``None`` or ``0`` to set no limit.
+* ``time_limit_dual_gap_limit`` allows to set an alternative precision in case of time limit hit. If the time limit is hit and the duality gap is still higher than this parameter, a :class:`~impacts_estimation.exceptions.RecipeCreationError` is raised.
 
 Solver variables
 ++++++++++++++++
 
 Using the conceptual framework detailed in :ref:`Food product modelling`, :class:`~impacts_estimation.impact_estimation.RandomRecipeCreator` implements the following solver variables:
 
-* The attribute :code:`total_mass_var` corresponds to the total mass of ingredients used before transformation :math:`M`
-* The attribute :code:`evaporation_var` corresponds to the evaporation coefficient :math:`E`
-* The variables stored in the :code:`ingredient_vars` dictionary correspond to the proportions of ingredients :math:`p_i, i \in I`
+* The attribute ``total_mass_var`` corresponds to the total mass of ingredients used before transformation :math:`M`
+* The attribute ``evaporation_var`` corresponds to the evaporation coefficient :math:`E`
+* The variables stored in the ``ingredient_vars`` dictionary correspond to the proportions of ingredients :math:`p_i, i \in I`
 
-The other components of the model such as the minimum and maximum nutrients and water content of ingredients are considered as constants and are given in :code:`ingredients_data.json` (see :ref:`Ingredients characterization`).
+The other components of the model such as the minimum and maximum nutrients and water content of ingredients are considered as constants and are given in ``ingredients_data.json`` (see :ref:`Ingredients characterization`).
 
 Solver constraints
 ++++++++++++++++++
@@ -79,7 +79,7 @@ The constraints on the variables corresponding to the equations detailed in :ref
 Constraints relaxation
 ++++++++++++++++++++++
 
-In some cases, imperfections of the food product modelling or erroneous data can lead to an empty space of possible solutions. The parameter :code:`const_relax_coef` can help to overcome this limitation by relaxing the constraints and then expending the space of possible solutions.
+In some cases, imperfections of the food product modelling or erroneous data can lead to an empty space of possible solutions. The parameter ``const_relax_coef`` can help to overcome this limitation by relaxing the constraints and then expending the space of possible solutions.
 
 Choosing the ingredient proportion
 ----------------------------------
@@ -90,8 +90,8 @@ Getting the bounds of the ingredient's proportion is done with the method :meth:
 
 Once the bounds of the ingredient's proportion are defined, :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._pick_proportion` will randomly choose a proportion within them by one of the following ways:
 
-* If there is less than :code:`min_prct_dist_size` products in Open Food Facts that has a percentage value within the bounds for this ingredient, the proportion is chosen using a uniform distribution between the bounds.
-* Otherwise, a `Kernel Density Estimator <https://en.wikipedia.org/wiki/Kernel_density_estimation>`_ is fit with the percentage data of the products from the most specific category of the current product that has at least :code:`min_prct_dist_size` defined percentages for this ingredient within the bounds. This KDE is then used to randomly draw a proportion for the ingredient.
+* If there is less than ``min_prct_dist_size`` products in Open Food Facts that has a percentage value within the bounds for this ingredient, the proportion is chosen using a uniform distribution between the bounds.
+* Otherwise, a `Kernel Density Estimator <https://en.wikipedia.org/wiki/Kernel_density_estimation>`_ is fit with the percentage data of the products from the most specific category of the current product that has at least ``min_prct_dist_size`` defined percentages for this ingredient within the bounds. This KDE is then used to randomly draw a proportion for the ingredient.
 
 This way of choosing the ingredient proportion helps to obtain a proportion that is not only possible but also probable.
 
@@ -100,7 +100,7 @@ This way of choosing the ingredient proportion helps to obtain a proportion that
     :align: center
     :alt: Ingredients proportion choice
 
-    Example with :code:`min_prct_dist_size = 7`
+    Example with ``min_prct_dist_size = 7``
 
 Choosing the total ingredient mass
 ----------------------------------
@@ -119,7 +119,7 @@ Allowing unbalanced recipes
 
 One of the most obvious characteristics of the total mass of ingredients used :math:`M` is that it is superior or equal to the final product mass :math:`F`. The processing of the ingredients may lead to water loss but the recipe cannot use less ingredients that the final mass of the product.
 
-Unfortunately, this simple rule leads to a bias in the total mass estimation. As the total mass value has a lower bound (:math:`F`) but no upper bound (more exactly a very high upper bound which is :math:`\frac{F}{1-E}`), this algorithm tends to overestimate the total ingredient mass more often than it underestimates it. For some use cases it may not be an issue but for impact estimation by Monte-Carlo sampling (see :ref:`Estimating product impact`), it leads to overestimation of the product impact. To avoid this behaviour, :class:`~impacts_estimation.impact_estimation.RandomRecipeCreator`'s constructor has a parameter :code:`allow_unbalanced_recipe` that when set to :code:`True` will replace the constraint :math:`F<M` by :math:`xF<M` were :math:`x` is a constant defined in :py:mod:`~impacts_estimation.vars` and is :math:`0.5` by default.
+Unfortunately, this simple rule leads to a bias in the total mass estimation. As the total mass value has a lower bound (:math:`F`) but no upper bound (more exactly a very high upper bound which is :math:`\frac{F}{1-E}`), this algorithm tends to overestimate the total ingredient mass more often than it underestimates it. For some use cases it may not be an issue but for impact estimation by Monte-Carlo sampling (see :ref:`Estimating product impact`), it leads to overestimation of the product impact. To avoid this behaviour, :class:`~impacts_estimation.impact_estimation.RandomRecipeCreator`'s constructor has a parameter ``allow_unbalanced_recipe`` that when set to ``True`` will replace the constraint :math:`F<M` by :math:`xF<M` were :math:`x` is a constant defined in :py:mod:`~impacts_estimation.vars` and is :math:`0.5` by default.
 
 .. warning::
     This feature may lead to recipes with an imperfect mass balance and should be used carefully.
