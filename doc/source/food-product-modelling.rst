@@ -1,7 +1,7 @@
 Food product modelling
 ======================
 
-Among other information, the Open Food Facts database contains the ingredient list and nutritional composition of each product. Coupling this information to physical and regulatory constraints makes possible to guess the recipe of the product. In order to do this, the following conceptual framework have been developed.
+Among other information, the Open Food Facts database contains the ingredient list and nutritional composition of each product. Coupling this information to physical and regulatory constraints makes it possible to guess the recipe of the product. In order to do this, the following conceptual framework have been developed.
 
 Let a product of mass :math:`F` be composed of a set of ingredients :math:`I`. Let :math:`M` be the total mass of ingredients used
 before processing. Let :math:`m_i` be the mass of ingredient :math:`i \in I` used and :math:`p_i` its proportion of the total mass :math:`M`.
@@ -120,7 +120,7 @@ Thus:
 .. note::
     This equation is implemented by :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_evaporation_constraint`
 
-Moreover, $F$ can be used to bound the value of the total mass used $M$.
+Moreover, :math:`F` can be used to bound the value of the total mass used :math:`M`.
 Indeed, in the case where the product is only made of water, we have:
 
 .. math::
