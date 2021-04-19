@@ -12,7 +12,7 @@ Algorithm overview
 The algorithm is based on the use of a nonlinear optimization solver and a technique called *Optimization-Based Bound Tightening* to deduce the ranges of possible values of the percentages of each ingredient respecting the constraints of the system by successively maximizing and minimizing it.
 Once this range has been delimited, it is then possible to draw a random percentage value for each ingredient.
 
-Let us take a simplified system composed of three ingredients :math:`a`, :math:`b` and :math:`c` and whose only constraints are :math:`m_a+m_b+m_c=100` and :math:`m_a > m_b > m_c` . Since the total mass of the ingredients is equal to 100, we can represent this system in a ternary diagram.
+Let us take a simplified system composed of three ingredients :math:`a`, :math:`b` and :math:`c` and whose only constraints are :math:`m_a+m_b+m_c=100` and :math:`m_a > m_b > m_c` . Since the total mass of the ingredients is equal to 100, we can represent this system in a `ternary plot <https://en.wikipedia.org/wiki/Ternary_plot>`_.
 
 .. image:: /_static/ternary_diagram_1.svg
     :width: 300
@@ -65,7 +65,7 @@ The other components of the model such as the minimum and maximum nutrients and 
 Solver constraints
 ++++++++++++++++++
 
-The constraints of the variables corresponding to the equations detailed in :ref:`Food product modelling` are added to the solver by dedicated methods:
+The constraints on the variables corresponding to the equations detailed in :ref:`Food product modelling` are added to the solver by dedicated methods:
 
 * :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_total_leaves_percentage_constraint`
 * :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_mass_order_constraints`
@@ -75,6 +75,9 @@ The constraints of the variables corresponding to the equations detailed in :ref
 * :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_evaporation_constraint`
 * :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_used_mass_constraint`
 * :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_product_mass_constraint`
+
+Constraints relaxation
+++++++++++++++++++++++
 
 In some cases, imperfections of the food product modelling or erroneous data can lead to an empty space of possible solutions. The parameter :code:`const_relax_coef` can help to overcome this limitation by relaxing the constraints and then expending the space of possible solutions.
 

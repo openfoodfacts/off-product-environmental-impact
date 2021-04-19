@@ -24,7 +24,7 @@ The distance :math:`d` is the Euclidean distance between the reference and calcu
 Total ingredients mass likelihood
 ---------------------------------
 
-The total ingredients mass can also be used to assess the likelihood of a recipe. In one hand, the assumption can be made that the food producers will tend to use as less ingredient as possible for a product to decrease production costs. Thus, the higher the total ingredient mass, the less likely the recipe is. In the other hand, when unbalanced recipes are allowed (see :ref:`Allowing unbalanced recipes`) and the total ingredient mass is lower than the final product mass, the lower the total ingredient mass, the less likely the recipe is.
+The total ingredients mass can also be used to assess the likelihood of a recipe. In one hand, the assumption can be made that the food producers will tend to use as less ingredient as possible for a product to decrease production costs. Thus, the higher the total ingredient mass, the less likely the recipe is. In the other hand, when unbalanced recipes are allowed (see :ref:`Allowing unbalanced recipes`) and the total ingredient mass is lower than the final product mass, the lower the total ingredient mass, the more the skewed the mass balance is and the less likely the recipe is.
 
 A total ingredient mass likelihood indicator can easily be created by looking at how far the mass is from the product mass compared to the bounds.
 
