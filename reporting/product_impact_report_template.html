@@ -1,0 +1,44 @@
+<h1>{{product_name}}</h1>
+<h2>{{barcode}}</h2>
+
+<img src="{{ images_filepath['main_impact_plot'] }}">
+<img src="{{ images_filepath['impact_per_step_plot'] }}">
+<img src="{{ images_filepath['impact_per_step_legend'] }}">
+<img src="{{ images_filepath['impact_per_ingredient_plot'] }}">
+<img src="{{ images_filepath['impact_per_ingredient_legend'] }}">
+
+<table style="border: 1px solid black;">
+    <thead>
+    <tr>
+        <th>Open Food Facts id</th>
+        <th>Nutritional reference</th>
+        <th colspan="2">Impact share</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for ingredient in ingredients_data %}
+    <tr>
+        <td>{{ingredient.id}}</td>
+        <td>
+            <table>
+                    {% for nutri_ref in ingredient[''] %}
+                    <tr>
+                        <td> {{ nutri_ref }} </td>
+                    </tr>
+                    {% endfor %}
+            </table>
+        </td>
+        <td>
+            {% if ingredient.impact_share is not none %}
+            {{ ingredient.impact_share | round(2)}}
+            {% endif %}
+        </td>
+        <td>
+            {% if ingredient.impact_share_prct is not none %}
+            {{ ingredient.impact_share_prct | round(1) }} %
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
