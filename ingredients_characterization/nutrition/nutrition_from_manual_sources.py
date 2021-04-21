@@ -66,9 +66,9 @@ def main():
                                                                            for k, v in ingredient['nutriments'].items()
                                                                            if k in TOP_LEVEL_NUTRIMENTS_CATEGORIES]))
 
-        ingredient['nutritional_data_sources'] = {'database': 'manual sources',
+        ingredient['nutritional_data_sources'] = [{'database': 'manual sources',
                                                   'entry': nutrition_data.SOURCE if pd.notnull(
-                                                      nutrition_data.SOURCE) else None}
+                                                      nutrition_data.SOURCE) else None}]
 
         ingredients_data[ingredient_name] = ingredient
 
