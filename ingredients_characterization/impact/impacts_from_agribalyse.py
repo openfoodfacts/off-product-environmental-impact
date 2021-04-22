@@ -7,7 +7,7 @@ from scipy.stats import gmean
 
 from data import INGREDIENTS_DATA_FILEPATH
 from ingredients_characterization.vars import AGRIBALYSE_DATA_FILEPATH
-from impacts_estimation.vars import IMPACT_MASS_UNIT
+from impacts_estimation.vars import IMPACT_MASS_UNIT, AGRIBALYSE_IMPACT_UNITS
 
 
 def main():
@@ -55,7 +55,7 @@ def main():
                     # Agribalyse impacts are given per 1kg of product.
                     #  If using a different source, ensure of consistency
                     assert (IMPACT_MASS_UNIT == 1000) and ('/kg de produit' in impact_data['unite'])
-                    ingredient['impacts'][impact_category]['unit'] = impact_data['unite'].replace('/kg de produit', '')
+                    ingredient['impacts'][impact_category]['unit'] = AGRIBALYSE_IMPACT_UNITS[impact_category]
 
             # Adding the impact values to the ingredient
             for impact_category, impacts in lcis_impacts.items():

@@ -82,6 +82,24 @@ AGRIBALYSE_IMPACT_CATEGORIES = [
     "Épuisement des ressources énergétiques",
     "Épuisement des ressources minéraux"]
 
+AGRIBALYSE_IMPACT_UNITS = {
+    "Score unique EF": "mPt",
+    "Changement climatique": "kg CO2 eq",
+    "Appauvrissement de la couche d'ozone": "E-06 kg CVC11 eq",
+    "Rayonnements ionisants": "kBq U-235 eq",
+    "Formation photochimique d'ozone": "E-03 kg NMVOC eq",
+    "Particules": "E-06 disease inc.",
+    "Acidification terrestre et eaux douces": "mol H+ eq",
+    "Eutrophisation terrestre": "mol N eq",
+    "Eutrophisation eaux douces": "E-03 kg P eq",
+    "Eutrophisation marine": "E-03 kg N eq",
+    "Utilisation du sol": "Pt",
+    "Écotoxicité pour écosystèmes aquatiques d'eau douce": "CTUe",
+    "Épuisement des ressources eau": "m3 depriv.",
+    "Épuisement des ressources énergétiques": "MJ",
+    "Épuisement des ressources minéraux": "E-06 kg Sb eq"
+}
+
 FERMENTATION_AGENTS = ['en:selected-ferments',
                        'en:selected-lactic-ferments',
                        'en:lactic-ferments',
