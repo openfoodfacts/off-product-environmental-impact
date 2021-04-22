@@ -68,7 +68,7 @@ def main():
 
         ingredient['nutritional_data_sources'] = [{'database': 'manual sources',
                                                   'entry': nutrition_data.SOURCE if pd.notnull(
-                                                      nutrition_data.SOURCE) else None}]
+                                                      nutrition_data.SOURCE) else 'Manual entry'}]
 
         ingredients_data[ingredient_name] = ingredient
 
