@@ -1,0 +1,33 @@
+@import url("pure-min.css");
+
+h1, h2 {
+    text-align: center
+}
+
+h3 {
+  color: #008040;
+}
+
+h4 {
+  color: #444444;
+}
+
+img {
+    vertical-align: middle;
+}
+
+div.centered-div {
+    text-align: center;
+}
+
+div.warning-block {
+     background-color: #fffbea;
+     border-left: solid 4px #e6c32d;
+     line-height: 18px;
+     overflow: hidden;
+     padding: 12px;
+}
+
+table.pure-table{
+    font-size: x-small;
+}

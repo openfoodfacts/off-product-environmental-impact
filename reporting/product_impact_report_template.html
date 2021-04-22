@@ -1,0 +1,145 @@
+<link href="style.css" rel=stylesheet>
+
+<div>
+    <h1>{{product_name}}</h1>
+    <h2>{{barcode}}</h2>
+
+    <h4>Product mass</h4>
+    <p><strong>{{ product_mass | round | int }}g</strong></p>
+
+    <h4>Estimated ingredients mass used</h4>
+    <p><strong>{{ total_mass_used | round | int }}g</strong></p>
+</div>
+
+{% if not has_agribalyse_proxy %}
+<div class="warning-block">
+    <p><strong>Warning: </strong>This product has no Agribalyse reference, the impact per step and the impact reference
+        cannot be calculated.</p>
+</div>
+{% endif %}
+
+
+<div>
+    <h3>Estimated impact for <em>{{ main_impact_category }}</em></h3>
+    <div class="centered-div">
+        <img src="{{ images_filepath['main_impact_plot'] }}">
+    </div>
+    <p>
+        <small>
+            The boxplot represents the 90% and 50% confidence intervals and the orange bar the estimated impact result.
+            {% if has_agribalyse_proxy %}
+            The green dotted line represents the impact of the reference Agribalyse category.
+            {% endif %}
+        </small>
+    </p>
+</div>
+{% if has_agribalyse_proxy %}
+<div>
+    <h3>Impact per step</h3>
+    <img src="{{ images_filepath['impact_per_step_plot'] }}">
+    <img src="{{ images_filepath['impact_per_step_legend'] }}">
+</div>
+{% endif %}
+<div>
+    <h3>Impact per ingredient</h3>
+    <img src="{{ images_filepath['impact_per_ingredient_plot'] }}">
+    <img src="{{ images_filepath['impact_per_ingredient_legend'] }}">
+</div>
+
+<div>
+    <h3>Open Food Facts categories</h3>
+    <p>{{ off_categories | join("</br>") }}</p>
+</div>
+
+<div>
+    <h3>Ingredients</h3>
+
+    <h4>Full ingredient list</h4>
+    {{ full_ingredient_list }}
+
+    <h4>Ingredients properties</h4>
+    <table class="pure-table">
+        <thead>
+        <tr>
+            <th>Open Food Facts id</th>
+            <th>Nutritional reference</th>
+            <th>Environmental impact reference</th>
+            <th colspan="2">Impact share for {{main_impact_category}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for ingredient in ingredients_data %}
+        <tr>
+            <td>{{ingredient.id}}</td>
+            <td>
+                {% if ingredient['nutritional_references']|length == 0 %}
+                {% elif ingredient['nutritional_references']|length == 1 %}
+                {{ ingredient['nutritional_references'][0] }}
+                {% else %}
+                <table>
+                    {% for nutri_ref in ingredient['nutritional_references'] %}
+                    <tr>
+                        <td> {{ nutri_ref }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% endif %}
+            </td>
+            <td>
+                {% if ingredient['environmental_references']|length == 0 %}
+                {% elif ingredient['environmental_references']|length == 1 %}
+                {{ ingredient['environmental_references'][0] }}
+                {% else %}
+                <table>
+                    {% for env_ref in ingredient['environmental_references'] %}
+                    <tr>
+                        <td> {{ env_ref }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% endif %}
+            </td>
+            <td>
+                {% if ingredient.impact_share is not none %}
+                {{ ingredient.impact_share | round(2)}}
+                {% endif %}
+            </td>
+            <td>
+                {% if ingredient.impact_share_prct is not none %}
+                {{ ingredient.impact_share_prct | round(1) }}&nbsp%
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <h3>Impacts</h3>
+    <table class="pure-table">
+        <thead>
+        <tr>
+            <th>Impact category</th>
+            <th>Amount</th>
+            <th>Unit</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for impact_category in impacts_table_data %}
+        <tr>
+            <td>{{ impact_category['category'] }}</td>
+            <td>{{ impact_category['amount'] | round(2)}}</td>
+            <td>{{ impact_category['unit'] }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if result_warnings | length >0 %}
+<div>
+    <h3>Warnings</h3>
+    <p>{{ result_warnings | join("</br>") }}</p>
+</div>
+{% endif %}
