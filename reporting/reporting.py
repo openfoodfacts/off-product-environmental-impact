@@ -10,7 +10,7 @@ import pylab
 import seaborn as sns
 
 from impacts_estimation.impact_estimation import estimate_impacts_safe
-from impacts_estimation.vars import AGRIBALYSE_IMPACT_CATEGORIES
+from impacts_estimation.vars import AGRIBALYSE_IMPACT_CATEGORIES, AGRIBALYSE_IMPACT_UNITS
 from utils import ensure_extension
 from ingredients_characterization.vars import AGRIBALYSE_DATA_FILEPATH
 from data import ingredients_data
@@ -48,7 +48,7 @@ class ProductImpactReport:
             raise ValueError('Both barcode and product parameters cannot be provided simultaneously.')
 
         if barcode is not None:
-            query_result = get_product(barcode)
+            query_result = get_product(str(barcode))
 
             if query_result['status'] == 0:
                 raise ValueError('The product corresponding to this barcode cannot be found.')
@@ -104,7 +104,7 @@ class ProductImpactReport:
     def main_impact_plot(self):
         """ Boxplot of the main impact """
 
-        fig, ax = plt.subplots(figsize=(4, 1.5))
+        fig, ax = plt.subplots(figsize=(6, 1.5))
 
         impact_base = self.impact_base[self.main_impact_category]
         boxes = [
@@ -117,7 +117,13 @@ class ProductImpactReport:
                 'whishi': impact_base + self.impact_result['impacts_quantiles'][self.main_impact_category]['0.95'],
             }
         ]
-        ax.bxp(boxes, vert=False, showfliers=False)
+        ax.bxp(boxes,
+               vert=False,
+               showfliers=False,
+               medianprops=dict(linewidth=3),
+               boxprops=dict(linewidth=3, color='#555555'),
+               whiskerprops=dict(linewidth=3, color='#555555'),
+               capprops=dict(linewidth=3, color='#555555'))
 
         if self.has_agribalyse_proxy:
             ax.axvline(self.agribalyse_proxy_data['impact_environnemental'][self.main_impact_category]['synthese'],
@@ -169,6 +175,7 @@ class ProductImpactReport:
         # Adding a second figure for the legend
         fig_legend = pylab.figure()
         fig_legend.legend(ax.get_legend_handles_labels()[0], ax.get_legend_handles_labels()[1])
+        fig_legend.tight_layout()
 
         return fig, fig_legend
 
@@ -203,6 +210,7 @@ class ProductImpactReport:
         # Adding a second figure for the legend
         fig_legend = pylab.figure()
         fig_legend.legend(ax.get_legend_handles_labels()[0], ax.get_legend_handles_labels()[1])
+        fig_legend.tight_layout()
 
         return fig, fig_legend
 
@@ -243,6 +251,22 @@ class ProductImpactReport:
 
         return result
 
+    def impacts_table_data(self):
+
+        result = []
+        for impact_category in self.impact_categories:
+            impact_data = {'category': impact_category,
+                           'unit': AGRIBALYSE_IMPACT_UNITS[impact_category]}
+
+            if impact_category in self.impact_result['impacts_quantiles']:
+                impact_data['amount'] = self.impact_result['impacts_quantiles'][impact_category]['0.5']
+            else:
+                impact_data['amount'] = "This impact could not be calculated."
+
+            result.append(impact_data)
+
+        return result
+
     def _generate_figures(self):
         """ Generating the figures png files """
 
@@ -252,7 +276,7 @@ class ProductImpactReport:
         fig = self.main_impact_plot()
         filepath = Path.cwd() / f"{str(uuid.uuid4())[:8]}.png"
         self.images_filepath['main_impact_plot'] = filepath
-        fig.savefig(filepath)
+        fig.savefig(filepath, bbox_inches='tight')
 
         # Impact per step plot
         if self.has_agribalyse_proxy:
@@ -261,8 +285,8 @@ class ProductImpactReport:
             legend_filepath = Path.cwd() / f"{str(uuid.uuid4())[:8]}.png"
             self.images_filepath['impact_per_step_plot'] = fig_filepath
             self.images_filepath['impact_per_step_legend'] = legend_filepath
-            fig.savefig(fig_filepath)
-            legend.savefig(legend_filepath)
+            fig.savefig(fig_filepath, bbox_inches='tight')
+            legend.savefig(legend_filepath, bbox_inches='tight')
 
         # Impact per ingredient
         fig, legend = self.impact_per_ingredient_plot()
@@ -270,8 +294,8 @@ class ProductImpactReport:
         legend_filepath = Path.cwd() / f"{str(uuid.uuid4())[:8]}.png"
         self.images_filepath['impact_per_ingredient_plot'] = fig_filepath
         self.images_filepath['impact_per_ingredient_legend'] = legend_filepath
-        fig.savefig(fig_filepath)
-        legend.savefig(legend_filepath)
+        fig.savefig(fig_filepath, bbox_inches='tight')
+        legend.savefig(legend_filepath, bbox_inches='tight')
 
     def _clear_images(self):
         """ Deletes the images generated """
@@ -283,8 +307,17 @@ class ProductImpactReport:
 
         template_vars = {"product_name": self.product.get('product_name'),
                          "barcode": self.product['_id'],
+                         "product_mass": self.product_mass,
+                         "main_impact_category": self.main_impact_category,
+                         "has_agribalyse_proxy": self.has_agribalyse_proxy,
                          "ingredients_data": self.ingredient_table_data(),
-                         "images_filepath": self.images_filepath}
+                         "images_filepath": self.images_filepath,
+                         "off_categories": self.product['categories_tags'],
+                         "total_mass_used": self.impact_result['average_total_used_mass'],
+                         "full_ingredient_list": self.product['ingredients_text'],
+                         "impacts_table_data": self.impacts_table_data(),
+                         "result_warnings": self.impact_result['warnings']
+                         }
 
         self._html_output = self.template.render(template_vars)
 
@@ -300,3 +333,7 @@ class ProductImpactReport:
             weasyprint.HTML(string=self._html_output, base_url='.').write_pdf(filename)
         finally:
             self._clear_images()
+
+    def to_html(self, filename=None):
+        pass
+
