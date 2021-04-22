@@ -92,6 +92,11 @@ class ProductImpactReport:
 
         self._compute_impact()
 
+        self.ingredients = list(self.impact_result['ingredients_impacts_share'][self.main_impact_category])
+        self.ingredients_without_impact = [x for x in self.ingredients
+                                           if (x not in ingredients_data)
+                                           or ('impacts' not in ingredients_data[x])]
+
         self.env = Environment(loader=FileSystemLoader('.'))
         self.template = self.env.get_template("product_impact_report_template.html")
 
@@ -147,37 +152,37 @@ class ProductImpactReport:
                             "No information about productions steps are available.")
 
         # Creating the figure for the graphic
-        fig = pylab.figure(figsize=(3, 1))
+        fig = pylab.figure()
         ax = fig.add_subplot(111)
 
-        left = 0
+        rank = 0.5
         agricultural_impact_value = self.impact_result['impacts_quantiles'][self.main_impact_category]['0.5']
         steps = self.agribalyse_proxy_data['impact_environnemental'][self.main_impact_category]['etapes']
         total = agricultural_impact_value + sum([v for k, v in steps.items() if k != 'Agriculture'])
-        for step, value in steps.items():
+        for step, value in reversed(steps.items()):
             if step == 'Agriculture':
                 value = agricultural_impact_value
 
-            ax.barh(y=1,
+            ax.barh(y=rank,
                     width=value / total,
-                    left=left,
-                    label=step)
-            left += value / total
+                    height=0.3,
+                    left=0,
+                    label=step,
+                    color='#008040')
+            ax.text(x=0.01,
+                    y=rank + 0.25,
+                    s=f"{step}: {value / total:.1%}")
+            rank += 1
 
         xticks = [0, 0.25, 0.50, 0.75, 1]
         ax.set_xticks(xticks)
         ax.set_xticklabels([f"{int(x * 100)}%" for x in xticks])
         ax.set_yticks([])
-        ax.set_ylim(1.1, 1.2)
+        ax.set_ylim(0, rank)
         ax.set_xlim(0, 1)
         fig.tight_layout()
 
-        # Adding a second figure for the legend
-        fig_legend = pylab.figure()
-        fig_legend.legend(ax.get_legend_handles_labels()[0], ax.get_legend_handles_labels()[1])
-        fig_legend.tight_layout()
-
-        return fig, fig_legend
+        return fig
 
     def impact_per_ingredient_plot(self):
         """
@@ -185,34 +190,40 @@ class ProductImpactReport:
         """
 
         # Creating the figure for the graphic
-        fig = pylab.figure(figsize=(3, 1))
+        fig = pylab.figure()
         ax = fig.add_subplot(111)
 
-        left = 0
+        rank = 0.5
         impact_shares = {k: v for k, v
-                         in self.impact_result['ingredients_impacts_share'][self.main_impact_category].items()
-                         if v is not None}
-        for ingredient, value in sorted(impact_shares.items(), key=lambda x: x[1], reverse=True):
-            ax.barh(y=1,
+                         in self.impact_result['ingredients_impacts_share'][self.main_impact_category].items()}
+        for ingredient, value in sorted(impact_shares.items(), key=lambda x: x[1]):
+            ax.barh(y=rank,
                     width=value,
-                    left=left,
-                    label=ingredient)
-            left += value
+                    height=0.3,
+                    left=0,
+                    label=ingredient,
+                    color='#008040')
+
+            if ingredient in self.ingredients_without_impact:
+                text_color = 'darkred'
+            else:
+                text_color = 'black'
+
+            ax.text(x=0.01,
+                    y=rank + 0.25,
+                    s=f"{ingredient}: {value:.1%}",
+                    color=text_color)
+            rank += 1
 
         xticks = [0, 0.25, 0.50, 0.75, 1]
         ax.set_xticks(xticks)
         ax.set_xticklabels([f"{int(x * 100)}%" for x in xticks])
         ax.set_yticks([])
-        ax.set_ylim(1.1, 1.2)
+        ax.set_ylim(0, rank)
         ax.set_xlim(0, 1)
         fig.tight_layout()
 
-        # Adding a second figure for the legend
-        fig_legend = pylab.figure()
-        fig_legend.legend(ax.get_legend_handles_labels()[0], ax.get_legend_handles_labels()[1])
-        fig_legend.tight_layout()
-
-        return fig, fig_legend
+        return fig
 
     def ingredient_table_data(self):
         """ Return a list of dict containing data on the ingredients """
@@ -251,19 +262,33 @@ class ProductImpactReport:
 
         return result
 
-    def impacts_table_data(self):
+    def impacts_data(self):
 
-        result = []
+        result = dict()
         for impact_category in self.impact_categories:
-            impact_data = {'category': impact_category,
-                           'unit': AGRIBALYSE_IMPACT_UNITS[impact_category]}
+            impact_data = {
+                'category': impact_category,
+                'unit': AGRIBALYSE_IMPACT_UNITS[impact_category],
+                'confidence_interval': '',
+                'reference_impact': self.agribalyse_proxy_data['impact_environnemental'][impact_category]['synthese']
+            }
 
             if impact_category in self.impact_result['impacts_quantiles']:
                 impact_data['amount'] = self.impact_result['impacts_quantiles'][impact_category]['0.5']
             else:
                 impact_data['amount'] = "This impact could not be calculated."
 
-            result.append(impact_data)
+            if impact_category in self.impact_result['impacts_quantiles']:
+                impact_data['conf_int_lower_bound'] = self.impact_result['impacts_quantiles'][impact_category]['0.05']
+            else:
+                impact_data['conf_int_lower_bound'] = "This impact could not be calculated."
+
+            if impact_category in self.impact_result['impacts_quantiles']:
+                impact_data['conf_int_upper_bound'] = self.impact_result['impacts_quantiles'][impact_category]['0.95']
+            else:
+                impact_data['conf_int_upper_bound'] = "This impact could not be calculated."
+
+            result[impact_category] = impact_data
 
         return result
 
@@ -280,22 +305,16 @@ class ProductImpactReport:
 
         # Impact per step plot
         if self.has_agribalyse_proxy:
-            fig, legend = self.impact_per_step_plot()
+            fig = self.impact_per_step_plot()
             fig_filepath = Path.cwd() / f"{str(uuid.uuid4())[:8]}.png"
-            legend_filepath = Path.cwd() / f"{str(uuid.uuid4())[:8]}.png"
             self.images_filepath['impact_per_step_plot'] = fig_filepath
-            self.images_filepath['impact_per_step_legend'] = legend_filepath
             fig.savefig(fig_filepath, bbox_inches='tight')
-            legend.savefig(legend_filepath, bbox_inches='tight')
 
         # Impact per ingredient
-        fig, legend = self.impact_per_ingredient_plot()
+        fig = self.impact_per_ingredient_plot()
         fig_filepath = Path.cwd() / f"{str(uuid.uuid4())[:8]}.png"
-        legend_filepath = Path.cwd() / f"{str(uuid.uuid4())[:8]}.png"
         self.images_filepath['impact_per_ingredient_plot'] = fig_filepath
-        self.images_filepath['impact_per_ingredient_legend'] = legend_filepath
         fig.savefig(fig_filepath, bbox_inches='tight')
-        legend.savefig(legend_filepath, bbox_inches='tight')
 
     def _clear_images(self):
         """ Deletes the images generated """
@@ -307,15 +326,18 @@ class ProductImpactReport:
 
         template_vars = {"product_name": self.product.get('product_name'),
                          "barcode": self.product['_id'],
-                         "product_mass": self.product_mass,
                          "main_impact_category": self.main_impact_category,
                          "has_agribalyse_proxy": self.has_agribalyse_proxy,
+                         "reference_agb_product":
+                             self.agribalyse_proxy_data['nom_francais'] if self.has_agribalyse_proxy else None,
+                         "has_ingredients_without_impact": len(self.ingredients_without_impact) > 0,
+                         "product_mass": self.product_mass,
                          "ingredients_data": self.ingredient_table_data(),
                          "images_filepath": self.images_filepath,
                          "off_categories": self.product['categories_tags'],
                          "total_mass_used": self.impact_result['average_total_used_mass'],
                          "full_ingredient_list": self.product['ingredients_text'],
-                         "impacts_table_data": self.impacts_table_data(),
+                         "impacts_data": self.impacts_data(),
                          "result_warnings": self.impact_result['warnings']
                          }
 
@@ -336,4 +358,3 @@ class ProductImpactReport:
 
     def to_html(self, filename=None):
         pass
-

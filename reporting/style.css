@@ -28,6 +28,14 @@ div.warning-block {
      padding: 12px;
 }
 
+div.note-block {
+     background-color: #bbcbf7;
+     border-left: solid 4px #537cea;
+     line-height: 18px;
+     overflow: hidden;
+     padding: 12px;
+}
+
 table.pure-table{
     font-size: x-small;
 }
