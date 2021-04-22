@@ -966,7 +966,7 @@ class ImpactEstimator:
             if self.uncharacterized_ingredients_ratio[characterization] >= \
                     UNCHARACTERIZED_INGREDIENTS_RATIO_WARNING_THRESHOLD:
                 self.warnings.append(
-                    f"The product as a high number of {characterization} uncharacterized ingredients: "
+                    f"The product has a high number of {characterization} uncharacterized ingredients: "
                     f"{self.uncharacterized_ingredients_ratio[characterization]:.0%}")
 
         # Assert that the product has nutriments. If not add a warning and set use_nutritional_info_override to False
