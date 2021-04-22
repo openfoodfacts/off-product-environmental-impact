@@ -107,7 +107,7 @@ class RecipeImpactCalculator:
         # Computing the impact of the recipe
         self.known_ingredients_impact = 0
         self.known_ingredients_mass = 0
-        total_mass = sum([float(x) for x in self.recipe.values()])
+        self.total_mass = sum([float(x) for x in self.recipe.values()])
 
         # Looping on all ingredients that has a value for the considered impact
         for ingredient_name, ingredient_impact in self.ingredients_impacts.items():
@@ -121,7 +121,7 @@ class RecipeImpactCalculator:
             self._recipe_impact = None
         else:
             # Inflating the impact of the known ingredients to the impact of the total mass of these ingredients
-            self._recipe_impact = self.known_ingredients_impact * total_mass / self.known_ingredients_mass
+            self._recipe_impact = self.known_ingredients_impact * self.total_mass / self.known_ingredients_mass
 
         self.impact_computed = True
 
@@ -134,11 +134,15 @@ class RecipeImpactCalculator:
         # Computing the impact share for each ingredient
         self.ingredients_impacts_shares = dict()
         if self.known_ingredients_mass != 0:
-            for ingredient_name, ingredient_impact in self.ingredients_impacts.items():
-                self.ingredients_impacts_shares[ingredient_name] = \
-                    (self.ingredients_impacts[ingredient_name] * float(self.recipe[ingredient_name])
-                     / IMPACT_MASS_UNIT) \
-                    / self.known_ingredients_impact
+            for ingredient_name, ingredient_mass in self.recipe.items():
+
+                if ingredient_name in self.ingredients_impacts:
+                    ingredient_impact = self.ingredients_impacts[ingredient_name]
+
+                    self.ingredients_impacts_shares[ingredient_name] = \
+                        (ingredient_impact * ingredient_mass / IMPACT_MASS_UNIT) / self._recipe_impact
+                else:
+                    self.ingredients_impacts_shares[ingredient_name] = ingredient_mass / self.total_mass
 
         self.impact_shares_computed = True
 
@@ -168,9 +172,6 @@ class RecipeImpactCalculator:
 
         if ingredient not in self.recipe:
             return ValueError('The ingredient is not present in the recipe.')
-
-        if ingredient not in self.ingredients_impacts:
-            return None
 
         # If the recipe impact is None, then there is no result
         if self._recipe_impact is None:
