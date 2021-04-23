@@ -2,7 +2,6 @@ import json
 import uuid
 from pathlib import Path
 
-from openfoodfacts.products import get_product
 from jinja2 import Environment, FileSystemLoader
 import weasyprint
 import matplotlib.pyplot as plt
@@ -11,7 +10,7 @@ import seaborn as sns
 
 from impacts_estimation.impact_estimation import estimate_impacts_safe
 from impacts_estimation.vars import AGRIBALYSE_IMPACT_CATEGORIES, AGRIBALYSE_IMPACT_UNITS
-from utils import ensure_extension
+from utils import ensure_extension, get_product_from_barcode
 from ingredients_characterization.vars import AGRIBALYSE_DATA_FILEPATH
 from data import ingredients_data, off_categories
 
@@ -51,11 +50,7 @@ class ProductImpactReport:
             raise ValueError('Both barcode and product parameters cannot be provided simultaneously.')
 
         if barcode is not None:
-            query_result = get_product(str(barcode))
-
-            if query_result['status'] == 0:
-                raise ValueError('The product corresponding to this barcode cannot be found.')
-            self.product = query_result['product']
+            self.product = get_product_from_barcode(barcode)
         elif product is not None:
             self.product = product
         else:
@@ -128,10 +123,10 @@ class ProductImpactReport:
         ax.bxp(boxes,
                vert=False,
                showfliers=False,
-               medianprops=dict(linewidth=3),
-               boxprops=dict(linewidth=3, color='#555555'),
-               whiskerprops=dict(linewidth=3, color='#555555'),
-               capprops=dict(linewidth=3, color='#555555'))
+               medianprops=dict(linewidth=2),
+               boxprops=dict(linewidth=2, color='#555555'),
+               whiskerprops=dict(linewidth=2, color='#777777'),
+               capprops=dict(linewidth=2, color='#777777'))
 
         if self.has_agribalyse_proxy:
             ax.axvline(self.agribalyse_proxy_data['impact_environnemental'][self.main_impact_category]['synthese'],
@@ -373,4 +368,4 @@ class ProductImpactReport:
             self._clear_images()
 
     def to_html(self, filename=None):
-        pass
+        raise Exception('Not implemented')
