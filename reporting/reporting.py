@@ -13,7 +13,7 @@ from impacts_estimation.impact_estimation import estimate_impacts_safe
 from impacts_estimation.vars import AGRIBALYSE_IMPACT_CATEGORIES, AGRIBALYSE_IMPACT_UNITS
 from utils import ensure_extension
 from ingredients_characterization.vars import AGRIBALYSE_DATA_FILEPATH
-from data import ingredients_data
+from data import ingredients_data, off_categories
 
 with open(AGRIBALYSE_DATA_FILEPATH, 'r', encoding='utf8') as file:
     agribalyse_data = {x['ciqual_AGB']: x for x in json.load(file)}
@@ -23,7 +23,7 @@ class ProductImpactReport:
     """ Class used to generate reports for Open Food Facts products impacts. """
 
     def __init__(self, barcode=None, product=None, impact_categories=None, main_impact_category='Score unique EF',
-                 product_mass=1000):
+                 product_mass=1000, language='french'):
         """
         Args:
             barcode (str): Barcode of the Open Food Facts product (use only if product is None).
@@ -33,10 +33,13 @@ class ProductImpactReport:
                 By default will consider all the impact categories available in Agribalyse.
             main_impact_category (str): Main impact category to display.
             product_mass (float): Mass of product considered in grams
+            language (str): Language of the report
         """
         self.impact_categories = impact_categories or AGRIBALYSE_IMPACT_CATEGORIES
         self.main_impact_category = main_impact_category
         self.product_mass = product_mass
+        self.language = language.lower()
+        self.language_short = language[:2]
 
         assert self.main_impact_category in AGRIBALYSE_IMPACT_CATEGORIES
         assert all(x in AGRIBALYSE_IMPACT_CATEGORIES for x in self.impact_categories)
@@ -292,6 +295,19 @@ class ProductImpactReport:
 
         return result
 
+    def off_categories(self):
+        """ Getting the names of the OFF categories in the desired language. """
+        result = []
+        for category in self.product['categories_tags']:
+            try:
+                category_name = off_categories[category]['name'].get(self.language_short,
+                                                                     off_categories[category]['name']['en'])
+                result.append(category_name)
+            except KeyError:
+                result.append(category)
+
+        return result
+
     def _generate_figures(self):
         """ Generating the figures png files """
 
@@ -334,7 +350,7 @@ class ProductImpactReport:
                          "product_mass": self.product_mass,
                          "ingredients_data": self.ingredient_table_data(),
                          "images_filepath": self.images_filepath,
-                         "off_categories": self.product['categories_tags'],
+                         "off_categories": self.off_categories(),
                          "total_mass_used": self.impact_result['average_total_used_mass'],
                          "full_ingredient_list": self.product['ingredients_text'],
                          "impacts_data": self.impacts_data(),

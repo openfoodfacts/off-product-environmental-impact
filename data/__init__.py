@@ -23,3 +23,7 @@ except FileNotFoundError:
 # Distribution of ingredients percentage by category in OFF
 INGREDIENTS_DISTRIBUTION_FILEPATH = os.path.join(data_folder, 'off_ingredients_percentage_distribution.csv')
 ref_ing_dist = pd.read_csv(INGREDIENTS_DISTRIBUTION_FILEPATH, na_filter=None, encoding='utf-8')
+
+INGREDIENTS_DATA_FILEPATH = os.path.join(data_folder, 'off_categories.json')
+with open(INGREDIENTS_DATA_FILEPATH, 'r', encoding='utf-8') as file:
+    off_categories = json.load(file)
