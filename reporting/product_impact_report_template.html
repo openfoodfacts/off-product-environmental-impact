@@ -26,6 +26,14 @@
             impacts_data[main_impact_category]['unit'] }}
         </dd>
         {% endif %}
+        <dt>Result reliability</em></dt>
+        <dd>
+            {% for level in ['1','2','3','4'] %}
+                <span class="reliability-{{ level }}{% if level == reliability %} reliability-value{% endif %}">
+                    {{ level }}
+                </span>
+            {% endfor %}
+        </dd>
     </dl>
 </div>
 

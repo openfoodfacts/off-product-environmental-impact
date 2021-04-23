@@ -39,3 +39,31 @@ div.note-block {
 table.pure-table{
     font-size: x-small;
 }
+
+.reliability-1 {
+    font-weight: bold;
+    font-size: large;
+    color: #1a9641;
+}
+
+.reliability-2 {
+    font-weight: bold;
+    font-size: large;
+    color: #a6d96a;
+}
+
+.reliability-3 {
+    font-weight: bold;
+    font-size: large;
+    color: #fdae61;
+}
+
+.reliability-4 {
+    font-weight: bold;
+    font-size: large;
+    color: #d7191c;
+}
+
+.reliability-value {
+    font-size: xx-large;
+}

@@ -349,7 +349,8 @@ class ProductImpactReport:
                          "total_mass_used": self.impact_result['average_total_used_mass'],
                          "full_ingredient_list": self.product['ingredients_text'],
                          "impacts_data": self.impacts_data(),
-                         "result_warnings": self.impact_result['warnings']
+                         "result_warnings": self.impact_result['warnings'],
+                         "reliability": str(self.impact_result['reliability'])
                          }
 
         self._html_output = self.template.render(template_vars)
