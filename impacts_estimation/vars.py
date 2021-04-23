@@ -137,3 +137,5 @@ FERMENTED_FOOD_CATEGORIES = ['en:fermented-foods']
 # Dictionary containing the names of the categories with a high water loss potential as keys and the maximum evaporation
 # coefficient of the category as values
 HIGH_WATER_LOSS_CATEGORIES = {'en:cheeses': 0.9}
+
+RESULTS_WARNINGS_NOT_RELIABLE = ["The product has no recognized nutriment information."]

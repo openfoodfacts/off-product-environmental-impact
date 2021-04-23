@@ -24,7 +24,7 @@ from impacts_estimation.utils import natural_bounds, nutritional_error_margin, \
     remove_percentage_from_product, confidence_score, UnknownIngredientsRemover
 from impacts_estimation.vars import NUTRIMENTS_CATEGORIES, QUALITY_DATA_WARNINGS, \
     TOP_LEVEL_NUTRIMENTS_CATEGORIES, MAX_ASH_CONTENT, FERMENTATION_AGENTS, FERMENTED_FOOD_CATEGORIES, \
-    HIGH_WATER_LOSS_CATEGORIES, IMPACT_MASS_UNIT, AGRIBALYSE_IMPACT_UNITS
+    HIGH_WATER_LOSS_CATEGORIES, IMPACT_MASS_UNIT, AGRIBALYSE_IMPACT_UNITS, RESULTS_WARNINGS_NOT_RELIABLE
 from settings import VERBOSITY, IMPACT_INTERQUARTILE_WARNING_THRESHOLD, \
     UNCHARACTERIZED_INGREDIENTS_MASS_WARNING_THRESHOLD, \
     UNCHARACTERIZED_INGREDIENTS_RATIO_WARNING_THRESHOLD, MAX_CONSECUTIVE_RECIPE_CREATION_ERROR, \
@@ -1081,6 +1081,54 @@ class ImpactEstimator:
             self.warnings.append(
                 f"{nb_undefined_prct_ingredients} compound ingredients whose percentage type is undefined.")
 
+    def reliability_score(self, const_relax_coef, uncharacterized_ingredients_mass_proportion, ):
+        """
+            Reliability level of the result:
+                - 1: Absolutely reliable, no indication of a potential issue in the input data nor in the result
+                - 2: Less than 5% of the product ingredients are not in the OFF ingredients taxonomy and less than 5% of
+                    the estimated mass of the product is composed of ingredients that are not characterized
+                    nutritionally or environmentally and the constraints may have been relaxed by less than 0.05% in
+                    order to get a result.
+                - 3: Between 5% and 25% of the product ingredients are not in the OFF ingredients taxonomy and between
+                    5% and 25% of the estimated mass of the product is composed of ingredients that are not
+                    characterized nutritionally or environmentally and the constraints may have been relaxed by less
+                    than 0.05% in order to get a result.
+                - 4: More than 25% of the ingredients are not in the OFF ingredients taxonomy or more than 25% of the
+                    estimated mass of the product is composed of ingredients that are not characterized nutritionally
+                    or environmentally, or the constraints has been relaxed by more than 0.05% in order to get a result
+                    or the is an important result warning.
+        """
+
+        ignored_ingredient_ratio = len(self.ignored_unknown_ingredients) / (len(self.ignored_unknown_ingredients)
+                                                                            + len(self.leaf_ingredients))
+        # If there is an important warning in the result, it cannot be reliable
+        for blocking_warning in RESULTS_WARNINGS_NOT_RELIABLE:
+            if any(blocking_warning in x for x in self.warnings):
+                return 4
+
+        if const_relax_coef > 0.05:
+            return 4
+
+        if (uncharacterized_ingredients_mass_proportion['nutrition'] == 0) \
+                and (uncharacterized_ingredients_mass_proportion['impact'] == 0) \
+                and (ignored_ingredient_ratio == 0) \
+                and (const_relax_coef == 0):
+            return 1
+
+        if (uncharacterized_ingredients_mass_proportion['nutrition'] <= 0.05) \
+                and (uncharacterized_ingredients_mass_proportion['impact'] <= 0.05) \
+                and (ignored_ingredient_ratio <= 0.05) \
+                and (const_relax_coef == 0):
+            return 2
+
+        if (uncharacterized_ingredients_mass_proportion['nutrition'] <= 0.25) \
+                and (uncharacterized_ingredients_mass_proportion['impact'] <= 0.25) \
+                and (ignored_ingredient_ratio <= 0.25) \
+                and (const_relax_coef <= 0.05):
+            return 3
+
+        return 4
+
     def _check_defined_percentages(self):
         """ Assert that the percentages that might be defined for some ingredients are valid."""
 
@@ -1573,6 +1621,9 @@ class ImpactEstimator:
                   'product_quantity': self.product_quantity,
                   'const_relax_coef': const_relax_coef,
                   'warnings': self.warnings,
+                  'reliability': self.reliability_score(
+                      const_relax_coef=const_relax_coef,
+                      uncharacterized_ingredients_mass_proportion=uncharacterized_ingredients_mass_proportion),
                   'ignored_unknown_ingredients': self.ignored_unknown_ingredients,
                   'uncharacterized_ingredients': self.uncharacterized_ingredients_ids,
                   'uncharacterized_ingredients_ratio': self.uncharacterized_ingredients_ratio,
