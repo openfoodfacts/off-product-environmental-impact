@@ -306,29 +306,36 @@ class ProductImpactReport:
 
         return result
 
-    def _generate_figures(self):
+    def _generate_figure(self, plotting_function, figure_name, img_folder=None):
+        fig = plotting_function()
+        if img_folder is not None:
+            filepath = Path.cwd() / img_folder / f"{str(uuid.uuid4())[:8]}.png"
+            filepath.parent.mkdir(parents=True, exist_ok=True)
+        else:
+            filepath = Path.cwd() / f"{str(uuid.uuid4())[:8]}.png"
+        self.images_filepath[figure_name] = filepath
+        fig.savefig(filepath, bbox_inches='tight')
+
+    def _generate_figures(self, img_folder=None):
         """ Generating the figures png files """
 
         sns.set()
 
         # Main impact plot
-        fig = self.main_impact_plot()
-        filepath = Path.cwd() / f"{str(uuid.uuid4())[:8]}.png"
-        self.images_filepath['main_impact_plot'] = filepath
-        fig.savefig(filepath, bbox_inches='tight')
+        self._generate_figure(plotting_function=self.main_impact_plot,
+                              figure_name='main_impact_plot',
+                              img_folder=img_folder)
 
         # Impact per step plot
         if self.has_agribalyse_proxy:
-            fig = self.impact_per_step_plot()
-            fig_filepath = Path.cwd() / f"{str(uuid.uuid4())[:8]}.png"
-            self.images_filepath['impact_per_step_plot'] = fig_filepath
-            fig.savefig(fig_filepath, bbox_inches='tight')
+            self._generate_figure(plotting_function=self.impact_per_step_plot,
+                                  figure_name='impact_per_step_plot',
+                                  img_folder=img_folder)
 
         # Impact per ingredient
-        fig = self.impact_per_ingredient_plot()
-        fig_filepath = Path.cwd() / f"{str(uuid.uuid4())[:8]}.png"
-        self.images_filepath['impact_per_ingredient_plot'] = fig_filepath
-        fig.savefig(fig_filepath, bbox_inches='tight')
+        self._generate_figure(plotting_function=self.impact_per_ingredient_plot,
+                              figure_name='impact_per_ingredient_plot',
+                              img_folder=img_folder)
 
     def _clear_images(self):
         """ Deletes the images generated """
@@ -372,4 +379,10 @@ class ProductImpactReport:
             self._clear_images()
 
     def to_html(self, filename=None):
-        raise Exception('Not implemented')
+        filename = filename or self.product.get('product_name') or self.product['_id']
+        filename = ensure_extension(filename, 'html')
+
+        self._generate_figures(img_folder=Path(filename).stem)
+        self._generate_html()
+        with open(filename, 'w') as file:
+            file.write(self._html_output)
