@@ -223,43 +223,6 @@ class ProductImpactReport:
 
         return fig
 
-    def ingredient_table_data(self):
-        """ Return a list of dict containing data on the ingredients """
-
-        impact_shares = sorted(self.impact_result['ingredients_impacts_share'][self.main_impact_category].items(),
-                               key=lambda x: x[1] or 0, reverse=True)
-
-        result = []
-        agricultural_impact_value = self.impact_result['impacts_quantiles'][self.main_impact_category]['0.5']
-        impact_base = self.impact_base[self.main_impact_category]
-        total_impact = agricultural_impact_value + impact_base
-        for ingredient_id, ingredient_share in impact_shares:
-            row_data = {'id': ingredient_id}
-
-            if ingredient_share is not None:
-                # Inflating the ingredient share to take base impact into account
-                row_data['impact_share'] = ingredient_share * total_impact
-                row_data['impact_share_prct'] = 100 * ingredient_share
-            else:
-                row_data['impact_share'] = None
-                row_data['impact_share_prct'] = None
-
-            result.append(row_data)
-
-            try:
-                row_data['nutritional_references'] = \
-                    [x['entry'] for x in ingredients_data[ingredient_id]['nutritional_data_sources']]
-            except KeyError:
-                row_data['nutritional_references'] = []
-
-            try:
-                row_data['environmental_references'] = \
-                    [x['entry'] for x in ingredients_data[ingredient_id]['environmental_impact_data_sources']]
-            except KeyError:
-                row_data['environmental_references'] = []
-
-        return result
-
     def impacts_data(self):
 
         result = dict()
@@ -319,6 +282,21 @@ class ProductImpactReport:
                                       and 'nutriments' in ingredients_data[ingredient_id]
             result['has_impact'] = ingredient_id in ingredients_data \
                                    and 'impacts' in ingredients_data[ingredient_id]
+
+            result['in_recipe'] = ingredient_id \
+                                  in self.impact_result['ingredients_impacts_share'][self.main_impact_category]
+
+            try:
+                result['nutritional_references'] = \
+                    [x['entry'] for x in ingredients_data[ingredient_id]['nutritional_data_sources']]
+            except KeyError:
+                result['nutritional_references'] = []
+
+            try:
+                result['environmental_references'] = \
+                    [x['entry'] for x in ingredients_data[ingredient_id]['environmental_impact_data_sources']]
+            except KeyError:
+                result['environmental_references'] = []
 
         # For product and compound ingredients
         if 'ingredients' in ingredient_or_product:
@@ -380,7 +358,6 @@ class ProductImpactReport:
                              self.agribalyse_proxy_data['nom_francais'] if self.has_agribalyse_proxy else None,
                          "has_ingredients_without_impact": len(self.ingredients_without_impact) > 0,
                          "product_mass": self.product_mass,
-                         "ingredients_data": self.ingredient_table_data(),
                          "images_filepath": self.images_filepath,
                          "off_categories": self.off_categories(),
                          "total_mass_used": self.impact_result['average_total_used_mass'],

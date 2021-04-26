@@ -90,3 +90,8 @@ table.pure-table{
 .has-nutri.has-impact {
     color: #14A304;
 }
+
+.not-in-recipe {
+    font-style: italic;
+    color: #777777 !important;
+}

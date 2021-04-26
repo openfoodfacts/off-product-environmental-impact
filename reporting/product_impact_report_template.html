@@ -95,8 +95,9 @@
     <p>
         {% for ingredient in off_ingredients recursive %}
         <span class="{% if ingredient['in_taxonomy'] %}in-taxo{% endif %}
-                    {% if ingredient['has_nutrition'] %}has-nutri{% endif %}
-                    {% if ingredient['has_impact'] %}has-impact{% endif %}">
+                     {% if ingredient['has_nutrition'] %}has-nutri{% endif %}
+                     {% if ingredient['has_impact'] %}has-impact{% endif %}
+                     {% if not ingredient['in_recipe'] %}not-in-recipe{% endif %}">
             {{ ingredient['id'] }}{% if ingredient['ingredients'] %}
         </span>({{ loop(ingredient['ingredients']) }}){% endif %}
         {% if not loop.last %},{% endif %}
@@ -105,11 +106,12 @@
 
     <h5>Legend:</h5>
     <ul style="font-size:x-small">
+        <li class="not-in-recipe">Not in recipe (compound ingredient)</li>
         <li> Not in taxonomy</li>
-        <li class="in-taxo"> In taxonomy</li>
-        <li class="in-taxo has-nutri"> In taxonomy, with nutrition data</li>
-        <li class="in-taxo has-impact"> In taxonomy, with impact data</li>
-        <li class="in-taxo has-nutri has-impact"> In taxonomy, with nutrition and impact data</li>
+        <li class="in-taxo">In taxonomy</li>
+        <li class="in-taxo has-nutri">In taxonomy, with nutrition data</li>
+        <li class="in-taxo has-impact">In taxonomy, with impact data</li>
+        <li class="in-taxo has-nutri has-impact">In taxonomy, with nutrition and impact data</li>
     </ul>
 
     <h4>Ingredients properties</h4>
@@ -122,9 +124,12 @@
         </tr>
         </thead>
         <tbody>
-        {% for ingredient in ingredients_data %}
+        {% for ingredient in off_ingredients recursive %}
         <tr>
-            <td>{{ingredient.id}}</td>
+            <td class="{% if ingredient['in_taxonomy'] %}in-taxo{% endif %}
+                       {% if ingredient['has_nutrition'] %}has-nutri{% endif %}
+                       {% if ingredient['has_impact'] %}has-impact{% endif %}
+                       {% if not ingredient['in_recipe'] %}not-in-recipe{% endif %}">{{ingredient.id}}</td>
             <td>
                 {% if ingredient['nutritional_references']|length == 0 %}
                 {% elif ingredient['nutritional_references']|length == 1 %}
@@ -154,6 +159,7 @@
                 {% endif %}
             </td>
         </tr>
+        {{ loop(ingredient['ingredients']) }}
         {% endfor %}
         </tbody>
     </table>
