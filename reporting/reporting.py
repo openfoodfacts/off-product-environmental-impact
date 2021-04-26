@@ -267,8 +267,7 @@ class ProductImpactReport:
             impact_data = {
                 'category': impact_category,
                 'unit': AGRIBALYSE_IMPACT_UNITS[impact_category],
-                'confidence_interval': '',
-                'reference_impact': self.agribalyse_proxy_data['impact_environnemental'][impact_category]['synthese']
+                'confidence_interval': ''
             }
 
             if impact_category in self.impact_result['impacts_quantiles']:
@@ -285,6 +284,10 @@ class ProductImpactReport:
                 impact_data['conf_int_upper_bound'] = self.impact_result['impacts_quantiles'][impact_category]['0.95']
             else:
                 impact_data['conf_int_upper_bound'] = "This impact could not be calculated."
+
+            if self.has_agribalyse_proxy:
+                impact_data['reference_impact'] = \
+                    self.agribalyse_proxy_data['impact_environnemental'][impact_category]['synthese']
 
             result[impact_category] = impact_data
 

@@ -146,7 +146,9 @@
             <th>Impact category</th>
             <th>Amount</th>
             <th>Confidence interval</th>
+            {% if has_agribalyse_proxy %}
             <th>Reference impact</th>
+            {% endif %}
             <th>Unit</th>
         </tr>
         </thead>
@@ -159,7 +161,9 @@
                 [{{ impact_category['conf_int_lower_bound'] | round(2) }},
                 {{impact_category['conf_int_upper_bound'] | round(2) }}]
             </td>
+            {% if has_agribalyse_proxy %}
             <td>{{ impact_category['reference_impact'] | round(2)}}</td>
+            {% endif %}
             <td>{{ impact_category['unit'] }}</td>
         </tr>
         {% endfor %}
