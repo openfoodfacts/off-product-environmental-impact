@@ -1,5 +1,7 @@
+import json
 from pathlib import Path
-from openfoodfacts.products import get_product
+# from openfoodfacts.products import get_product  # Not used because it uses the API v0 and API v2 is needed
+import requests
 
 
 def ensure_extension(filename, extension):
@@ -7,9 +9,9 @@ def ensure_extension(filename, extension):
 
 
 def get_product_from_barcode(barcode):
-    query_result = get_product(str(barcode))
+    response = requests.get(f"https://world.openfoodfacts.org/api/v2/product/{barcode}.json")
 
-    if query_result['status'] == 0:
+    if response.status_code == 404:
         raise ValueError('The product corresponding to this barcode cannot be found.')
 
-    return query_result['product']
+    return json.loads(response.content)['product']
