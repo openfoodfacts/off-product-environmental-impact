@@ -15,3 +15,28 @@ def get_product_from_barcode(barcode):
         raise ValueError('The product corresponding to this barcode cannot be found.')
 
     return json.loads(response.content)['product']
+
+
+def smart_round_format(number, precision):
+    """
+    Args:
+        number (float):
+        precision (int):
+
+    Returns:
+        str:
+
+    Examples:
+        >>> smart_round_format(258.658, 2)
+        '258.66'
+        >>> smart_round_format(0.258658, 2)
+        '0.26'
+        >>> smart_round_format(0.0000258658, 2)
+        '2.59e-05'
+    """
+
+    if number >= 0.1:
+        return str(round(number, 2))
+
+    else:
+        return ('{:0.'+str(precision)+'e}').format(number)

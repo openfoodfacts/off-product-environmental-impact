@@ -11,18 +11,18 @@
         <dd>{{ reference_agb_product }}</dd>
         {% endif %}
         <dt>Estimated impact for <em>{{ main_impact_category }}</em></dt>
-        <dd>{{ impacts_data[main_impact_category]['amount'] | round(2) }} {{ impacts_data[main_impact_category]['unit']
+        <dd>{{ impacts_data[main_impact_category]['amount'] | smart_round_format(2) }} {{ impacts_data[main_impact_category]['unit']
             }}
         </dd>
         <dt>Estimated impact confidence interval for <em>{{ main_impact_category }}</em></dt>
         <dd>
-            [{{ impacts_data[main_impact_category]['conf_int_lower_bound'] | round(2) }},
-            {{impacts_data[main_impact_category]['conf_int_upper_bound'] | round(2) }}]
+            [{{ impacts_data[main_impact_category]['conf_int_lower_bound'] | smart_round_format(2) }},
+            {{impacts_data[main_impact_category]['conf_int_upper_bound'] | smart_round_format(2) }}]
             {{ impacts_data[main_impact_category]['unit'] }}
         </dd>
         {% if has_agribalyse_proxy %}
         <dt>Reference impact for <em>{{ main_impact_category }}</em></dt>
-        <dd>{{ impacts_data[main_impact_category]['reference_impact'] | round(2) }} {{
+        <dd>{{ impacts_data[main_impact_category]['reference_impact'] | smart_round_format(2) }} {{
             impacts_data[main_impact_category]['unit'] }}
         </dd>
         {% endif %}
@@ -186,13 +186,13 @@
         {% for impact_category in impacts_data.values() %}
         <tr>
             <td>{{ impact_category['category'] }}</td>
-            <td>{{ impact_category['amount'] | round(2)}}</td>
+            <td>{{ impact_category['amount'] | smart_round_format(2)}}</td>
             <td>
-                [{{ impact_category['conf_int_lower_bound'] | round(2) }},
-                {{impact_category['conf_int_upper_bound'] | round(2) }}]
+                [{{ impact_category['conf_int_lower_bound'] | smart_round_format(2) }},
+                {{impact_category['conf_int_upper_bound'] | smart_round_format(2) }}]
             </td>
             {% if has_agribalyse_proxy %}
-            <td>{{ impact_category['reference_impact'] | round(2)}}</td>
+            <td>{{ impact_category['reference_impact'] | smart_round_format(2)}}</td>
             {% endif %}
             <td>{{ impact_category['unit'] }}</td>
         </tr>

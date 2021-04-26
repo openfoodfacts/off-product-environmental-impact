@@ -10,7 +10,7 @@ import seaborn as sns
 
 from impacts_estimation.impact_estimation import estimate_impacts_safe
 from impacts_estimation.vars import AGRIBALYSE_IMPACT_CATEGORIES, AGRIBALYSE_IMPACT_UNITS
-from utils import ensure_extension, get_product_from_barcode
+from utils import ensure_extension, get_product_from_barcode, smart_round_format
 from ingredients_characterization.vars import AGRIBALYSE_DATA_FILEPATH
 from data import ingredients_data, off_categories, off_taxonomy
 
@@ -96,6 +96,7 @@ class ProductImpactReport:
                                            or ('impacts' not in ingredients_data[x])]
 
         self.env = Environment(loader=FileSystemLoader('.'))
+        self.env.filters['smart_round_format'] = smart_round_format
         self.template = self.env.get_template("product_impact_report_template.html")
 
     def _compute_impact(self):
