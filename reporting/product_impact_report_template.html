@@ -11,7 +11,8 @@
         <dd>{{ reference_agb_product }}</dd>
         {% endif %}
         <dt>Estimated impact for <em>{{ main_impact_category }}</em></dt>
-        <dd>{{ impacts_data[main_impact_category]['amount'] | smart_round_format(2) }} {{ impacts_data[main_impact_category]['unit']
+        <dd>{{ impacts_data[main_impact_category]['amount'] | smart_round_format(2) }} {{
+            impacts_data[main_impact_category]['unit']
             }}
         </dd>
         <dt>Estimated impact confidence interval for <em>{{ main_impact_category }}</em></dt>
@@ -67,7 +68,6 @@
 <div>
     <h3>Impact per ingredient</h3>
     <img src="{{ images_filepath['impact_per_ingredient_plot'] }}">
-    <img src="{{ images_filepath['impact_per_ingredient_legend'] }}">
     {% if has_ingredients_without_impact %}
     <div class="note-block">
         <p>
@@ -77,6 +77,17 @@
         </p>
     </div>
     {% endif %}
+</div>
+<div>
+    <h3>Mass share per ingredient</h3>
+    <img src="{{ images_filepath['mass_per_ingredient_plot'] }}">
+    <div class="warning-block">
+        <p>
+            <strong>Warning : </strong>This does not represent an estimation of the composition of the product but the
+            average proportion of each ingredient in the random recipes generated to assess the product's impact. See
+            the documentation for more information.
+        </p>
+    </div>
 </div>
 
 <div>

@@ -185,7 +185,7 @@ class ProductImpactReport:
 
     def impact_per_ingredient_plot(self):
         """
-            Stacked bar showing the impacts shares related to each ingredient step.
+            Stacked bar showing the impacts shares related to each ingredient.
         """
 
         # Creating the figure for the graphic
@@ -212,6 +212,39 @@ class ProductImpactReport:
                     y=rank + 0.25,
                     s=f"{ingredient}: {value:.1%}",
                     color=text_color)
+            rank += 1
+
+        xticks = [0, 0.25, 0.50, 0.75, 1]
+        ax.set_xticks(xticks)
+        ax.set_xticklabels([f"{int(x * 100)}%" for x in xticks])
+        ax.set_yticks([])
+        ax.set_ylim(0, rank)
+        ax.set_xlim(0, 1)
+        fig.tight_layout()
+
+        return fig
+
+    def mass_per_ingredient_plot(self):
+        """
+            Stacked bar showing the mass shares related to each ingredient.
+        """
+
+        # Creating the figure for the graphic
+        fig = pylab.figure()
+        ax = fig.add_subplot(111)
+
+        rank = 0.5
+        for ingredient, value in sorted(self.impact_result['ingredients_mass_share'].items(), key=lambda x: x[1]):
+            ax.barh(y=rank,
+                    width=value,
+                    height=0.3,
+                    left=0,
+                    label=ingredient,
+                    color='#008040')
+
+            ax.text(x=0.01,
+                    y=rank + 0.25,
+                    s=f"{ingredient}: {value:.1%}")
             rank += 1
 
         xticks = [0, 0.25, 0.50, 0.75, 1]
@@ -341,6 +374,11 @@ class ProductImpactReport:
         # Impact per ingredient
         self._generate_figure(plotting_function=self.impact_per_ingredient_plot,
                               figure_name='impact_per_ingredient_plot',
+                              img_folder=img_folder)
+
+        # Mass per ingredient
+        self._generate_figure(plotting_function=self.mass_per_ingredient_plot,
+                              figure_name='mass_per_ingredient_plot',
                               img_folder=img_folder)
 
     def _clear_images(self):

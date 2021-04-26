@@ -1311,6 +1311,7 @@ class ImpactEstimator:
                                              confidence_score_weighting_factor=confidence_score_weighting_factor)
 
         run = 0
+        recipes = []
         impact_names = [impact_names] if type(impact_names) is str else impact_names
         impact_distributions = {impact_name: [] for impact_name in impact_names}
         impact_log_distributions = {impact_name: [] for impact_name in impact_names}
@@ -1395,6 +1396,9 @@ class ImpactEstimator:
                 self.uncharacterized_ingredients_mass_distribution[characterization].append(
                     uncharacterized_ingredients_mass)
 
+            # Adding the recipe to the distribution
+            recipes.append(recipe)
+
             # Computing the impact of the recipe for all impact categories
             for impact_name in impact_names:
                 recipe_impact_calculator = RecipeImpactCalculator(recipe, impact_name,
@@ -1413,6 +1417,7 @@ class ImpactEstimator:
                 if recipe_impact is None:
                     # Rolling back changes
                     run -= 1
+                    recipes.pop()
                     confidence_score_distribution.pop()
                     impacts_to_rollback = impact_names[:impact_names.index(impact_name)]
                     for impact_to_rollback in impacts_to_rollback:
@@ -1593,6 +1598,16 @@ class ImpactEstimator:
                                                   if confidence_weighting
                                                   else None).mean
 
+        # Computing the weighted average mass share of each ingredient
+        # Poorly optimized...
+        average_mass_shares = dict()
+        for ingredient in recipes[0]:
+            mass_shares = [x[ingredient] / sum(x.values()) for x in recipes]
+            average_mass_shares[ingredient] = sms.DescrStatsW(data=mass_shares,
+                                                              weights=confidence_score_distribution
+                                                              if confidence_weighting
+                                                              else None).mean
+
         # Retrieving the databases entries related to each ingredient
         data_sources = dict()
         for ingredient in self.product['ingredients']:
@@ -1615,6 +1630,7 @@ class ImpactEstimator:
                   'impacts_quantiles': impacts_quantiles,
                   'impacts_interquartile': impacts_interquartile,
                   'ingredients_impacts_share': ingredients_impacts_share,
+                  'ingredients_mass_share': average_mass_shares,
                   'impacts_units': impacts_units,
                   'product_quantity': self.product_quantity,
                   'const_relax_coef': const_relax_coef,
@@ -1637,6 +1653,7 @@ class ImpactEstimator:
             result.update({'impact_distributions': impact_distributions,
                            'mean_confidence_interval_distribution': mean_confidence_interval_distribution,
                            'confidence_score_distribution': confidence_score_distribution,
+                           'recipes': recipes,
                            'total_used_mass_distribution': total_used_mass_distribution})
 
         return result
