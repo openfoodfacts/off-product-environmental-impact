@@ -5,11 +5,11 @@ h1, h2 {
 }
 
 h3 {
-  color: #008040;
+    color: #008040;
 }
 
 h4 {
-  color: #444444;
+    color: #444444;
 }
 
 img {
@@ -21,49 +21,56 @@ div.centered-div {
 }
 
 div.warning-block {
-     background-color: #fffbea;
-     border-left: solid 4px #e6c32d;
-     line-height: 18px;
-     overflow: hidden;
-     padding: 12px;
+    color: #BC9E25;
+    background-color: #fffbea;
+    border-left: solid 4px #e6c32d;
+    line-height: 18px;
+    overflow: hidden;
+    padding: 12px;
 }
 
 div.note-block {
-     background-color: #bbcbf7;
-     border-left: solid 4px #537cea;
-     line-height: 18px;
-     overflow: hidden;
-     padding: 12px;
+    color: #3D5CAA;
+    background-color: #bbcbf7;
+    border-left: solid 4px #537cea;
+    line-height: 18px;
+    overflow: hidden;
+    padding: 12px;
 }
 
 table.pure-table{
     font-size: x-small;
 }
 
-.reliability-1 {
+.reliability-div {
+    margin: 15px;
+}
+
+.reliability {
+    color: white;
+    border-radius: 10px;
     font-weight: bold;
     font-size: large;
-    color: #1a9641;
+    padding: 10px;
+}
+
+.reliability-1 {
+    background: #1a9641;
 }
 
 .reliability-2 {
-    font-weight: bold;
-    font-size: large;
-    color: #a6d96a;
+    background: #a6d96a;
 }
 
 .reliability-3 {
-    font-weight: bold;
-    font-size: large;
-    color: #fdae61;
+    background: #fdae61;
 }
 
 .reliability-4 {
-    font-weight: bold;
-    font-size: large;
-    color: #d7191c;
+    background: #d7191c;
 }
 
 .reliability-value {
     font-size: xx-large;
+    padding: 15px;
 }

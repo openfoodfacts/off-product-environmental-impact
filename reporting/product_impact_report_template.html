@@ -28,11 +28,11 @@
         {% endif %}
         <dt>Result reliability</em></dt>
         <dd>
-            {% for level in ['1','2','3','4'] %}
-                <span class="reliability-{{ level }}{% if level == reliability %} reliability-value{% endif %}">
-                    {{ level }}
-                </span>
-            {% endfor %}
+            <div class="reliability-div">
+                {% for level in ['1','2','3','4'] %}
+                <span class="reliability reliability-{{ level }}{% if level == reliability %} reliability-value{% endif %}">{{ level }}</span>
+                {% endfor %}
+            </div>
         </dd>
     </dl>
 </div>
