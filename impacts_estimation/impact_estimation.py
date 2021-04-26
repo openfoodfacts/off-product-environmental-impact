@@ -29,7 +29,8 @@ from settings import VERBOSITY, IMPACT_INTERQUARTILE_WARNING_THRESHOLD, \
     UNCHARACTERIZED_INGREDIENTS_MASS_WARNING_THRESHOLD, \
     UNCHARACTERIZED_INGREDIENTS_RATIO_WARNING_THRESHOLD, MAX_CONSECUTIVE_RECIPE_CREATION_ERROR, \
     DECREASING_PROPORTION_ORDER_LIMIT, TOTAL_MASS_DISTRIBUTION_STEP, \
-    MAX_CONSECUTIVE_NULL_IMPACT_CHARACTERIZED_INGREDIENTS_MASS, MINIMUM_TOTAL_MASS_FOR_UNBALANCED_RECIPES
+    MAX_CONSECUTIVE_NULL_IMPACT_CHARACTERIZED_INGREDIENTS_MASS, MINIMUM_TOTAL_MASS_FOR_UNBALANCED_RECIPES, \
+    OFF_INGREDIENTS_FORMAT
 from data import ref_ing_dist, ingredients_data
 from impacts_estimation.exceptions import RecipeCreationError, NoKnownIngredientsError, SolverTimeoutError, \
     NoCharacterizedIngredientsError
@@ -230,10 +231,6 @@ class RandomRecipeCreator:
         self.const_relax_coef = const_relax_coef
         self.min_dist_size = min_prct_dist_size
         self.total_mass_used = total_mass_used
-        # Remove subingredients from the list of ingredients, keeping them only as nested ingredients
-        # This is theoretically done by ImpactEstimator._check_multilevel_ingredients but is added here to ensure it is
-        # done
-        self.product['ingredients'] = [x for x in self.product['ingredients'] if 'rank' in x]
         individualize_ingredients(self.product)
         self.top_level_ingredients = product['ingredients']
         self.top_level_ingredients_names = [x['id'] for x in self.top_level_ingredients]
@@ -1035,7 +1032,8 @@ class ImpactEstimator:
         """ Performs some checks on multilevel ingredients. """
 
         # Remove subingredients from the list of ingredients, keeping them only as nested ingredients
-        self.product['ingredients'] = [x for x in self.product['ingredients'] if 'rank' in x]
+        if OFF_INGREDIENTS_FORMAT == 'flat with rank':
+            self.product['ingredients'] = [x for x in self.product['ingredients'] if 'rank' in x]
 
         # Removing ingredients absent of the OFF taxonomy
         if self.ignore_unknown_ingredients:

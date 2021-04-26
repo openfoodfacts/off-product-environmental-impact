@@ -30,3 +30,7 @@ MAX_CONSECUTIVE_NULL_IMPACT_CHARACTERIZED_INGREDIENTS_MASS = 3
 
 # Step of the total mass confidence score distribution estimation in g
 TOTAL_MASS_DISTRIBUTION_STEP = 1
+
+# Only used to ensure compatibility with old OFF database format for calculation on old database dumps.
+# OFF_INGREDIENTS_FORMAT = 'Flat with rank'
+OFF_INGREDIENTS_FORMAT = 'Ingredient tree'
