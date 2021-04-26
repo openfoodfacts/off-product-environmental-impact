@@ -98,8 +98,10 @@
                      {% if ingredient['has_nutrition'] %}has-nutri{% endif %}
                      {% if ingredient['has_impact'] %}has-impact{% endif %}
                      {% if not ingredient['in_recipe'] %}not-in-recipe{% endif %}">
-            {{ ingredient['id'] }}{% if ingredient['ingredients'] %}
-        </span>({{ loop(ingredient['ingredients']) }}){% endif %}
+            {{ ingredient['id'] }}
+        </span>
+        {% if ingredient['ingredients'] %}
+        ({{ loop(ingredient['ingredients']) }}){% endif %}
         {% if not loop.last %},{% endif %}
         {% endfor %}
     </p>
@@ -129,7 +131,8 @@
             <td class="{% if ingredient['in_taxonomy'] %}in-taxo{% endif %}
                        {% if ingredient['has_nutrition'] %}has-nutri{% endif %}
                        {% if ingredient['has_impact'] %}has-impact{% endif %}
-                       {% if not ingredient['in_recipe'] %}not-in-recipe{% endif %}">{{ingredient.id}}</td>
+                       {% if not ingredient['in_recipe'] %}not-in-recipe{% endif %}">{{ingredient.id}}
+            </td>
             <td>
                 {% if ingredient['nutritional_references']|length == 0 %}
                 {% elif ingredient['nutritional_references']|length == 1 %}
