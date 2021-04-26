@@ -80,6 +80,13 @@
 </div>
 <div>
     <h3>Mass share per ingredient</h3>
+    <dl>
+        <dt>Product mass</dt>
+        <dd><strong>{{ product_mass | round | int }}g</strong></dd>
+
+        <dt>Estimated ingredients mass used</dt>
+        <dd><strong>{{ total_mass_used | round | int }}g</strong></dd>
+    </dl>
     <img src="{{ images_filepath['mass_per_ingredient_plot'] }}">
     <div class="warning-block">
         <p>
@@ -92,12 +99,6 @@
 
 <div>
     <h3>Ingredients</h3>
-
-    <h4>Product mass</h4>
-    <p><strong>{{ product_mass | round | int }}g</strong></p>
-
-    <h4>Estimated ingredients mass used</h4>
-    <p><strong>{{ total_mass_used | round | int }}g</strong></p>
 
     <h4>Full ingredient list</h4>
     {{ full_ingredient_list }}

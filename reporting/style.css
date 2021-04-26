@@ -12,6 +12,11 @@ h4 {
     color: #444444;
 }
 
+dt {
+    font-weight: bold;
+    color: #444444;
+}
+
 img {
     vertical-align: middle;
 }
