@@ -91,6 +91,27 @@
     <h4>Full ingredient list</h4>
     {{ full_ingredient_list }}
 
+    <h4>Parsed ingredient list</h4>
+    <p>
+        {% for ingredient in off_ingredients recursive %}
+        <span class="{% if ingredient['in_taxonomy'] %}in-taxo{% endif %}
+                    {% if ingredient['has_nutrition'] %}has-nutri{% endif %}
+                    {% if ingredient['has_impact'] %}has-impact{% endif %}">
+            {{ ingredient['id'] }}{% if ingredient['ingredients'] %}
+        </span>({{ loop(ingredient['ingredients']) }}){% endif %}
+        {% if not loop.last %},{% endif %}
+        {% endfor %}
+    </p>
+
+    <h5>Legend:</h5>
+    <ul>
+        <li> Not in taxonomy</li>
+        <li class="in-taxo"> In taxonomy</li>
+        <li class="in-taxo has-nutri"> In taxonomy, with nutrition data</li>
+        <li class="in-taxo has-impact"> In taxonomy, with impact data</li>
+        <li class="in-taxo has-nutri has-impact"> In taxonomy, with nutrition data and impact data</li>
+    </ul>
+
     <h4>Ingredients properties</h4>
     <table class="pure-table">
         <thead>

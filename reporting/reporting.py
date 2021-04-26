@@ -12,7 +12,7 @@ from impacts_estimation.impact_estimation import estimate_impacts_safe
 from impacts_estimation.vars import AGRIBALYSE_IMPACT_CATEGORIES, AGRIBALYSE_IMPACT_UNITS
 from utils import ensure_extension, get_product_from_barcode
 from ingredients_characterization.vars import AGRIBALYSE_DATA_FILEPATH
-from data import ingredients_data, off_categories
+from data import ingredients_data, off_categories, off_taxonomy
 
 with open(AGRIBALYSE_DATA_FILEPATH, 'r', encoding='utf8') as file:
     agribalyse_data = {x['ciqual_AGB']: x for x in json.load(file)}
@@ -306,6 +306,33 @@ class ProductImpactReport:
 
         return result
 
+    def categorize_ingredients(self, ingredient_or_product):
+
+        result = dict()
+
+        # For ingredients only:
+        if '_id' not in ingredient_or_product:
+            ingredient_id = ingredient_or_product['id']
+            result['id'] = ingredient_id
+            result['in_taxonomy'] = ingredient_id in off_taxonomy
+            result['has_nutrition'] = ingredient_id in ingredients_data \
+                                      and 'nutriments' in ingredients_data[ingredient_id]
+            result['has_impact'] = ingredient_id in ingredients_data \
+                                   and 'impacts' in ingredients_data[ingredient_id]
+
+        # For product and compound ingredients
+        if 'ingredients' in ingredient_or_product:
+            result['ingredients'] = []
+            for subingredient in ingredient_or_product['ingredients']:
+                result['ingredients'].append(self.categorize_ingredients(subingredient))
+
+        return result
+
+    def off_ingredients(self):
+        """ Get a nested list of dictionaries containing the ingredients of the product and custom attributes """
+
+        return self.categorize_ingredients(self.product)['ingredients']
+
     def _generate_figure(self, plotting_function, figure_name, img_folder=None):
         fig = plotting_function()
         if img_folder is not None:
@@ -360,7 +387,8 @@ class ProductImpactReport:
                          "full_ingredient_list": self.product['ingredients_text'],
                          "impacts_data": self.impacts_data(),
                          "result_warnings": self.impact_result['warnings'],
-                         "reliability": str(self.impact_result['reliability'])
+                         "reliability": str(self.impact_result['reliability']),
+                         "off_ingredients": self.off_ingredients()
                          }
 
         self._html_output = self.template.render(template_vars)

@@ -74,3 +74,19 @@ table.pure-table{
     font-size: xx-large;
     padding: 15px;
 }
+
+.in-taxo {
+    font-weight: bold;
+}
+
+.has-nutri {
+    color: #C75605;
+}
+
+.has-impact {
+    color: #0576C7;
+}
+
+.has-nutri.has-impact {
+    color: #14A304;
+}
