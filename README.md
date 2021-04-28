@@ -90,7 +90,7 @@ The result of `impact_estimation.estimate_impacts()` is a dictionary containing 
 | `impact_geom_means`                           | __Geometric means of the impacts of all sampled recipes in each impact category.__ The main result.                                          |
 | `impact_geom_stdevs`                          | Geometric standard deviations of the impacts of all sampled recipes in each impact category.                                                 |
 | `impacts_quantiles`                           | Quantiles of the impacts of all sampled recipes in each impact category. Cutting points are defined by `quantiles_points`.                   |
-| `impacts_interquartile`                       | Relative interquartile of the impacts of all sampled recipes in each impact category. Usefull to estimate the spread of the possible impact. |
+| `impacts_interquartile`                       | Relative interquartile of the impacts of all sampled recipes in each impact category. Useful to estimate the spread of the possible impact. |
 | `ingredients_impact_share`                    | Average share of the impact carried by each ingredient for each impact category.                                                             |
 | `impacts_units`                               | Units in which the impacts are expressed.                                                                                                    |
 | `product_quantity`                            | Quantity of product in grams for which the impact have been calculated.                                                                      |
