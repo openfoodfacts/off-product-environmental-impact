@@ -1,7 +1,7 @@
 Estimating product impact
 =========================
 
-The estimating the environmental impact of an Open Food Facts product can be done using the :class:`~impacts_estimation.impact_estimation.ImpactEstimator` class or the wrappers :class:`~impacts_estimation.impact_estimation.estimate_impacts` and :class:`~impacts_estimation.impact_estimation.estimate_impacts_safe`. The later can be used in case of failure to progressively relax the constraints on the model in order to get a result.
+The estimation the environmental impact of an Open Food Facts product can be done using the :class:`~impacts_estimation.impact_estimation.ImpactEstimator` class or the wrappers :class:`~impacts_estimation.impact_estimation.estimate_impacts` and :class:`~impacts_estimation.impact_estimation.estimate_impacts_safe`. The later can be used in case of failure to progressively relax the constraints on the model in order to get a result.
 
 Central limit theorem
 ---------------------
