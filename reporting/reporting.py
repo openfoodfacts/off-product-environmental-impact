@@ -326,13 +326,13 @@ class ProductImpactReport:
 
             try:
                 result['nutritional_references'] = \
-                    [x['entry'] for x in ingredients_data[ingredient_id]['nutritional_data_sources']]
+                    [x['entry'] for x in self.impact_result['data_sources'][ingredient_id]['nutrition']]
             except KeyError:
                 result['nutritional_references'] = []
 
             try:
                 result['environmental_references'] = \
-                    [x['entry'] for x in ingredients_data[ingredient_id]['environmental_impact_data_sources']]
+                    [x['entry'] for x in self.impact_result['data_sources'][ingredient_id]['environmental_impact']]
             except KeyError:
                 result['environmental_references'] = []
 
