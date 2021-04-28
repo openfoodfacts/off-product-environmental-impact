@@ -1615,11 +1615,11 @@ class ImpactEstimator:
                 ingredient_data = ingredients_data[ingredient['id']]
                 ingredient_data_sources = dict()
 
-                if 'environmental_impact_data_sources' in ingredients_data:
+                if 'environmental_impact_data_sources' in ingredient_data:
                     ingredient_data_sources['environmental_impact'] = ingredient_data[
                         'environmental_impact_data_sources']
 
-                if 'nutritional_data_sources' in ingredients_data:
+                if 'nutritional_data_sources' in ingredient_data:
                     ingredient_data_sources['nutrition'] = ingredient_data['nutritional_data_sources']
 
                 if len(ingredient_data_sources) > 0:
