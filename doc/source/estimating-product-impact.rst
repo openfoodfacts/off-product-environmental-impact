@@ -101,6 +101,8 @@ The result of :meth:`~impacts_estimation.impact_estimation.ImpactEstimator.estim
       - Constraints relaxation coefficient used to ensure a result. See :ref:`Constraints relaxation`.
    *  - ``warnings``
       - List of possible text warnings. See :ref:`Result warnings`.
+   *  - ``reliability``
+      - Result reliability indicator (1: very reliable, 4: one or several significant warnings)
    *  - ``ignored_unknown_ingredients``
       - List of ingredients that have been ignored if the ``ignore_unknown_ingredients`` parameter have been set to ``True``.
    *  - ``uncharacterized_ingredients``
@@ -125,6 +127,8 @@ The result of :meth:`~impacts_estimation.impact_estimation.ImpactEstimator.estim
       - Distributions of the confidence interval of the mean of the impacts of all sampled recipes in each impact category. Only present if the ``distributions_as_result`` parameter is set to ``True``.
    *  - ``confidence_score_distribution``
       - Distributions of the confidence score of all sampled recipes. Only present if the ``distributions_as_result`` parameter is set to ``True``.
+   *  - ``recipes``
+      - Recipes calculated for the impact estimation.
    *  - ``total_used_mass_distribution``
       - Distributions of the total ingredient mass used :math:`M` of all sampled recipes. Only present if the ``distributions_as_result`` parameter is set to ``True``.
 
