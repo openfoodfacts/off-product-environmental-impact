@@ -128,7 +128,7 @@ The result of :meth:`~impacts_estimation.impact_estimation.ImpactEstimator.estim
    *  - ``confidence_score_distribution``
       - Distributions of the confidence score of all sampled recipes. Only present if the ``distributions_as_result`` parameter is set to ``True``.
    *  - ``recipes``
-      - Recipes calculated for the impact estimation.
+      - Recipes calculated for the impact estimation. Only present if the ``distributions_as_result`` parameter is set to ``True``.
    *  - ``total_used_mass_distribution``
       - Distributions of the total ingredient mass used :math:`M` of all sampled recipes. Only present if the ``distributions_as_result`` parameter is set to ``True``.
 
