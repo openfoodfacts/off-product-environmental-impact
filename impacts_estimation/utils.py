@@ -305,9 +305,11 @@ def define_subingredients_percentage_type(product):
                 ingredient['percent-type'] = 'undefined'
 
 
-def flat_ingredients_list(product):
+def flat_ingredients_list_BFS(product):
     """
-    Recursive function to search the ingredients graph and return it as a flat list of all nodes.
+    Recursive function to search the ingredients graph by doing a Breadth First Search and return it as a flat list of
+    all nodes.
+    Sub ingredients are placed at the end of the list.
 
     Args:
         product (dict): Dict corresponding to a product or a compound ingredient.
@@ -321,12 +323,37 @@ def flat_ingredients_list(product):
         nodes += ingredients
 
         for ingredient in ingredients:
-            nodes += flat_ingredients_list(ingredient)
+            nodes += flat_ingredients_list_BFS(ingredient)
 
             if 'ingredients' in ingredient:
                 del ingredient['ingredients']
 
     return nodes
+
+
+def flat_ingredients_list_DFS(product):
+    """
+    Recursive function to search the ingredients graph by doing a Depth First Search and return it as a flat list of
+    all nodes.
+    Sub ingredients are placed right after their parents.
+
+    Args:
+        product (dict): Dict corresponding to a product or a compound ingredient.
+
+    Returns:
+        list: List containing all the ingredients graph nodes.
+    """
+    if 'ingredients' in product:
+        product_without_ingredients = copy.deepcopy(product)
+        del product_without_ingredients['ingredients']
+
+        if '_id' in product:  # It is a product and not a compound ingredient:
+            return [y for x in product['ingredients'] for y in flat_ingredients_list_DFS(x)]
+        else:
+            return [product_without_ingredients] + [y for x in product['ingredients'] for y in
+                                                    flat_ingredients_list_DFS(x)]
+    else:
+        return [product]
 
 
 def find_ingredients_graph_leaves(product):

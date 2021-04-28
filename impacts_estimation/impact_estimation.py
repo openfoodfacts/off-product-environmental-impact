@@ -20,7 +20,7 @@ from pyscipopt import Model
 
 from impacts_estimation.utils import natural_bounds, nutritional_error_margin, \
     clear_ingredient_graph, define_subingredients_percentage_type, find_ingredients_graph_leaves, \
-    flat_ingredients_list, individualize_ingredients, original_id, nutriments_from_recipe, \
+    flat_ingredients_list_BFS, individualize_ingredients, original_id, nutriments_from_recipe, \
     remove_percentage_from_product, confidence_score, UnknownIngredientsRemover
 from impacts_estimation.vars import NUTRIMENTS_CATEGORIES, QUALITY_DATA_WARNINGS, \
     TOP_LEVEL_NUTRIMENTS_CATEGORIES, MAX_ASH_CONTENT, FERMENTATION_AGENTS, FERMENTED_FOOD_CATEGORIES, \
@@ -236,7 +236,7 @@ class RandomRecipeCreator:
         self.top_level_ingredients_names = [x['id'] for x in self.top_level_ingredients]
         self.leaf_ingredients = find_ingredients_graph_leaves(self.product)
         self.leaf_ingredients_names = [x['id'] for x in self.leaf_ingredients]
-        self.all_ingredients = flat_ingredients_list(self.product)
+        self.all_ingredients = flat_ingredients_list_BFS(self.product)
         self.all_ingredients_names = [x['id'] for x in self.all_ingredients]
         self.decreasing_order_limit_rank = None
         self.dual_gap_type = dual_gap_type.lower()
@@ -983,7 +983,7 @@ class ImpactEstimator:
             In that case, the carbohydrates should not be taken into account as the carbohydrates input of the
             ingredients may not be the same than the output in the product.
         """
-        identified_fermentation_agents = [x['id'] for x in flat_ingredients_list(self.product)
+        identified_fermentation_agents = [x['id'] for x in flat_ingredients_list_BFS(self.product)
                                           if x['id'] in FERMENTATION_AGENTS]
 
         if identified_fermentation_agents:
@@ -1072,7 +1072,7 @@ class ImpactEstimator:
 
         # If ingredients have 'undefined' as percentage type, add a warning.
         nb_undefined_prct_ingredients = 0
-        for ingredient in flat_ingredients_list(self.product):
+        for ingredient in flat_ingredients_list_BFS(self.product):
             if ingredient.get('percent-type') == 'undefined':
                 nb_undefined_prct_ingredients += 1
         if nb_undefined_prct_ingredients:
