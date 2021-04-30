@@ -425,7 +425,7 @@ class ProductImpactReport:
     def to_pdf(self, filename=None):
         """ Export the result to pdf """
 
-        filename = filename or self.product.get('product_name') or self.product['_id']
+        filename = filename or f"{self.product['_id']} - {self.product.get('product_name')}"
         filename = ensure_extension(filename, 'pdf')
 
         try:
@@ -436,7 +436,7 @@ class ProductImpactReport:
             self._clear_images()
 
     def to_html(self, filename=None):
-        filename = filename or self.product.get('product_name') or self.product['_id']
+        filename = filename or f"{self.product['_id']} - {self.product.get('product_name')}"
         filename = ensure_extension(filename, 'html')
 
         self._generate_figures(img_folder=Path(filename).stem)
