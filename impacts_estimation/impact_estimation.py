@@ -1610,7 +1610,7 @@ class ImpactEstimator:
 
         # Retrieving the databases entries related to each ingredient
         data_sources = dict()
-        for ingredient in self.product['ingredients']:
+        for ingredient in flat_ingredients_list_BFS(self.product):
             if (ingredient['id'] not in self.ignored_unknown_ingredients) and (ingredient['id'] in ingredients_data):
                 ingredient_data = ingredients_data[ingredient['id']]
                 ingredient_data_sources = dict()
