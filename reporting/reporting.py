@@ -351,12 +351,19 @@ class ProductImpactReport:
 
     def recipe_ingredients_in_list_order(self):
         """
-            Returns a list containing the names of the ingredients of the recipe in the order in which the appear in
-            the ingredients list.
+            Returns a list containing the names of the ingredients of the recipe in the order in which they first appear
+             in the ingredients list.
         """
 
-        flat_ingredient_list = flat_ingredients_list_DFS(self.product)
-        return [x['id'] for x in flat_ingredient_list if x['id'] in self.ingredients]
+        result = flat_ingredients_list_DFS(self.product)
+
+        # Removing ingredients that are not in the recipe
+        result = [x['id'] for x in result if x['id'] in self.ingredients]
+
+        # Removing the duplicates
+        result = list(dict.fromkeys(result))
+
+        return result
 
     def _generate_figure(self, plotting_function, figure_name, img_folder=None):
         fig = plotting_function()
