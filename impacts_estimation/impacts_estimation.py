@@ -493,35 +493,35 @@ class RandomRecipeCreator:
             product (dict): Dict corresponding to a product or a compound ingredient.
         """
 
-        if 'ingredients' in product:
-            for rank, ingredient in enumerate(product['ingredients']):
-                if ingredient.get('percent'):  # If the ingredient has a non null 'percent' field
-                    try:
-                        proportion = float(ingredient['percent']) / 100
+        for rank, ingredient in enumerate(product['ingredients']):
+            if ingredient.get('percent'):  # If the ingredient has a non null 'percent' field
+                try:
+                    proportion = float(ingredient['percent']) / 100
 
-                        if (product.get('percent-type') == 'product') \
-                                or (product is self.product):  # For top level ingredients
-                            self.model.addCons(self.ingredient_vars[ingredient['id']] == proportion,
-                                               name=f"{ingredient['id']}: {ingredient['percent']}% of product")
+                    if (product.get('percent-type') == 'product') \
+                            or (product is self.product):  # For top level ingredients
+                        self.model.addCons(self.ingredient_vars[ingredient['id']] == proportion,
+                                           name=f"{ingredient['id']}: {ingredient['percent']}% of product")
 
-                        elif product.get('percent-type') == 'parent':
-                            self.model.addCons(self.ingredient_vars[ingredient['id']]
-                                               ==
-                                               proportion * self.ingredient_vars[product['id']],
-                                               name=f"{ingredient['id']}: {ingredient['percent']}% of parent")
+                    elif product.get('percent-type') == 'parent':
+                        self.model.addCons(self.ingredient_vars[ingredient['id']]
+                                           ==
+                                           proportion * self.ingredient_vars[product['id']],
+                                           name=f"{ingredient['id']}: {ingredient['percent']}% of parent")
 
-                        # Ingredients which percentage is lower than 2% does not need to be listed in decreasing
-                        # proportion order. If the percentage of the ingredient is lower than 2%, then replace the
-                        # decreasing proportion order constraint by a 2% maximum constraint for all following
-                        # ingredients. This is done only for top level ingredients.
-                        if (proportion <= DECREASING_PROPORTION_ORDER_LIMIT) \
-                                and (product is self.product):
-                            self._remove_decreasing_order_constraint_from_rank(rank)
+                    # Ingredients which percentage is lower than 2% does not need to be listed in decreasing
+                    # proportion order. If the percentage of the ingredient is lower than 2%, then replace the
+                    # decreasing proportion order constraint by a 2% maximum constraint for all following
+                    # ingredients. This is done only for top level ingredients.
+                    if (proportion <= DECREASING_PROPORTION_ORDER_LIMIT) \
+                            and (product is self.product):
+                        self._remove_decreasing_order_constraint_from_rank(rank)
 
-                    except ValueError:  # To pass errors in float casting
-                        pass
+                except ValueError:  # To pass errors in float casting
+                    pass
 
-                # Recursive call for the subingredients
+            # Recursive call for the subingredients
+            if 'ingredients' in ingredient:
                 self._add_defined_percentage_constraints(ingredient)
 
     def _remove_decreasing_order_constraint_from_rank(self, rank):

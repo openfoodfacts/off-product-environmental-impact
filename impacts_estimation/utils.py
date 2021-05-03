@@ -282,6 +282,9 @@ def define_subingredients_percentage_type(product):
             # Recursive call for each subingredients:
             define_subingredients_percentage_type(ingredient)
 
+            if not any('percent' in x for x in ingredient['ingredients']):
+                continue
+
             parent_percentage = True
             product_percentage = True
             # If the maximum sum of the subingredients percentages is lower than 100, then the percentages cannot
