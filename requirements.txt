@@ -43,10 +43,3 @@ seaborn
 
 # Fuzzy string matching
 # fuzzywuzzy[speedup]
-
-# Generating documentation
-sphinx
-sphinx_rtd_theme
-sphinxcontrib-napoleon
-sphinx-mathjax-offline
-m2r2
