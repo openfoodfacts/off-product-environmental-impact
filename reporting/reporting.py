@@ -106,9 +106,6 @@ class ProductImpactReport:
                                                    quantity=self.product_mass,
                                                    distributions_as_result=True)
 
-        # with open('test_prod_result.json', 'r') as file:
-        #     self.impact_result = json.load(file)
-
     def main_impact_plot(self):
         """ Boxplot of the main impact """
 

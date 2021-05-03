@@ -1,7 +1,7 @@
 Estimating product impact
 =========================
 
-The estimation the environmental impact of an Open Food Facts product can be done using the :class:`~impacts_estimation.impacts_estimation.ImpactEstimator` class or the wrappers :class:`~impacts_estimation.impacts_estimation.estimate_impacts` and :class:`~impacts_estimation.impacts_estimation.estimate_impacts_safe`. The later can be used in case of failure to progressively relax the constraints on the model in order to get a result.
+The estimation the environmental impact of an Open Food Facts product can be done using the :class:`~impacts_estimation.impacts_estimation.ImpactEstimator` class or the wrapper :class:`~impacts_estimation.impacts_estimation.estimate_impacts`. The later can be used with ``safe_mode=True`` to progressively relax the constraints on the model in order to get a result in case of failure.
 
 Central limit theorem
 ---------------------
@@ -73,7 +73,7 @@ During the algorithm execution, errors can occur. In theses cases an exception w
 Result additional data
 ----------------------
 
-The result of :meth:`~impacts_estimation.impacts_estimation.ImpactEstimator.estimate_impacts`, :class:`~impacts_estimation.impacts_estimation.estimate_impacts` or :class:`~impacts_estimation.impacts_estimation.estimate_impacts_safe` is not only an impact. The result is a dictionary containing useful information about the estimated impact or the algorithm execution. The dictionary's attributes are detailed below :
+The result of :meth:`~impacts_estimation.impacts_estimation.ImpactEstimator.estimate_impacts` or :class:`~impacts_estimation.impacts_estimation.estimate_impacts` is not only an impact. The result is a dictionary containing useful information about the estimated impact or the algorithm execution. The dictionary's attributes are detailed below :
 
 
 .. list-table:: Result dictionary attributes

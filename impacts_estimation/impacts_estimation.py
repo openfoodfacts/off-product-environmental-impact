@@ -1,5 +1,6 @@
 """ Environmental impact estimation for Open Food Facts products  """
 
+import warnings
 import time
 from random import uniform, shuffle, choice
 from statistics import mean
@@ -1665,45 +1666,52 @@ def estimate_impacts(product, impact_names, quantity=100, ignore_unknown_ingredi
                      total_mass_used=None, min_prct_dist_size=30, dual_gap_type='absolute', dual_gap_limit=0.001,
                      solver_time_limit=60, time_limit_dual_gap_limit=0.01, confidence_weighting=True,
                      use_ingredients_impact_uncertainty=True, quantiles_points=('0.05', '0.25', '0.5', '0.75', '0.95'),
-                     distributions_as_result=False, confidence_score_weighting_factor=10):
-    """ Simple wrapper for impact estimation using ImpactEstimator class """
-
-    impact_estimator = ImpactEstimator(product=product,
-                                       quantity=quantity,
-                                       ignore_unknown_ingredients=ignore_unknown_ingredients,
-                                       use_defined_prct=use_defined_prct)
-
-    return impact_estimator.estimate_impacts(impact_names=impact_names,
-                                             min_run_nb=min_run_nb,
-                                             max_run_nb=max_run_nb,
-                                             forced_run_nb=forced_run_nb,
-                                             confidence_interval_width=confidence_interval_width,
-                                             confidence_level=confidence_level,
-                                             use_nutritional_info=use_nutritional_info,
-                                             const_relax_coef=const_relax_coef,
-                                             maximum_evaporation=maximum_evaporation,
-                                             total_mass_used=total_mass_used,
-                                             min_prct_dist_size=min_prct_dist_size,
-                                             dual_gap_type=dual_gap_type,
-                                             dual_gap_limit=dual_gap_limit,
-                                             solver_time_limit=solver_time_limit,
-                                             time_limit_dual_gap_limit=time_limit_dual_gap_limit,
-                                             confidence_weighting=confidence_weighting,
-                                             use_ingredients_impact_uncertainty=use_ingredients_impact_uncertainty,
-                                             quantiles_points=quantiles_points,
-                                             distributions_as_result=distributions_as_result,
-                                             confidence_score_weighting_factor=confidence_score_weighting_factor)
-
-
-def estimate_impacts_safe(product, impact_names, **kwargs):
+                     distributions_as_result=False, confidence_score_weighting_factor=10, safe_mode=True):
     """
         Wrapper for impact estimation that will maximise the chances of getting a result by running the program with
         more permissive parameters in case of error.
+
+        Args:
+            safe_mode (bool): If set to True, the constraints will be progressively relaxed in order to get a result.
     """
 
+    impact_estimator_kwargs = dict(product=product,
+                                   quantity=quantity,
+                                   ignore_unknown_ingredients=ignore_unknown_ingredients,
+                                   use_defined_prct=use_defined_prct)
+
+    impact_estimation_method_kwargs = dict(impact_names=impact_names,
+                                           min_run_nb=min_run_nb,
+                                           max_run_nb=max_run_nb,
+                                           forced_run_nb=forced_run_nb,
+                                           confidence_interval_width=confidence_interval_width,
+                                           confidence_level=confidence_level,
+                                           use_nutritional_info=use_nutritional_info,
+                                           const_relax_coef=const_relax_coef,
+                                           maximum_evaporation=maximum_evaporation,
+                                           total_mass_used=total_mass_used,
+                                           min_prct_dist_size=min_prct_dist_size,
+                                           dual_gap_type=dual_gap_type,
+                                           dual_gap_limit=dual_gap_limit,
+                                           solver_time_limit=solver_time_limit,
+                                           time_limit_dual_gap_limit=time_limit_dual_gap_limit,
+                                           confidence_weighting=confidence_weighting,
+                                           use_ingredients_impact_uncertainty=use_ingredients_impact_uncertainty,
+                                           quantiles_points=quantiles_points,
+                                           distributions_as_result=distributions_as_result,
+                                           confidence_score_weighting_factor=confidence_score_weighting_factor)
+
+    # First attempt for getting a result with provided kwargs
     try:
-        return estimate_impacts(product=product, impact_names=impact_names, **kwargs)
+        impact_estimator = ImpactEstimator(**impact_estimator_kwargs)
+        return impact_estimator.estimate_impacts(**impact_estimation_method_kwargs)
+
     except (RecipeCreationError, SolverTimeoutError) as original_exception:
+
+        # If the safe mode is not enabled, raise the exception, else retry with relaxed constraints
+        if not safe_mode:
+            raise original_exception
+
         # Preparing kwargs to loop on, with decreasing constraints
         constraints_levels = [
             {'use_defined_prct': True, 'const_relax_coef': 0.01},
@@ -1733,21 +1741,22 @@ def estimate_impacts_safe(product, impact_names, **kwargs):
         ]
 
         for constraints_level in constraints_levels:
-            new_kwargs = copy.deepcopy(kwargs)
+            new_impact_estimator_kwargs = copy.deepcopy(impact_estimator_kwargs)
+            new_impact_estimation_method_kwargs = copy.deepcopy(impact_estimation_method_kwargs)
             added_warnings = []
 
             for kwarg, value in constraints_level.items():
                 # Avoid to use a more restrictive parameter than the kwargs provided
                 if kwarg == 'use_defined_prct':
-                    original_kwarg_value = kwargs.get(kwarg, True)
+                    original_kwarg_value = impact_estimator_kwargs.get(kwarg, True)
                     new_value = value and original_kwarg_value
+                    new_impact_estimator_kwargs['use_defined_prct'] = new_value
                 elif kwarg == 'const_relax_coef':
-                    original_kwarg_value = kwargs.get(kwarg, 0)
+                    original_kwarg_value = impact_estimation_method_kwargs.get(kwarg, 0)
                     new_value = max(value, original_kwarg_value)
+                    new_impact_estimation_method_kwargs['const_relax_coef'] = new_value
                 else:
                     raise Exception('Not implemented.')
-
-                new_kwargs.update({kwarg: new_value})
 
                 # Add the change of parameter in the warnings
                 if new_value != original_kwarg_value:
@@ -1755,7 +1764,8 @@ def estimate_impacts_safe(product, impact_names, **kwargs):
                         f"Parameter {kwarg} has been set to {new_value} in order to get a result.")
 
             try:
-                result = estimate_impacts(product=product, impact_names=impact_names, **new_kwargs)
+                impact_estimator = ImpactEstimator(**new_impact_estimator_kwargs)
+                result = impact_estimator.estimate_impacts(**new_impact_estimation_method_kwargs)
                 result['warnings'] += added_warnings
                 return result
             except (RecipeCreationError, SolverTimeoutError):
@@ -1763,3 +1773,10 @@ def estimate_impacts_safe(product, impact_names, **kwargs):
 
         # If no result has been returned with more permissive parameters, raise the original error
         raise original_exception
+
+
+def estimate_impacts_safe(product, impact_names, **kwargs):
+    warnings.warn(message="This function is deprecated. Use estimate_impacts() with safe_mode=True instead.",
+                  category=Warning)
+
+    return estimate_impacts(product=product, impact_names=impact_names, **kwargs)
