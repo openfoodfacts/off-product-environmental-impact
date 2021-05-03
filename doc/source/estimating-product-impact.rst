@@ -89,7 +89,7 @@ The result of :meth:`~impacts_estimation.impact_estimation.ImpactEstimator.estim
       - Geometric standard deviations of the impacts of all sampled recipes in each impact category.
    *  - ``impacts_quantiles``
       - Quantiles of the impacts of all sampled recipes in each impact category. Cutting points are defined by the ``quantiles_points`` parameter.
-   *  - ``impacts_interquartile``
+   *  - ``impacts_relative_interquartile``
       - Relative interquartile of the impacts of all sampled recipes in each impact category. Useful to estimate the spread of the possible impact.
    *  - ``ingredients_impact_share``
       - Average share of the impact carried by each ingredient for each impact category.

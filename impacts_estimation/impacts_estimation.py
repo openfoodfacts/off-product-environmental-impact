@@ -1324,7 +1324,7 @@ class ImpactEstimator:
         convergence_reached = {impact_name: False for impact_name in impact_names}
         impacts_units = dict()
         impacts_quantiles = dict()
-        impacts_interquartile = dict()
+        impacts_relative_interquartile = dict()
 
         # Used to handle impacts that are skipped
         skipped_impacts = []
@@ -1585,12 +1585,12 @@ class ImpactEstimator:
                                                if confidence_weighting
                                                else None).quantile(0.5))
 
-            impacts_interquartile[impact_name] = (third_quartile - first_quartile) / median
+            impacts_relative_interquartile[impact_name] = (third_quartile - first_quartile) / median
 
-            if impacts_interquartile[impact_name] > IMPACT_INTERQUARTILE_WARNING_THRESHOLD:
+            if impacts_relative_interquartile[impact_name] > IMPACT_INTERQUARTILE_WARNING_THRESHOLD:
                 self.warnings.append(
                     f"The impact relative interquartile is high for {impact_name}"
-                    f" ({impacts_interquartile[impact_name]:.0%})")
+                    f" ({impacts_relative_interquartile[impact_name]:.0%})")
 
         # Computing the average total used mass
         average_total_used_mass = sms.DescrStatsW(data=total_used_mass_distribution,
@@ -1628,7 +1628,7 @@ class ImpactEstimator:
         result = {'impacts_geom_means': impacts_geom_means,
                   'impacts_geom_stdevs': impacts_geom_stdevs,
                   'impacts_quantiles': impacts_quantiles,
-                  'impacts_interquartile': impacts_interquartile,
+                  'impacts_relative_interquartile': impacts_relative_interquartile,
                   'ingredients_impacts_share': ingredients_impacts_share,
                   'ingredients_mass_share': average_mass_shares,
                   'impacts_units': impacts_units,
