@@ -14,4 +14,3 @@ python:
    version: 3.7
    install:
    - requirements: doc/requirements.txt
-   - requirements: requirements.txt

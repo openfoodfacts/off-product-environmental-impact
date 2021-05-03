@@ -3,3 +3,22 @@ sphinx_rtd_theme
 sphinxcontrib-napoleon
 sphinx-mathjax-offline
 m2r2
+
+numpy
+scipy
+
+# Dataframes
+pandas
+
+# Probability distribution estimation
+scikit-learn
+
+# Confidence interval estimation
+statsmodels
+
+# Reporting
+openfoodfacts
+jinja2
+weasyprint
+matplotlib
+seaborn
