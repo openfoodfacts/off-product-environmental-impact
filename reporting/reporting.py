@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import pylab
 import seaborn as sns
 
-from impacts_estimation.impact_estimation import estimate_impacts_safe
+from impacts_estimation.impacts_estimation import estimate_impacts_safe
 from impacts_estimation.vars import AGRIBALYSE_IMPACT_CATEGORIES, AGRIBALYSE_IMPACT_UNITS
 from impacts_estimation.utils import flat_ingredients_list_DFS
 from utils import ensure_extension, get_product_from_barcode, smart_round_format
@@ -101,13 +101,13 @@ class ProductImpactReport:
         self.template = self.env.get_template("product_impact_report_template.html")
 
     def _compute_impact(self):
-        # self.impact_result = estimate_impacts_safe(self.product,
-        #                                            self.impact_categories,
-        #                                            quantity=self.product_mass,
-        #                                            distributions_as_result=True)
+        self.impact_result = estimate_impacts_safe(self.product,
+                                                   self.impact_categories,
+                                                   quantity=self.product_mass,
+                                                   distributions_as_result=True)
 
-        with open('test_prod_result.json', 'r') as file:
-            self.impact_result = json.load(file)
+        # with open('test_prod_result.json', 'r') as file:
+        #     self.impact_result = json.load(file)
 
     def main_impact_plot(self):
         """ Boxplot of the main impact """
