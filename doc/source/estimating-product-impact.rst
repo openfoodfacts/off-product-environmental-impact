@@ -1,7 +1,7 @@
 Estimating product impact
 =========================
 
-The estimation the environmental impact of an Open Food Facts product can be done using the :class:`~impacts_estimation.impact_estimation.ImpactEstimator` class or the wrappers :class:`~impacts_estimation.impact_estimation.estimate_impacts` and :class:`~impacts_estimation.impact_estimation.estimate_impacts_safe`. The later can be used in case of failure to progressively relax the constraints on the model in order to get a result.
+The estimation the environmental impact of an Open Food Facts product can be done using the :class:`~impacts_estimation.impacts_estimation.ImpactEstimator` class or the wrappers :class:`~impacts_estimation.impacts_estimation.estimate_impacts` and :class:`~impacts_estimation.impacts_estimation.estimate_impacts_safe`. The later can be used in case of failure to progressively relax the constraints on the model in order to get a result.
 
 Central limit theorem
 ---------------------
@@ -17,7 +17,7 @@ This theorem can be stated as follows:
 
     The law of :math:`\overline{X}_n` converges to a normal law :math:`\mathcal{N}\left(\mu,\frac{\sigma}{\sqrt{n}}\right)`.
 
-This theorem could be used to calculate the expectation of the environmental impact of a recipe obtained with :class:`~impacts_estimation.impact_estimation.RandomRecipeCreator`. However, the calculated impact values have a large dispersion, sometimes over several orders of magnitude, and seem to follow a lognormal distribution. In this case, the geometric mean of the distribution is a more relevant indicator than the arithmetic mean. However, the geometric mean can be calculated as the exponential of the arithmetic mean of the logarithms of the values.
+This theorem could be used to calculate the expectation of the environmental impact of a recipe obtained with :class:`~impacts_estimation.impacts_estimation.RandomRecipeCreator`. However, the calculated impact values have a large dispersion, sometimes over several orders of magnitude, and seem to follow a lognormal distribution. In this case, the geometric mean of the distribution is a more relevant indicator than the arithmetic mean. However, the geometric mean can be calculated as the exponential of the arithmetic mean of the logarithms of the values.
 
 .. math::
     \forall n \in \mathbb{N^*}, G=\exp\left(\frac{\sum_{i=1}^{n}{\ln(x_i)}}{n}\right)
@@ -46,7 +46,7 @@ Algorithm description
 ---------------------
 
 The algorithm consists of a while loop that continues as long as the minimum number of loop turns is not reached or the confidence interval of the result of at least one of the impact categories is higher than the stopping threshold.
-At each turn of this loop, :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator.random_recipe` is called to obtain a possible recipe of the product and its confidence score is calculated.
+At each turn of this loop, :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator.random_recipe` is called to obtain a possible recipe of the product and its confidence score is calculated.
 We then loop over all the impact categories considered to calculate the impact of this recipe and add it to a list.
 The logarithms of the impact values of the recipes calculated so far are averaged and weighted by their confidence score and this result is added to a list.
 This list thus contains the weighted average of the impact logs of the first :math:`1, 2, \dots, n` first draws.
@@ -57,7 +57,7 @@ If the width of this interval converted back to the linear space (by taking the 
 Result warnings
 ---------------
 
-During the algorithm execution, errors can occur. In theses cases an exception will be raised and the program will be terminated. In other cases, the algorithm can encounter non blocking issues. For example, if :meth:`~impacts_estimation.impact_estimation.ImpactEstimator._check_defined_percentages` finds that the defined percentages are inconsistent, the program can still run ignoring these percentages. In that case, it will be recorded in the ``warnings`` attribute of the result. This attribute is a list of textual warnings about the algorithm execution or its result.
+During the algorithm execution, errors can occur. In theses cases an exception will be raised and the program will be terminated. In other cases, the algorithm can encounter non blocking issues. For example, if :meth:`~impacts_estimation.impacts_estimation.ImpactEstimator._check_defined_percentages` finds that the defined percentages are inconsistent, the program can still run ignoring these percentages. In that case, it will be recorded in the ``warnings`` attribute of the result. This attribute is a list of textual warnings about the algorithm execution or its result.
 
 .. code-block:: json
    :caption: Example of ``warnings`` result attribute content
@@ -73,7 +73,7 @@ During the algorithm execution, errors can occur. In theses cases an exception w
 Result additional data
 ----------------------
 
-The result of :meth:`~impacts_estimation.impact_estimation.ImpactEstimator.estimate_impacts`, :class:`~impacts_estimation.impact_estimation.estimate_impacts` or :class:`~impacts_estimation.impact_estimation.estimate_impacts_safe` is not only an impact. The result is a dictionary containing useful information about the estimated impact or the algorithm execution. The dictionary's attributes are detailed below :
+The result of :meth:`~impacts_estimation.impacts_estimation.ImpactEstimator.estimate_impacts`, :class:`~impacts_estimation.impacts_estimation.estimate_impacts` or :class:`~impacts_estimation.impacts_estimation.estimate_impacts_safe` is not only an impact. The result is a dictionary containing useful information about the estimated impact or the algorithm execution. The dictionary's attributes are detailed below :
 
 
 .. list-table:: Result dictionary attributes
@@ -135,11 +135,11 @@ The result of :meth:`~impacts_estimation.impact_estimation.ImpactEstimator.estim
 Product check and preprocessing
 -------------------------------
 
-Before calculating the impact of a product with :meth:`~impacts_estimation.impact_estimation.ImpactEstimator.estimate_impacts`, the constructor of the :class:`~impacts_estimation.impact_estimation.ImpactEstimator` class does some checks on the product with private methods.
+Before calculating the impact of a product with :meth:`~impacts_estimation.impacts_estimation.ImpactEstimator.estimate_impacts`, the constructor of the :class:`~impacts_estimation.impacts_estimation.ImpactEstimator` class does some checks on the product with private methods.
 
-* :meth:`~impacts_estimation.impact_estimation.ImpactEstimator._check_ingredients` will perform checks and preprocessing on ingredients such as removing ingredients that are not present in Open Food Facts's ingredients taxonomy or raising an exception if no ingredient have environmental impact values.
-* :meth:`~impacts_estimation.impact_estimation.ImpactEstimator._check_defined_percentages` will check the validity of ingredients percentages. If an inconsistency is spotted (for example a higher percentage defined for the second ingredient than the first), the defined percentages will not be used and a warning will be added to the result.
-* :meth:`~impacts_estimation.impact_estimation.ImpactEstimator._check_product_water_loss` will check if the product belongs to a category that has a high water loss potential, such as cheese for example. In that case, it will adjust the evaporation coefficient accordingly and add a warning to the result.
-* :meth:`~impacts_estimation.impact_estimation.ImpactEstimator._check_fermented_product` will check if the product belongs to a fermented product category or if it contains ingredients that may induce a fermentation. In that case, the hypothesis of conservation of the nutrients during product processing may be false for carbohydrates and sugars. These nutriments are then ignored and a warning is added to the result.
+* :meth:`~impacts_estimation.impacts_estimation.ImpactEstimator._check_ingredients` will perform checks and preprocessing on ingredients such as removing ingredients that are not present in Open Food Facts's ingredients taxonomy or raising an exception if no ingredient have environmental impact values.
+* :meth:`~impacts_estimation.impacts_estimation.ImpactEstimator._check_defined_percentages` will check the validity of ingredients percentages. If an inconsistency is spotted (for example a higher percentage defined for the second ingredient than the first), the defined percentages will not be used and a warning will be added to the result.
+* :meth:`~impacts_estimation.impacts_estimation.ImpactEstimator._check_product_water_loss` will check if the product belongs to a category that has a high water loss potential, such as cheese for example. In that case, it will adjust the evaporation coefficient accordingly and add a warning to the result.
+* :meth:`~impacts_estimation.impacts_estimation.ImpactEstimator._check_fermented_product` will check if the product belongs to a fermented product category or if it contains ingredients that may induce a fermentation. In that case, the hypothesis of conservation of the nutrients during product processing may be false for carbohydrates and sugars. These nutriments are then ignored and a warning is added to the result.
 
 

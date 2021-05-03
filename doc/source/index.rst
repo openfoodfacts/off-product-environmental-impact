@@ -16,7 +16,7 @@ Welcome to Open Food Facts Product Environmental Impact's documentation!
    calculating-recipe-confidence-score
    calculating-recipe-environmental-impact
    estimating-product-impact
-   ingredients-characterization
+   characterizing-ingredients
    reporting
 
 

@@ -11,7 +11,7 @@ before processing. Let :math:`m_i` be the mass of ingredient :math:`i \in I` use
     \forall i \in I, m_i = M.p_i\\
 
 .. note::
-    This equation is implemented by :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_total_leaves_percentage_constraint`
+    This equation is implemented by :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._add_total_leaves_percentage_constraint`
 
 Ingredients order
 -----------------
@@ -22,7 +22,7 @@ The ingredient list is given by decreasing proportion at the moment of incorpora
     \forall i \in I, p_{i+1} \le \max(p_i, 0.02)
 
 .. note::
-    This equation is implemented by :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_mass_order_constraints` and :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._remove_decreasing_order_constraint_from_rank`.
+    This equation is implemented by :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._add_mass_order_constraints` and :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._remove_decreasing_order_constraint_from_rank`.
 
 Compound ingredients
 --------------------
@@ -34,7 +34,7 @@ The ingredients composing a food product can themselves be composed by sub-ingre
     \forall j \in i, m_j = m_i.p_j\\
 
 .. note::
-    This equation is implemented by :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_total_subingredients_percentages_constraint`
+    This equation is implemented by :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._add_total_subingredients_percentages_constraint`
 
 Nutriments balance
 ------------------
@@ -95,7 +95,7 @@ Thus:
     M\sum_{i \in I}{p_i\cdot c_{min,n,i}} \le (1 + \delta) F_n + \varepsilon_n
 
 .. note::
-    These equations are implemented by :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_nutritional_constraints`.
+    These equations are implemented by :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._add_nutritional_constraints`.
     :func:`~impacts_estimation.utils.nutritional_error_margin` gives the relative and absolute margin for a nutriment and a value.
 
 Water balance
@@ -118,7 +118,7 @@ Thus:
         M \left(1 - E \sum_{i \in I} p_i \cdot c_{max,w,i}\right) \le F \le M \left(1 - E \sum_{i \in I} p_i \cdot c_{min,w,i}\right)
 
 .. note::
-    This equation is implemented by :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_evaporation_constraint`
+    This equation is implemented by :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._add_evaporation_constraint`
 
 Moreover, :math:`F` can be used to bound the value of the total mass used :math:`M`.
 Indeed, in the case where the product is only made of water, we have:
@@ -132,7 +132,7 @@ By extending it to the general case, we can deduce:
     F \le M \le \frac{F}{1-E}
 
 .. note::
-    This equation is implemented by :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_used_mass_constraint`
+    This equation is implemented by :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._add_used_mass_constraint`
 
 Mass balance
 ------------
@@ -149,7 +149,7 @@ Considering that food products consist only of water and nutrients, we have:
     M\sum_{i \in I}{p_i \left( (1-E) c_{min,w,i} + \sum_{n \in N}{c_{min,n,i}}\right)} \le F \le M\sum_{i \in I}{p_i \left( (1-E) c_{max,w,i} + \sum_{n \in N}{c_{max,n,i}}\right)}
 
 .. note::
-    This equation is implemented by :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_product_mass_constraint`
+    This equation is implemented by :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._add_product_mass_constraint`
 
 Product environmental impact
 ----------------------------
@@ -162,4 +162,4 @@ The impact :math:`A_c` of the product in category :math:`c` is defined by the su
     \forall c \in C, A_c = \sum_{i\in I} m_i \cdot \alpha_{c,i}
 
 .. note::
-    This equation is implemented by :meth:`~impacts_estimation.impact_estimation.RecipeImpactCalculator._compute_impact`
+    This equation is implemented by :meth:`~impacts_estimation.impacts_estimation.RecipeImpactCalculator._compute_impact`

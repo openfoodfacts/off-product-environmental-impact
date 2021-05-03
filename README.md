@@ -10,7 +10,7 @@ Installation instructions can be found [here (PySCIPOpt)](https://github.com/SCI
 See [requirements.txt](requirements.txt) for the other required Python packages.
 
 ## Usage
-Impact estimation of a product can be done using `impact_estimation.estimate_impacts()`.
+Impact estimation of a product can be done using `impacts_estimationestimate_impacts()`.
 
 ```python
 from impacts_estimation import estimate_impacts
@@ -32,7 +32,7 @@ for impact_category in impact_categories:
 # Changement climatique: 0.7816 kg CO2 eq
 ```
 
-`impact_estimation.estimate_impacts_safe()` will change the parameters in case of error to ensure getting a result. 
+`impacts_estimationestimate_impacts_safe()` will change the parameters in case of error to ensure getting a result. 
 ```python
 from impacts_estimation import estimate_impacts, estimate_impacts_safe, RecipeCreationError
 from openfoodfacts import get_product
@@ -57,7 +57,7 @@ print(impact_estimation_result['warnings'])
 ``` 
 
 ### Parameters
-The function `impact_estimation.estimate_impacts()` accepts the following parameters: 
+The function `impacts_estimationestimate_impacts()` accepts the following parameters: 
 
 | Parameter                            | Type                   | Default                                  | Description                                                                                                                                                                                                                               |
 |--------------------------------------|------------------------|------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -83,7 +83,7 @@ The function `impact_estimation.estimate_impacts()` accepts the following parame
 | `quantiles_points`                   | `iterable`             | `(0.05, 0.25, 0.5, 0.75, 0.95)` | List of impacts quantiles cutting points to return in the result.                                                                                                                                                                         |                                                          |
 
 ### Result
-The result of `impact_estimation.estimate_impacts()` is a dictionary containing the calculated impacts as well as several additional data.
+The result of `impacts_estimationestimate_impacts()` is a dictionary containing the calculated impacts as well as several additional data.
 
 | Key                                           | Description                                                                                                                                  |
 |-----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|

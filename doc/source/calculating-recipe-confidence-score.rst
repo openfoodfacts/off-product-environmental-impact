@@ -6,7 +6,7 @@ In some cases it may be necessary to evaluate how trustworthy a recipe is. This 
 Nutritional distance
 --------------------
 
-For any recipe obtained with :class:`~impacts_estimation.impact_estimation.RandomRecipeCreator`, it is possible to estimate a nutritional composition using :func:`~impacts_estimation.utils.nutriments_from_recipe`. This nutritional composition can then be compared to the reference composition of the product to evaluate the quality of the recipe prediction.
+For any recipe obtained with :class:`~impacts_estimation.impacts_estimation.RandomRecipeCreator`, it is possible to estimate a nutritional composition using :func:`~impacts_estimation.utils.nutriments_from_recipe`. This nutritional composition can then be compared to the reference composition of the product to evaluate the quality of the recipe prediction.
 
 Considering a simplified example with only two nutrients, we can represent the nutritional compositions :math:`C` (reference composition) and :math:`\widehat{C}` (calculated composition) in a two-dimensional space, each dimension representing the content in a nutrient. Nutrients :math:`x` and :math:`y` are not the only nutrients composing the product but they are the only ones considered because information for the other nutrients is missing. Therefore the compositions may be below the line :math:`x + y = 1` but not above it.
 

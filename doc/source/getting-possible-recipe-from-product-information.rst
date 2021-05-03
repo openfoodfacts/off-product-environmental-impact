@@ -1,7 +1,7 @@
 Getting possible recipe from product information
 ================================================
 
-The class :class:`~impacts_estimation.impact_estimation.RandomRecipeCreator` can be used to guess a product recipe from its ingredient list and nutritional composition.
+The class :class:`~impacts_estimation.impacts_estimation.RandomRecipeCreator` can be used to guess a product recipe from its ingredient list and nutritional composition.
 
 .. warning::
     The resulting recipe is **not the most likely** but is simply one possible recipe among many. Due to its random nature, multiple uses of this algorithm with the same product input will result in different recipes output.
@@ -44,7 +44,7 @@ The solver used for the *Optimization-Based Bound Tightening* is `SCIP <https://
 Solver parameters
 +++++++++++++++++
 
-The constructor of :class:`~impacts_estimation.impact_estimation.RandomRecipeCreator` accepts several parameters related to the solver setting.
+The constructor of :class:`~impacts_estimation.impacts_estimation.RandomRecipeCreator` accepts several parameters related to the solver setting.
 
 * ``dual_gap_type`` allows to choose the type of measurement of the `duality gap <https://en.wikipedia.org/wiki/Duality_gap>`_. It can be seen as an expression of whether the precision of the variable optimization must be absolute or relative.
 * ``dual_gap_limit`` determines the precision of the variable optimization by the solver. Relative or absolute according to ``dual_gap_type``.
@@ -54,7 +54,7 @@ The constructor of :class:`~impacts_estimation.impact_estimation.RandomRecipeCre
 Solver variables
 ++++++++++++++++
 
-Using the conceptual framework detailed in :ref:`Food product modelling`, :class:`~impacts_estimation.impact_estimation.RandomRecipeCreator` implements the following solver variables:
+Using the conceptual framework detailed in :ref:`Food product modelling`, :class:`~impacts_estimation.impacts_estimation.RandomRecipeCreator` implements the following solver variables:
 
 * The attribute ``total_mass_var`` corresponds to the total mass of ingredients used before transformation :math:`M`
 * The attribute ``evaporation_var`` corresponds to the evaporation coefficient :math:`E`
@@ -67,14 +67,14 @@ Solver constraints
 
 The constraints on the variables corresponding to the equations detailed in :ref:`Food product modelling` are added to the solver by dedicated methods:
 
-* :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_total_leaves_percentage_constraint`
-* :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_mass_order_constraints`
-* :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._remove_decreasing_order_constraint_from_rank`
-* :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_total_subingredients_percentages_constraint`,
-* :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_nutritional_constraints`
-* :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_evaporation_constraint`
-* :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_used_mass_constraint`
-* :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._add_product_mass_constraint`
+* :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._add_total_leaves_percentage_constraint`
+* :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._add_mass_order_constraints`
+* :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._remove_decreasing_order_constraint_from_rank`
+* :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._add_total_subingredients_percentages_constraint`,
+* :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._add_nutritional_constraints`
+* :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._add_evaporation_constraint`
+* :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._add_used_mass_constraint`
+* :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._add_product_mass_constraint`
 
 Constraints relaxation
 ++++++++++++++++++++++
@@ -86,9 +86,9 @@ Choosing the ingredient proportion
 
 The main element of this algorithm is a loop on all ingredients in random order to identify their proportion's bounds and then randomly choose a value within these bounds.
 
-Getting the bounds of the ingredient's proportion is done with the method :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._get_variable_bounds` that will simply call :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._optimize_variable` to successively maximize and minimize the variable corresponding to the ingredient's proportion.
+Getting the bounds of the ingredient's proportion is done with the method :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._get_variable_bounds` that will simply call :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._optimize_variable` to successively maximize and minimize the variable corresponding to the ingredient's proportion.
 
-Once the bounds of the ingredient's proportion are defined, :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._pick_proportion` will randomly choose a proportion within them by one of the following ways:
+Once the bounds of the ingredient's proportion are defined, :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._pick_proportion` will randomly choose a proportion within them by one of the following ways:
 
 * If there is less than ``min_prct_dist_size`` products in Open Food Facts that has a percentage value within the bounds for this ingredient, the proportion is chosen using a uniform distribution between the bounds.
 * Otherwise, a `Kernel Density Estimator <https://en.wikipedia.org/wiki/Kernel_density_estimation>`_ is fit with the percentage data of the products from the most specific category of the current product that has at least ``min_prct_dist_size`` defined percentages for this ingredient within the bounds. This KDE is then used to randomly draw a proportion for the ingredient.
@@ -107,7 +107,7 @@ Choosing the total ingredient mass
 
 Since the manufacturing processes of the products are unknown, it is sometimes impossible to know with certainty the total quantity of ingredients used, even if the mass of the final product is known. Indeed, the mass of ingredients used is at least equal to the mass of the final product but it can be higher in the case of manufacturing processes involving a loss of matter (water loss during drying for example). It has been assumed that the only possible loss of matter was a water loss.
 
-Once all ingredients proportions have been chosen, :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._pick_total_mass` will choose the total mass in a similar way. The first step is to determine the bounds of the possible values of the total mass with :meth:`~impacts_estimation.impact_estimation.RandomRecipeCreator._get_variable_bounds`. Then for each total mass value between the bounds and with a step of 1 gram, the corresponding recipe is created and its **confidence score** is calculated (see :ref:`Calculating recipe confidence score`). The total mass value with the highest confidence score is then chosen and the corresponding recipe is returned.
+Once all ingredients proportions have been chosen, :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._pick_total_mass` will choose the total mass in a similar way. The first step is to determine the bounds of the possible values of the total mass with :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._get_variable_bounds`. Then for each total mass value between the bounds and with a step of 1 gram, the corresponding recipe is created and its **confidence score** is calculated (see :ref:`Calculating recipe confidence score`). The total mass value with the highest confidence score is then chosen and the corresponding recipe is returned.
 
 .. figure:: /_static/total_mass_choice.svg
     :width: 300
@@ -119,7 +119,7 @@ Allowing unbalanced recipes
 
 One of the most obvious characteristics of the total mass of ingredients used :math:`M` is that it is superior or equal to the final product mass :math:`F`. The processing of the ingredients may lead to water loss but the recipe cannot use less ingredients that the final mass of the product.
 
-Unfortunately, this simple rule leads to a bias in the total mass estimation. As the total mass value has a lower bound (:math:`F`) but no upper bound (more exactly a very high upper bound which is :math:`\frac{F}{1-E}`), this algorithm tends to overestimate the total ingredient mass more often than it underestimates it. For some use cases it may not be an issue but for impact estimation by Monte-Carlo sampling (see :ref:`Estimating product impact`), it leads to overestimation of the product impact. To avoid this behaviour, :class:`~impacts_estimation.impact_estimation.RandomRecipeCreator`'s constructor has a parameter ``allow_unbalanced_recipe`` that when set to ``True`` will replace the constraint :math:`F<M` by :math:`xF<M` were :math:`x` is a constant defined in :py:mod:`~impacts_estimation.vars` and is :math:`0.5` by default.
+Unfortunately, this simple rule leads to a bias in the total mass estimation. As the total mass value has a lower bound (:math:`F`) but no upper bound (more exactly a very high upper bound which is :math:`\frac{F}{1-E}`), this algorithm tends to overestimate the total ingredient mass more often than it underestimates it. For some use cases it may not be an issue but for impact estimation by Monte-Carlo sampling (see :ref:`Estimating product impact`), it leads to overestimation of the product impact. To avoid this behaviour, :class:`~impacts_estimation.impacts_estimation.RandomRecipeCreator`'s constructor has a parameter ``allow_unbalanced_recipe`` that when set to ``True`` will replace the constraint :math:`F<M` by :math:`xF<M` were :math:`x` is a constant defined in :py:mod:`~impacts_estimation.vars` and is :math:`0.5` by default.
 
 .. warning::
     This feature may lead to recipes with an imperfect mass balance and should be used carefully.

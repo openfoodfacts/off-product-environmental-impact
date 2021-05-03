@@ -4,7 +4,7 @@ Impacts estimation package
 Module contents
 ---------------
 
-.. automodule:: impacts_estimation.impact_estimation
+.. automodule:: impacts_estimation.impacts_estimation
     :members:
     :undoc-members:
     :private-members:
