@@ -26,7 +26,7 @@ from impacts_estimation.utils import natural_bounds, nutritional_error_margin, \
 from impacts_estimation.vars import NUTRIMENTS_CATEGORIES, QUALITY_DATA_WARNINGS, \
     TOP_LEVEL_NUTRIMENTS_CATEGORIES, MAX_ASH_CONTENT, FERMENTATION_AGENTS, FERMENTED_FOOD_CATEGORIES, \
     HIGH_WATER_LOSS_CATEGORIES, IMPACT_MASS_UNIT, AGRIBALYSE_IMPACT_UNITS, RESULTS_WARNINGS_NOT_RELIABLE
-from settings import VERBOSITY, IMPACT_INTERQUARTILE_WARNING_THRESHOLD, \
+from settings import VERBOSITY, IMPACT_RELATIVE_INTERQUARTILE_WARNING_THRESHOLD, \
     UNCHARACTERIZED_INGREDIENTS_MASS_WARNING_THRESHOLD, \
     UNCHARACTERIZED_INGREDIENTS_RATIO_WARNING_THRESHOLD, MAX_CONSECUTIVE_RECIPE_CREATION_ERROR, \
     DECREASING_PROPORTION_ORDER_LIMIT, TOTAL_MASS_DISTRIBUTION_STEP, \
@@ -1588,7 +1588,7 @@ class ImpactEstimator:
 
             impacts_relative_interquartile[impact_name] = (third_quartile - first_quartile) / median
 
-            if impacts_relative_interquartile[impact_name] > IMPACT_INTERQUARTILE_WARNING_THRESHOLD:
+            if impacts_relative_interquartile[impact_name] > IMPACT_RELATIVE_INTERQUARTILE_WARNING_THRESHOLD:
                 self.warnings.append(
                     f"The impact relative interquartile is high for {impact_name}"
                     f" ({impacts_relative_interquartile[impact_name]:.0%})")

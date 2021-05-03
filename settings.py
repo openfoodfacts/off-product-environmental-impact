@@ -13,8 +13,8 @@ UNCHARACTERIZED_INGREDIENTS_RATIO_WARNING_THRESHOLD = 0.25
 #  should contain a warning
 UNCHARACTERIZED_INGREDIENTS_MASS_WARNING_THRESHOLD = 0.10
 
-# Impact interquartile from which the result should contain a warning
-IMPACT_INTERQUARTILE_WARNING_THRESHOLD = 0.25
+# Impact relative interquartile from which the result should contain a warning
+IMPACT_RELATIVE_INTERQUARTILE_WARNING_THRESHOLD = 0.25
 
 # 0: No output, 1: ImpactEstimator output, 2: + RandomCompositionCreator outputs, 3: + Solver output
 VERBOSITY = 0
