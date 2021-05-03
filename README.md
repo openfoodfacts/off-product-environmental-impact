@@ -1,7 +1,6 @@
 # Environmental impact estimation of Open Food Facts products
 
-This repository contains a Python program to estimate the environmental impact of a product of the Open Food Facts
-database.
+This repository contains a Python program to estimate the environmental impact of the agricultural steps of a product of the Open Food Facts database.
 
 ## Installation
 
@@ -97,8 +96,7 @@ several additional data.
 
 | Key                                           | Description                                                                                                                                  |
 |-----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| `impact_geom_means`                           | __Geometric means of the impacts of all sampled recipes in each impact
-category.__ The main result.                                          |
+| `impact_geom_means`                           | __Geometric means of the impacts of all sampled recipes in each impact category.__ The main result.  |
 | `impact_geom_stdevs`                          | Geometric standard deviations of the impacts of all sampled recipes in each impact category.                                                 |
 | `impacts_quantiles`                           | Quantiles of the impacts of all sampled recipes in each impact category. Cutting points are defined by `quantiles_points`.                   |
 | `impacts_relative_interquartile`                       | Relative interquartile of the impacts of all sampled recipes in each impact category. Useful to estimate the spread of the possible impact. |
