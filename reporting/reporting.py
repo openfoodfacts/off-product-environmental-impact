@@ -11,7 +11,7 @@ import seaborn as sns
 from impacts_estimation.impacts_estimation import estimate_impacts
 from impacts_estimation.vars import AGRIBALYSE_IMPACT_CATEGORIES, AGRIBALYSE_IMPACT_UNITS
 from impacts_estimation.utils import flat_ingredients_list_DFS
-from utils import ensure_extension, get_product_from_barcode, smart_round_format
+from .utils import ensure_extension, get_product_from_barcode, smart_round_format
 from ingredients_characterization.vars import AGRIBALYSE_DATA_FILEPATH
 from data import ingredients_data, off_categories, off_taxonomy
 
@@ -431,7 +431,7 @@ class ProductImpactReport:
         self._html_output = self.template.render(template_vars)
 
     def to_pdf(self, filename=None):
-        """ Export the result to pdf """
+        """ Export the report to pdf """
 
         filename = filename or f"{self.product['_id']} - {self.product.get('product_name')}"
         filename = ensure_extension(filename, 'pdf')
@@ -444,6 +444,8 @@ class ProductImpactReport:
             self._clear_images()
 
     def to_html(self, filename=None):
+        """ Export the report to html """
+
         filename = filename or f"{self.product['_id']} - {self.product.get('product_name')}"
         filename = ensure_extension(filename, 'html')
 
