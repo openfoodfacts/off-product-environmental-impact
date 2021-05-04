@@ -47,7 +47,8 @@ def nutriments_from_recipe(recipe):
     return result
 
 
-def confidence_score(nutri, reference_nutri, total_mass, min_possible_mass, max_possible_mass, weighting_factor=10):
+def confidence_score(nutri, reference_nutri, total_mass, min_possible_mass, max_possible_mass, weighting_factor=10,
+                     reference_mass=100):
     """
     Calculate the confidence score of a nutritional composition using the euclidean distance between the reference
     nutritional composition and the assessed nutritional composition in the space of all considered nutriments
@@ -66,15 +67,16 @@ def confidence_score(nutri, reference_nutri, total_mass, min_possible_mass, max_
         max_possible_mass (float): Maximum possible total ingredient mass for a product in g
         weighting_factor (float): Weight of the nutritional distance against the absolute difference between
          the total mass and 100g/100g.
+        reference_mass (float): Mass for which the nutritional compositions are expressed (in g).
 
     Returns:
         float: Confidence score
     """
     assert round(min_possible_mass) <= round(total_mass) <= round(max_possible_mass)
 
-    total_mass = total_mass / 100
-    min_possible_mass = min_possible_mass / 100
-    max_possible_mass = max_possible_mass / 100
+    total_mass = total_mass / reference_mass
+    min_possible_mass = min_possible_mass / reference_mass
+    max_possible_mass = max_possible_mass / reference_mass
 
     # Removing "_100g" from reference_nutri keys
     reference_nutri = {k.replace('_100g', ''): v for k, v in reference_nutri.items()}
@@ -86,7 +88,8 @@ def confidence_score(nutri, reference_nutri, total_mass, min_possible_mass, max_
         if nutriment in TOP_LEVEL_NUTRIMENTS_CATEGORIES:
             if nutriment in reference_nutri:
                 n += 1  # Incrementing the number of considered dimensions (nutriments)
-                difference = (float(reference_nutri[nutriment]) / 100) - (float(nutri[nutriment]) / 100)
+                difference = (float(reference_nutri[nutriment]) / reference_mass) \
+                             - (float(nutri[nutriment]) / reference_mass)
 
                 squared_difference = round(difference ** 2, 6)
 

@@ -96,9 +96,9 @@ class ProductImpactReport:
                                            if (x not in ingredients_data)
                                            or ('impacts' not in ingredients_data[x])]
 
-        self.env = Environment(loader=FileSystemLoader('.'))
+        self.env = Environment(loader=FileSystemLoader(str(Path.cwd() / 'static')))
         self.env.filters['smart_round_format'] = smart_round_format
-        self.template = self.env.get_template("product_impact_report_template.html")
+        self.template = self.env.get_template('product_impact_report_template.html')
 
     def _compute_impact(self):
         self.impact_result = estimate_impacts(self.product,
