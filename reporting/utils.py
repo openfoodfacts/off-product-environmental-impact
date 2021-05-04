@@ -5,7 +5,15 @@ import requests
 
 
 def ensure_extension(filename, extension):
-    return Path(filename).with_suffix(f".{extension}")
+    """
+        Ensures of the extension of a file
+
+        >>> ensure_extension('foo.pdf', 'pdf')
+        'foo.pdf'
+        >>> ensure_extension('bar.csv', 'pdf')
+        'bar.pdf'
+    """
+    return str(Path(filename).with_suffix(f".{extension}"))
 
 
 def get_product_from_barcode(barcode):
