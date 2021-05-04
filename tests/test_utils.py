@@ -1,6 +1,9 @@
 """ Testing functions and classes in impacts_estimation.utils """
 
-from impacts_estimation.utils import nutriments_from_recipe, confidence_score
+from impacts_estimation.utils import nutriments_from_recipe, confidence_score, clear_ingredient_graph, \
+    minimum_percentage_sum, maximum_percentage_sum, define_subingredients_percentage_type, flat_ingredients_list_BFS, \
+    flat_ingredients_list_DFS, find_ingredients_graph_leaves, UnknownIngredientsRemover, remove_percentage_from_product, \
+    weighted_geometric_mean
 
 
 def test_nutri_from_recipe():
@@ -98,3 +101,203 @@ def test_confidence_score_total_mass_component():
     assert conf_score_lower_mass < conf_score_exact_mass
 
 
+def test_clear_ingredient_graph():
+    """ Assert that subingredients are removed only if none of them has a percentage or is characterized """
+
+    product = {'_id': '000',
+               'ingredients': [
+                   {
+                       'id': 'en:flour',
+                       'ingredients': [
+                           {'id': 'uncharacterized_subingredient_1'},
+                           {'id': 'uncharacterized_subingredient_2'}
+                       ]
+                   },
+                   {
+                       'id': 'en:milk',
+                       'ingredients': [
+                           {'id': 'uncharacterized_subingredient_1'},
+                           {
+                               'id': 'uncharacterized_subingredient_with_percentage',
+                               'percent': 4
+                           }
+                       ]
+                   },
+                   {
+                       'id': 'en:sugar',
+                       'ingredients': [
+                           {'id': 'uncharacterized_subingredient_1'},
+                           {'id': 'en:water'}
+                       ]
+                   }
+               ]
+               }
+
+    clear_ingredient_graph(product)
+
+    assert 'ingredients' not in product['ingredients'][0]
+    assert 'ingredients' in product['ingredients'][1]
+    assert 'ingredients' in product['ingredients'][2]
+
+
+def test_minimum_percentage_sum():
+    ingredients = [{'id': 'ingredient_1'},
+                   {'id': 'ingredient_2',
+                    'percent': 20},
+                   {'id': 'ingredient_3',
+                    'percent': 10}
+                   ]
+
+    assert minimum_percentage_sum(ingredients) == 50
+
+
+def test_maximum_percentage_sum():
+    ingredients = [{'id': 'ingredient_1',
+                    'percent': 30},
+                   {'id': 'ingredient_2'},
+                   {'id': 'ingredient_3',
+                    'percent': 10}
+                   ]
+
+    assert maximum_percentage_sum(ingredients) == 70
+
+
+def test_define_subingredients_percentage_type():
+    product_in_percent_of_parent = {'_id': '',
+                                    'ingredients': [{'id': 'ingredient_1',
+                                                     'percent': 10,
+                                                     'ingredients': [{'id': 'ingredient_1'},
+                                                                     {'id': 'ingredient_2',
+                                                                      'percent': 20},
+                                                                     {'id': 'ingredient_3',
+                                                                      'percent': 10}
+                                                                     ]}
+                                                    ]
+                                    }
+
+    product_in_absolute_percent = {'_id': '',
+                                   'ingredients': [{'id': 'ingredient_1',
+                                                    'percent': 10,
+                                                    'ingredients': [{'id': 'ingredient_1',
+                                                                     'percent': 6},
+                                                                    {'id': 'ingredient_2'},
+                                                                    {'id': 'ingredient_3',
+                                                                     'percent': 2}
+                                                                    ]}
+                                                   ]
+                                   }
+
+    product_in_undefined_percent = {'_id': '', 'ingredients': [{'id': 'ingredient_1',
+                                                                'ingredients': [{'id': 'ingredient_1'},
+                                                                                {'id': 'ingredient_2',
+                                                                                 'percent': 20},
+                                                                                {'id': 'ingredient_3',
+                                                                                 'percent': 10}
+                                                                                ]}
+                                                               ]
+                                    }
+
+    define_subingredients_percentage_type(product_in_percent_of_parent)
+    define_subingredients_percentage_type(product_in_absolute_percent)
+    define_subingredients_percentage_type(product_in_undefined_percent)
+
+    assert product_in_percent_of_parent['ingredients'][0]['percent-type'] == 'parent'
+    assert product_in_absolute_percent['ingredients'][0]['percent-type'] == 'product'
+    assert product_in_undefined_percent['ingredients'][0]['percent-type'] == 'undefined'
+
+
+def test_flat_ingredients_list_BFS():
+    product = {'_id': '',
+               'ingredients': [
+                   {'id': 'A'},
+                   {'id': 'B',
+                    'ingredients': [{'id': 'B-A'},
+                                    {'id': 'B-B'}]},
+                   {'id': 'C'}
+               ]}
+
+    assert flat_ingredients_list_BFS(product) == [{'id': 'A'}, {'id': 'B'}, {'id': 'C'}, {'id': 'B-A'}, {'id': 'B-B'}]
+
+
+def test_flat_ingredients_list_DFS():
+    product = {'_id': '',
+               'ingredients': [
+                   {'id': 'A'},
+                   {'id': 'B',
+                    'ingredients': [{'id': 'B-A'},
+                                    {'id': 'B-B'}]},
+                   {'id': 'C'}
+               ]}
+
+    assert flat_ingredients_list_DFS(product) == [{'id': 'A'}, {'id': 'B'}, {'id': 'B-A'}, {'id': 'B-B'}, {'id': 'C'}]
+
+
+def test_find_ingredients_graph_leaves():
+    product = {'_id': '',
+               'ingredients': [
+                   {'id': 'A'},
+                   {'id': 'B',
+                    'ingredients': [{'id': 'B-A'},
+                                    {'id': 'B-B'}]},
+                   {'id': 'C'}
+               ]}
+
+    assert find_ingredients_graph_leaves(product) == [{'id': 'A'}, {'id': 'B-A'}, {'id': 'B-B'}, {'id': 'C'}]
+
+
+def test_unknown_ingredients_remover():
+    unknown_ingredients_remover = UnknownIngredientsRemover()
+
+    product = {'_id': '',
+               'ingredients': [
+                   {'id': 'en:egg'},
+                   {'id': 'unknown_ingredient_1'},
+                   {'id': 'unknown_ingredient_2',
+                    'percent': 10},
+                   {'id': 'unknown_ingredient_3',
+                    'ingredients': [
+                        {'id': 'en:flour'}
+                    ]},
+                   {'id': 'en:milk'}
+               ]}
+
+    unknown_ingredients_remover.remove_unknown_ingredients(product)
+
+    assert [x['id'] for x in product['ingredients']] == ['en:egg', 'unknown_ingredient_2', 'unknown_ingredient_3',
+                                                         'en:milk']
+    assert unknown_ingredients_remover.removed_unknown_ingredients == ['unknown_ingredient_1']
+
+
+def test_remove_percentage_from_product():
+    product_with_prct = {'_id': '',
+                         'ingredients': [
+                             {'id': 'A',
+                              'percent': 10},
+                             {'id': 'B',
+                              'ingredients': [
+                                  {'id': 'BA'},
+                                  {'id': 'BB',
+                                   'percent': 20}
+                              ]},
+                         ]}
+
+    product_without_prct = {'_id': '',
+                            'ingredients': [
+                                {'id': 'A'},
+                                {'id': 'B',
+                                 'ingredients': [
+                                     {'id': 'BA'},
+                                     {'id': 'BB'}
+                                 ]},
+                            ]}
+
+    remove_percentage_from_product(product_with_prct)
+
+    assert product_with_prct == product_without_prct
+
+
+def test_weighted_geometric_mean():
+    values = [4, 36, 9, 6.4, 55]
+    weights = [1, 5, 8, 2, 1.2]
+
+    assert round(weighted_geometric_mean(values, weights), 4) == 14.0092
