@@ -1,7 +1,6 @@
 import os
 import json
 import uuid
-from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
 import weasyprint
@@ -371,10 +370,16 @@ class ProductImpactReport:
     def _generate_figure(self, plotting_function, figure_name, img_folder=None):
         fig = plotting_function()
         if img_folder is not None:
-            filepath = Path.cwd() / img_folder / f"{str(uuid.uuid4())[:8]}.png"
-            filepath.parent.mkdir(parents=True, exist_ok=True)
+            filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                    img_folder,
+                                    f"{str(uuid.uuid4())[:8]}.png")
+            try:
+                os.mkdir(os.path.dirname(filepath))
+            except FileExistsError:
+                pass
         else:
-            filepath = Path.cwd() / f"{str(uuid.uuid4())[:8]}.png"
+            filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                    f"{str(uuid.uuid4())[:8]}.png")
         self.images_filepath[figure_name] = filepath
         fig.savefig(filepath, bbox_inches='tight')
 
@@ -407,7 +412,7 @@ class ProductImpactReport:
     def _clear_images(self):
         """ Deletes the images generated """
         for image_filepath in self.images_filepath.values():
-            image_filepath.unlink()
+            os.remove(image_filepath)
 
     def _generate_html(self):
         """ Generate the html version of the report """
