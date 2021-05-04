@@ -1,3 +1,4 @@
+import os
 import json
 import uuid
 from pathlib import Path
@@ -96,7 +97,8 @@ class ProductImpactReport:
                                            if (x not in ingredients_data)
                                            or ('impacts' not in ingredients_data[x])]
 
-        self.env = Environment(loader=FileSystemLoader(str(Path.cwd() / 'static')))
+        self.env = Environment(loader=FileSystemLoader(
+            os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static')))
         self.env.filters['smart_round_format'] = smart_round_format
         self.template = self.env.get_template('product_impact_report_template.html')
 
@@ -449,7 +451,7 @@ class ProductImpactReport:
         filename = filename or f"{self.product['_id']} - {self.product.get('product_name')}"
         filename = ensure_extension(filename, 'html')
 
-        self._generate_figures(img_folder=Path(filename).stem)
+        self._generate_figures(img_folder=os.path.dirname(filename))
         self._generate_html()
         with open(filename, 'w') as file:
             file.write(self._html_output)
