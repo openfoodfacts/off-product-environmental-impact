@@ -53,7 +53,7 @@ If the product is linked to several Agribalyse entries with different impact dat
 
 .. note::
 
-    TODO: explain why only agricultural steps are considered.
+    The Agribalyse database contains impact of foods for their complete life cycle, from farm to consumer. Considering the whole life cycle of each ingredient would result in double counting. For example, for a tomato concentrate made with 4 kg of tomato for 1 kg of concentrate, considering the impact of the whole life cycle of 4 kg of tomato would overestimate the impact of the distribution phase as only 1 kg of product is delivered, not 4. Likewise, the transformation phase would be underestimated as the dehydration of the tomatoes would not be considered. This is why only the agricultural steps of the ingredients life cycle is considered. The other steps of the life cycle must be accounted by a different way, for example by using the impacts of the non-agricultural steps of a similar product found in Agribalyse.
 
 Data sources
 ++++++++++++
@@ -62,3 +62,5 @@ For traceability purposes, the nutritional and environmental databases entries l
 
 Ingredients defined percentages distributions
 ---------------------------------------------
+
+As detailed in :ref:`Choosing the ingredient proportion`, the distributions of ingredients percentages per product category is used during random recipe creation. This data is collected by analyzing the OFF database with ``ingredients_percentage_distribution.py``. The result is stored in ``off_ingredients_percentage_distribution.csv``.
