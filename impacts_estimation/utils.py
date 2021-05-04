@@ -76,14 +76,17 @@ def confidence_score(nutri, reference_nutri, total_mass, min_possible_mass, max_
     min_possible_mass = min_possible_mass / 100
     max_possible_mass = max_possible_mass / 100
 
+    # Removing "_100g" from reference_nutri keys
+    reference_nutri = {k.replace('_100g', ''): v for k, v in reference_nutri.items()}
+
     # Calculating nutritional distance
     squared_differences = []
     n = 0
     for nutriment in nutri:
         if nutriment in TOP_LEVEL_NUTRIMENTS_CATEGORIES:
-            if f"{nutriment}_100g" in reference_nutri:
+            if nutriment in reference_nutri:
                 n += 1  # Incrementing the number of considered dimensions (nutriments)
-                difference = (float(reference_nutri[f"{nutriment}_100g"]) / 100) - (float(nutri[nutriment]) / 100)
+                difference = (float(reference_nutri[nutriment]) / 100) - (float(nutri[nutriment]) / 100)
 
                 squared_difference = round(difference ** 2, 6)
 
