@@ -1,5 +1,10 @@
-<link href="style.css" rel=stylesheet>
+<head>
+    <style>
+        {{stylesheet}}
+    </style>
+</head>
 
+<body>
 <div>
     <h1>{{product_name}}</h1>
     <h2>{{barcode}}</h2>
@@ -224,3 +229,4 @@
     <p>{{ result_warnings | join("</br>") }}</p>
 </div>
 {% endif %}
+</body>

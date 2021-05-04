@@ -416,6 +416,10 @@ class ProductImpactReport:
 
     def _generate_html(self):
         """ Generate the html version of the report """
+        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static', 'pure-min.css')) as file:
+            stylesheet = file.read()
+        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static', 'style.css')) as file:
+            stylesheet += file.read()
 
         template_vars = {"product_name": self.product.get('product_name'),
                          "barcode": self.product['_id'],
@@ -432,7 +436,8 @@ class ProductImpactReport:
                          "impacts_data": self.impacts_data(),
                          "result_warnings": self.impact_result['warnings'],
                          "reliability": str(self.impact_result['reliability']),
-                         "off_ingredients": self.off_ingredients()
+                         "off_ingredients": self.off_ingredients(),
+                         "stylesheet": stylesheet
                          }
 
         self._html_output = self.template.render(template_vars)
