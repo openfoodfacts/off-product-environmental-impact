@@ -1265,8 +1265,8 @@ class ImpactEstimator:
             confidence_weighting (bool): Should the recipes be weighted by their confidence score (deviation of
              the recipes nutritional composition to the reference product).
             quantiles_points (iterable): List of impacts quantiles cutting points to return in the result.
-            distributions_as_result (bool): Should the distributions of the impact, the mean confidence interval and the
-                confidence score be added to the result?
+            distributions_as_result (bool): Should the recipes, the distributions of the impact, the mean confidence
+                interval and the confidence score be added to the result?
             confidence_score_weighting_factor (float): Weighting factor used for the confidence score calculation.
                 It corresponds to the weight of the nutritional distance against the absolute difference between the
                  total mass and 100g/100g.
