@@ -274,17 +274,20 @@ class ProductImpactReport:
             }
 
             if impact_category in self.impact_result['impacts_quantiles']:
-                impact_data['amount'] = self.impact_result['impacts_quantiles'][impact_category]['0.5']
+                impact_data['amount'] = self.impact_base[impact_category] + \
+                                        self.impact_result['impacts_quantiles'][impact_category]['0.5']
             else:
                 impact_data['amount'] = "This impact could not be calculated."
 
             if impact_category in self.impact_result['impacts_quantiles']:
-                impact_data['conf_int_lower_bound'] = self.impact_result['impacts_quantiles'][impact_category]['0.05']
+                impact_data['conf_int_lower_bound'] = self.impact_base[impact_category] + \
+                                        self.impact_result['impacts_quantiles'][impact_category]['0.05']
             else:
                 impact_data['conf_int_lower_bound'] = "This impact could not be calculated."
 
             if impact_category in self.impact_result['impacts_quantiles']:
-                impact_data['conf_int_upper_bound'] = self.impact_result['impacts_quantiles'][impact_category]['0.95']
+                impact_data['conf_int_upper_bound'] = self.impact_base[impact_category] + \
+                                        self.impact_result['impacts_quantiles'][impact_category]['0.95']
             else:
                 impact_data['conf_int_upper_bound'] = "This impact could not be calculated."
 
