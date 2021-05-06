@@ -1084,7 +1084,7 @@ class ImpactEstimator:
             self.warnings.append(
                 f"{nb_undefined_prct_ingredients} compound ingredients whose percentage type is undefined.")
 
-    def reliability_score(self, const_relax_coef, uncharacterized_ingredients_mass_proportion, ):
+    def reliability_score(self, const_relax_coef, uncharacterized_ingredients_mass_proportion):
         """
             Reliability level of the result:
                 - 1: Absolutely reliable, no indication of a potential issue in the input data nor in the result

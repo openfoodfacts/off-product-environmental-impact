@@ -1,0 +1,10 @@
+pound_cake = {'_id': '',
+              'ingredients': [{'id': 'en:egg'},
+                              {'id': 'en:flour'},
+                              {'id': 'en:butter'},
+                              {'id': 'en:sugar'}],
+              'nutriments': {'carbohydrates_100g': 46,
+                             'fat_100g': 26,
+                             'saturated-fat_100g': 15.8,
+                             'proteins_100g': 6,
+                             'sugars_100g': 27}}
