@@ -16,7 +16,8 @@ def main():
     ingredient = ingredients_data.get('en:water', {'id': 'en:water'})
     ingredient['LCI'] = 'Water, municipal'
     ingredient['impacts'] = tap_water_impacts
-    ingredient['source_impact'] = 'Agribalyse'
+    ingredient['environmental_impact_data_sources'] = {"database": "agribalyse",
+                                                       "entry": "Water, municipal"}
 
     ingredients_data['en:water'] = ingredient
 
