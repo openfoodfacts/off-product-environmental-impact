@@ -55,4 +55,4 @@ class TestPossibleRecipe:
         random_recipe_creator = RandomRecipeCreator(self.product, total_mass_used=110)
         recipe = random_recipe_creator.random_recipe()
 
-        assert sum(recipe.values()) == 110
+        assert round(sum(recipe.values()), 3) == 110
