@@ -707,6 +707,10 @@ class RandomRecipeCreator:
 
         Returns:
             dict:
+
+        Examples:
+            >>> RandomRecipeCreator.recipe_from_proportions({'en:egg':0.7, 'en:flour': 0.3}, 150)
+            {'en:flour': 45.0, 'en:egg':105.0}
         """
         ingredients_names = set()
 
