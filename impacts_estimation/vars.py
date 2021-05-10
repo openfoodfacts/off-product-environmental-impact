@@ -100,6 +100,60 @@ AGRIBALYSE_IMPACT_UNITS = {
     "Épuisement des ressources minéraux": "E-06 kg Sb eq"
 }
 
+AGRIBALYSE_IMPACT_UNITS_MAGNITUDE_ORDER = {
+    "Score unique EF": 1e-3,
+    "Changement climatique": 1,
+    "Appauvrissement de la couche d'ozone": 1e-6,
+    "Rayonnements ionisants": 1,
+    "Formation photochimique d'ozone": 1e-3,
+    "Particules": 1e-6,
+    "Acidification terrestre et eaux douces": 1,
+    "Eutrophisation terrestre": 1,
+    "Eutrophisation eaux douces": 1e-3,
+    "Eutrophisation marine": 1e-3,
+    "Utilisation du sol": 1,
+    "Écotoxicité pour écosystèmes aquatiques d'eau douce": 1,
+    "Épuisement des ressources eau": 1,
+    "Épuisement des ressources énergétiques": 1,
+    "Épuisement des ressources minéraux": 1e-6
+}
+
+AGRIBALYSE_IMPACT_CATEGORIES_EN_TO_FR = {
+    'Environmental footprint': 'Score unique EF',
+    'Climate change': 'Changement climatique',
+    'Ozone depletion': "Appauvrissement de la couche d'ozone",
+    'Ionising radiation, HH': 'Rayonnements ionisants',
+    'Photochemical ozone formation, HH': "Formation photochimique d'ozone",
+    'Respiratory inorganics': 'Particules',
+    'Acidification terrestrial and freshwater': 'Acidification terrestre et eaux douces',
+    'Eutrophication terrestrial': 'Eutrophisation terrestre',
+    'Eutrophication freshwater': 'Eutrophisation eaux douces',
+    'Eutrophication marine': 'Eutrophisation marine',
+    'Land use': 'Utilisation du sol',
+    'Ecotoxicity freshwater': "Écotoxicité pour écosystèmes aquatiques d'eau douce",
+    'Water scarcity': 'Épuisement des ressources eau',
+    'Resource use, energy carriers': 'Épuisement des ressources énergétiques',
+    'Resource use, mineral and metals': 'Épuisement des ressources minéraux'
+}
+
+AGRIBALYSE_IMPACT_CATEGORIES_FR_TO_EN = {
+    "Score unique EF": "Environmental footprint",
+    "Changement climatique": 'Climate change',
+    "Appauvrissement de la couche d'ozone": 'Ozone depletion',
+    "Rayonnements ionisants": 'Ionising radiation, HH',
+    "Formation photochimique d'ozone": 'Photochemical ozone formation, HH',
+    "Particules": 'Respiratory inorganics',
+    "Acidification terrestre et eaux douces": 'Acidification terrestrial and freshwater',
+    "Eutrophisation terrestre": 'Eutrophication terrestrial',
+    "Eutrophisation eaux douces": 'Eutrophication freshwater',
+    "Eutrophisation marine": 'Eutrophication marine',
+    "Utilisation du sol": 'Land use',
+    "Écotoxicité pour écosystèmes aquatiques d'eau douce": 'Ecotoxicity freshwater',
+    "Épuisement des ressources eau": 'Water scarcity',
+    "Épuisement des ressources énergétiques": 'Resource use, energy carriers',
+    "Épuisement des ressources minéraux": 'Resource use, mineral and metals'
+}
+
 FERMENTATION_AGENTS = ['en:selected-ferments',
                        'en:selected-lactic-ferments',
                        'en:lactic-ferments',
