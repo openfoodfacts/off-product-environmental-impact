@@ -2,6 +2,17 @@
 
 This repository contains a Python program to estimate the environmental impact of the agricultural steps of a product of the Open Food Facts database.
 
+## What this tool does
+
+This tool gives an estimation of the environmental impact of the agricultural steps of a product by browsing its possible recipes according to its ingredient list and nutritional composition.
+
+## What this tool does **NOT** do
+* Giving the exact environmental impact of a product
+* Taking into account the origin of the ingredients
+* Taking into account the packaging of the product
+* Making a complete Life Cycle Assessment of the product
+* Reverse engineering the recipe of the product
+
 ## Installation
 
 This program uses the [PySCIPOpt](https://github.com/SCIP-Interfaces/PySCIPOpt) package and
