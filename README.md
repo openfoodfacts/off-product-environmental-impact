@@ -2,11 +2,11 @@
 
 This repository contains a Python program to estimate the environmental impact of the agricultural steps of a product of the Open Food Facts database.
 
-## What this tool does
+## ✔️ What this tool does
 
 This tool gives an estimation of the environmental impact of the agricultural steps of a product by browsing its possible recipes according to its ingredient list and nutritional composition.
 
-## What this tool does **NOT** do
+## ❌ What this tool does **NOT** do
 * Giving the exact environmental impact of a product
 * Taking into account the origin of the ingredients
 * Taking into account the packaging of the product
