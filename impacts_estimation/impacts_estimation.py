@@ -32,7 +32,7 @@ from settings import VERBOSITY, IMPACT_RELATIVE_INTERQUARTILE_WARNING_THRESHOLD,
     DECREASING_PROPORTION_ORDER_LIMIT, TOTAL_MASS_DISTRIBUTION_STEP, \
     MAX_CONSECUTIVE_NULL_IMPACT_CHARACTERIZED_INGREDIENTS_MASS, MINIMUM_TOTAL_MASS_FOR_UNBALANCED_RECIPES, \
     OFF_INGREDIENTS_FORMAT
-from data import ref_ing_dist, ingredients_data
+from data import ref_ing_dist, ingredients_data, off_taxonomy
 from impacts_estimation.exceptions import RecipeCreationError, NoKnownIngredientsError, SolverTimeoutError, \
     NoCharacterizedIngredientsError
 
@@ -930,6 +930,10 @@ class ImpactEstimator:
         #  example)
         self.warnings = []
 
+        # Removing allergens from the ingredients tree
+        if 'allergens_tags' in self.product:
+            self._remove_allergens()
+
         # Performing checks on product type
         self._check_fermented_product()
         self._check_product_water_loss()
@@ -1032,6 +1036,24 @@ class ImpactEstimator:
         if detected_high_water_loss_categories:
             self.adjusted_maximum_evaporation_coefficient = adjusted_coeff
             self.warnings.append(warning_message)
+
+    def _remove_allergens(self, compound_ingredient=None):
+        """ Removes allergens of the ingredient tree to avoid them to be considered as subingredients. """
+
+        product = compound_ingredient or self.product
+
+        # If it is not the product itself, and it has only one ingredient, check if this ingredient is an allergen
+        if compound_ingredient is not None \
+                and len(product['ingredients']) == 1:
+            ingredient_id = product['ingredients'][0]['id']
+            if ingredient_id in off_taxonomy \
+                    and 'allergens' in off_taxonomy[ingredient_id]:
+                del product['ingredients']
+
+        # Recursively call the method for the subingredients
+        for ingredient in product.get('ingredients', []):
+            if 'ingredients' in ingredient:
+                self._remove_allergens(compound_ingredient=ingredient)
 
     def _check_ingredients(self):
         """ Performs some checks on multilevel ingredients. """

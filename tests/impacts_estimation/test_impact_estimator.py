@@ -4,6 +4,7 @@ import pytest
 
 from impacts_estimation.impacts_estimation import ImpactEstimator
 from impacts_estimation.exceptions import NoCharacterizedIngredientsError, NoKnownIngredientsError
+from impacts_estimation.utils import flat_ingredients_list_DFS
 from data import ingredients_data, off_taxonomy
 from tests.test_data import pound_cake
 
@@ -103,3 +104,16 @@ class TestImpactEstimator:
         impact_result = impact_estimator.estimate_impacts('Score unique EF')
 
         assert type(impact_result['impacts_geom_means']['Score unique EF']) == float
+
+    def test_remove_allergens(self):
+        """
+            Assert that if an allergen is present in the ingredient list it will be removed and not considered as a
+            subingredient.
+        """
+
+        self.product['allergens_tags'] = ["en:soybeans"]
+        self.product['ingredients'].append({'id': 'ingredient containing allergen',
+                                            'ingredients': [{'id': 'en:soya-lecithin'}]})
+        impact_estimator = ImpactEstimator(product=self.product)
+
+        assert 'en:soya-lecithin' not in [x['id'] for x in flat_ingredients_list_DFS(impact_estimator.product)]

@@ -6898,7 +6898,10 @@
       "en:texturised-soya-protein",
       "es:concentrado-de-soja",
       "fr:pousses-de-soja"
-    ]
+    ],
+    "allergens": {
+      "en": "en:soybeans"
+    }
   },
   "en:black-olive": {
     "parents": [
