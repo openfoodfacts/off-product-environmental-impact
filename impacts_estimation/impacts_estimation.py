@@ -1049,6 +1049,7 @@ class ImpactEstimator:
             if ingredient_id in off_taxonomy \
                     and 'allergens' in off_taxonomy[ingredient_id]:
                 del product['ingredients']
+                self.warnings.append(f"{ingredient_id} has been identified as an allergen and ignored.")
 
         # Recursively call the method for the subingredients
         for ingredient in product.get('ingredients', []):
