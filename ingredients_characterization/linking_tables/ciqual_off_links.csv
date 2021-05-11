@@ -93,7 +93,6 @@ Bœuf,"Boeuf, plat de côtes, cru","Boeuf, plat de côtes, cru",Beef,"Beef, shor
 Bœuf,"Boeuf, hampe, crue","Boeuf, hampe, crue",Beef,"Beef, thin flank, raw",en:beef,6130
 Bœuf,"Bœuf, steak haché 5% MG, cru","Bœuf, steak haché 5% MG, cru",Beef,"Beef, minced steak, 5% fat, raw",en:beef,6250
 Bœuf,"Boeuf, jarret, cru","Boeuf, jarret, cru",Beef,"Beef, knuckle, raw",en:beef,6150
-Bœuf,"Boeuf, faux-filet, label rouge, cru","Boeuf, faux-filet, label rouge, cru",Beef,"Beef, sirloin steak, red label, raw",en:beef,6112
 Bœuf,"Boeuf, joue, crue","Boeuf, joue, crue",Beef,"Beef, cheek, raw",en:beef,6140
 Bœuf,"Bœuf, steak haché 20% MG, cru","Bœuf, steak haché 20% MG, cru",Beef,"Beef, minced steak, 20% fat, raw",en:beef,6256
 Bœuf,"Bœuf, steak haché 15% MG, cru","Bœuf, steak haché 15% MG, cru",Beef,"Beef, minced steak, 15% fat, raw",en:beef,6254
@@ -268,7 +267,6 @@ Eau gazeuse,"Eau minérale, gazeuse (aliment moyen)",Eau minérale,Carbonated wa
 Eau gazeuse,"Eau minérale Eden (La Goa), embouteillée, non gazeuse, faiblement minéralisée (Suisse)",Eden,Carbonated water,"Water, mineral, non-carbonated, EDEN",en:carbonated-water,76102
 Eau gazeuse,"Eau minérale Aizac, embouteillée, gazeuse, faiblement minéralisée (Aizac, 07)",Aizac,Carbonated water,"Mineral sparkling water (Aziac), bottled, lightly mineralized",en:carbonated-water,76002
 Eau gazeuse,"Eau minérale Amanda, embouteillée, non gazeuse, fortement minéralisée (St-Amand, 59)",Amanda,Carbonated water,"Mineral still water (Amanda), bottled, strongly mineralized",en:carbonated-water,76004
-Eau gazeuse,"Eau minérale Auvergne, embouteillée, gazeuse, fortement minéralisée (Cornillon, 38)",Auvergne,Carbonated water,"Mineral sparkling water (Auvergne), bottled, strongly mineralized",en:carbonated-water,76008
 Eau gazeuse,"Eau minérale Celtic, embouteillée, gazeuse ou non gazeuse, très faiblement minéralisée (Niederbronn, 67)",Celtic,Carbonated water,"Mineral still water (Celtic), bottled, very lightly mineralized",en:carbonated-water,76010
 Eau gazeuse,"Eau minérale Chambon, embouteillée, non gazeuse, faiblement minéralisée (Chambon, 45)",Chambon,Carbonated water,"Mineral still water (Chambon), bottled, lightly mineralized",en:carbonated-water,76011
 Eau gazeuse,"Eau minérale Chantemerle, embouteillée, non gazeuse, faiblement minéralisée (Le Pestrin, 07)",Chantemerle,Carbonated water,"Mineral still water (Chantemerle), bottled, lightly mineralized",en:carbonated-water,76012
@@ -409,7 +407,7 @@ Pur jus de pommes à cidre,"Jus de pomme, pur jus",Jus de pomme,Cidre apple juic
 Cannelle,"Cannelle, poudre",Cannelle,Cinnamon,"Cinnamon, powder",en:cinnamon,11025
 Cannelle en poudre,"Cannelle, poudre",Cannelle,Cinnamon powder,"Cinnamon, powder",en:cinnamon-powder,11025
 Palourde,"Clam, Praire ou Palourde, cru","Clam, Praire ou Palourde, cru",Clam,"Clam, raw",en:clam,10017
-Clémentine,"Clémentine, pulpe, crue",Clémentine,Clementine,"Clementine, pulp, raw",en:clementine,13082
+Clémentine,"Clémentine ou Mandarine, pulpe, crue",Clémentine mandarine,Clementine,"Clementine or Mandarin orange, pulp, raw -> ARCHIVE",en:clementine,13024
 Girofle,Clou de girofle,Clou de girofle,Clove,Cloves,en:clove,11052
 Cacao,"Cacao, non sucré, poudre soluble",Cacao en poudre,Cocoa,"Cocoa powder, without sugar, powder, instant",en:cocoa,18100
 Beurre de cacao,Beurre de cacao,Beurre de cacao,Cocoa butter,Cocoa butter,en:cocoa-butter,16030
@@ -536,7 +534,6 @@ Airelles,"Canneberge ou cranberry, crue",Canneberge ou cranberry,Cranberry,"Cran
 Crème,"Crème de lait, 30% MG, semi-épaisse, UHT","Crème de lait, 30% MG, liquide, UHT",Cream,"Liquid cream 30% fat, UHT",en:cream,19415
 Crème,"Crème de lait, 30% MG, épaisse, rayon frais","Crème de lait, 30% MG, épaisse,",Cream,"Thick cream 30% fat, refrigerated",en:cream,19410
 Crème,"Crème de lait, 15 à 20% MG, légère, semi-épaisse, UHT","Crème de lait, 15 à 20% MG, légère, liquide, UHT",Cream,"Liquid cream, light, 15-20% fat, UHT",en:cream,19430
-Croûton,Croûtons,Croûtons,Crouton,Croutons,en:crouton,7430
 Croûton,"Croûtons nature, préemballés",Croûtons,Crouton,"Croutons, plain, prepacked",en:crouton,7432
 Crudités,"Crudité, sans assaisonnement (aliment moyen)",Crudité,Crudités,"Salad, vegetable, without dressing (average)",en:crudites,25616
 Tomate pelée concassée,"Tomate, pelée, appertisée, égouttée","Tomate, pelée",Crushed peeled tomato,"Tomato, peeled, canned, drained",en:crushed-peeled-tomato,20048
@@ -553,7 +550,6 @@ Produits laitiers et dérivées,"Matière grasse laitière à 25% MG, légère, 
 Produits laitiers et dérivées,"Matière grasse laitière à 20% MG, légère, ""à tartiner"", doux",Tendre et léger elle & Vire,Dairy,"Dairy fat 20% fat, light, spreadable, unsalted",en:dairy,16713
 Produits laitiers et dérivées,"Boisson lactée, lait fermenté ou yaourt à boire, aromatisé, sucré","Yaourt à boire, yop",Dairy,"Dairy drink or fermented milk or yogurt, flavoured, with sugar",en:dairy,19508
 Produits laitiers et dérivées,"Boisson lactée, lait fermenté ou yaourt à boire, aux fruits, sucré","Yaourt à boire, yop, aux fruits",Dairy,"Dairy drink or fermented milk or yogurt, with fruits, with sugar",en:dairy,19535
-Produits laitiers et dérivées,"Boisson lactée, lait fermenté ou yaourt à boire, nature, sucré","Yaourt à boire, nature, sucré",Dairy,"Dairy drink or fermented milk or yogurt, plain, with sugar",en:dairy,19537
 Produits laitiers et dérivées,"Boisson lactée, lait fermenté ou yaourt à boire, nature, sucré, au L Casei","Yaourt à boire, nature, sucré, L Casei",Dairy,"Dairy drink or fermented milk or yogurt, plain, with sugar, with L Casei",en:dairy,19538
 Produits laitiers et dérivées,"Lait fermenté ou spécialité laitière type yaourt, aromatisé, sucré, au bifidus",Activia aromatisé,Dairy,"Fermented milk or dairy specialty, yogurt type, flavoured, with sugar, with bifidus",en:dairy,19539
 Produits laitiers et dérivées,"Lait fermenté ou spécialité laitière type yaourt, nature, au bifidus","Lait fermenté ou spécialité laitière type yaourt, nature, au bifidus",Dairy,"Fermented milk or dairy specialty, yogurt type, plain, with bifidus",en:dairy,19546
@@ -568,7 +564,6 @@ Chocolat noir,"Chocolat noir sans sucres ajoutés, avec édulcorants, en tablett
 Datte,"Datte, pulpe et peau, sèche",Datte sèche,Date,"Date, pulp and peel, dried",en:date,13011
 Gamba,"Crevette rose, crue","Crevette rose, crue",Deep-sea shrimp,"deep water pink shrimp, raw",en:deep-sea-shrimp,10059
 Merluccius capensis,"Merlu blanc du Cap, surgelé, cru","Merlu blanc du Cap, cru",Deep-water Cape hake,"Shallow-water Cape hake, raw",en:deep-water-cape-hake,26233
-Dorade sébaste,"Grand sébaste, ou dorade sébaste, ou daurade sébaste, cru","Dorade sébaste ou daurade, cru",Deepwater redfish,"Golden redfish, raw",en:deepwater-redfish,26132
 Dorade sébaste,"Sébaste du nord, ou dorade sébaste, ou daurade sébaste, crue","Sébaste du nord, ou dorade sébaste, ou daurade sébaste, crue",Deepwater redfish,"Golden redfish, raw",en:deepwater-redfish,26210
 Persil déshydraté,"Persil, séché",Persil,Dehydrated parsley,"Parsley, dried",en:dehydrated-parsley,11024
 Flocons de pomme de terre déshydratés,"Pomme de terre, flocons déshydratés, nature","Pomme de terre, flocons déshydratés, nature",Dehydrated potato flakes,"Potato flakes, dehydrated, plain",en:dehydrated-potato-flakes,4022
@@ -605,7 +600,7 @@ Oignon de printemps séché,"Oignon, séché","Oignon, séché",Dried spring oni
 Thym deshydraté,"Thym, séché","Thym, séché",Dried thyme,"Thyme, dried",en:dried-thyme,11038
 Tomate séchée,"Tomate, séchée","Tomate, séchée",Dried tomatoes,"Tomato, dried",en:dried-tomatoes,20189
 Amandes grillées,"Amande, grillée, salée","Amande, grillée, salée",Dry roasted almonds,"Almond, grilled, salted",en:dry-roasted-almonds,15042
-Vin blanc sec,Vin blanc sec 11°,Vin blanc sec 11°,Dry white wine,"Wine, white, dry, 11°",en:dry-white-wine,5211
+Vin blanc sec,Vin blanc (sec),vin blanc,Dry white wine,"Wine, white, dry",en:dry-white-wine,5215
 Canard,"Canard, viande, crue","Canard, viande, crue",Duck,"Duck, meat, raw",en:duck,36201
 Œuf de canard,"Oeuf de cane, cru","Oeuf de cane, cru",Duck egg,"Duck egg, raw",en:duck-egg,22060
 Graisse de canard,Graisse de canard,Graisse de canard,Duck fat,Duck fat,en:duck-fat,16550
@@ -637,7 +632,6 @@ Miel d'eucalyptus,Miel,Miel,Eucalyptus honey,Honey,en:eucalyptus-honey,31008
 Anchois commun,"Anchois commun, cru",Anchois,European anchovy,"Common anchovy, raw",en:european-anchovy,26079
 Congre,"Congre, cru","Congre, cru",European conger,"Conger, raw",en:european-conger,26127
 Homard européen,"Homard, bouilli/cuit à l'eau",Homard,European lobster,"Lobster, boiled/cooked in water",en:european-lobster,10009
-Carrelet,"Plie commune, crue","Plie commune, crue",European plaice,"European plaice, raw",en:european-plaice,26204
 Carrelet,"Carrelet ou plie, cru","Carrelet ou plie, cru",European plaice,"European plaice, raw",en:european-plaice,26055
 Lait concentré non sucré,"Lait concentré non sucré, entier","Lait concentré non sucré, entier",Evaporated milk,"Condensed milk, without sugar, whole",en:evaporated-milk,19026
 Huile d'olive extra vierge,Huile d'olive vierge extra,Huile d'olive vierge extra,Extra virgin olive oil,"Olive oil, extra virgin",en:extra-virgin-olive-oil,17270
@@ -908,7 +902,7 @@ Farine de blé maltée,Farine de blé tendre ou froment avec levure incorporée,
 Farine de blé maltée,Farine de blé tendre ou froment T45 (pour pâtisserie),Farine de blé T45 (pour pâtisserie),Malted wheat flour,"Wheat flour, type 55 (for pastry)",en:malted-wheat-flour,9440
 Farine de blé maltée,Farine de blé tendre ou froment T80,Farine de blé T80,Malted wheat flour,"Wheat flour, type 80",en:malted-wheat-flour,9445
 ,Sirop d'érable,Sirop d'érable,Maltose syrup,"Syrup, maple",en:maltose-syrup,31034
-Mandarine,"Mandarine, pulpe, crue",Mandarine,Mandarin,"Mandarin, pulp, raw",en:mandarin,13090
+Mandarine,"Clémentine ou Mandarine, pulpe, crue",Clémentine mandarine,Mandarin,"Clementine or Mandarin orange, pulp, raw -> ARCHIVE",en:mandarin,13024
 Mangue,"Mangue, pulpe, crue",Mangue,Mango,"Mango, pulp, raw",en:mango,13025
 Huile de noyaux de mangue,Huile végétale (aliment moyen),Huile,Mango kernel oil,Vegetable oil (average),en:mango-kernel-oil,17001
 Purée de mangue,"Mangue, pulpe, crue",Mangue,Mango puree,"Mango, pulp, raw",en:mango-puree,13025
@@ -920,7 +914,6 @@ Margarine,"Matière grasse végétale (type margarine) à 70% MG, doux",Margarin
 Margarine,"Matière grasse végétale (type margarine), teneur réduite en matière grasse inconnue, doux (aliment moyen)",Margarine,Margarine,"Fat spreadfat content unknown, unsalted (average)",en:margarine,16725
 Margarine,"Matière grasse végétale (type margarine), à tartiner, à 30-40% MG, légère, doux",Margarine,Margarine,"Vegetable fat (margarine type), spreadable, 30-40% fat, light, unsalted",en:margarine,16733
 Margarine,"Matière grasse végétale ou margarine, 80% MG, doux",Margarine,Margarine,"Vegetable fat (margarine type), 80% fat, unsalted",en:margarine,16615
-Margarine,"Matière grasse végétale (type margarine), à tartiner, à 30-40% MG, légère, doux, aux esters de stérol végétal",Pro activ tartine,Margarine,"Vegetable fat (margarine type), spreadable, 30-40% fat, light, unsalted, with plant sterols esters",en:margarine,16735
 Margarine,"Matière grasse végétale (type margarine), teneur en matière grasse inconue, doux (aliment moyen)",Margarine,Margarine,"Vegetable fat (margarine type), spreadable, fat content unknown, light, unsalted",en:margarine,16719
 Margarine,"Matière grasse végétale (type margarine), à tartiner, à 30-40% MG, légère, doux, riche en oméga 3","Margarine, oméga 3",Margarine,"Vegetable fat (margarine type), spreadable, 30-40% fat, light, unsalted, rich in omega 3",en:margarine,16736
 Margarine,"Matière grasse végétale (type margarine) à 50-63% MG, allégée, doux, riche en oméga 3","Margarine, oméga 3",Margarine,"Vegetable fat (margarine type), spreadable, 50-63% fat, light, unsalted, rich in omega 3",en:margarine,16737
@@ -1095,10 +1088,7 @@ Jus de Grenade issu de l'agriculture biologique,"Jus de grenade, pur jus",Jus de
 Jus de Grenade issu de l'agriculture biologique,"Jus de grenade, frais",Grenade,Organic pomegranate juice,"Pomegranate juice, fresh",en:organic-pomegranate-juice,2039
 Huile de pépin de courge biologique,Huile végétale (aliment moyen),Huile,Organic pumpkin seed oil,Vegetable oil (average),en:organic-pumpkin-seed-oil,17001
 ,"Framboise, crue",Framboise,Organic raspberry,"Raspberry, raw",en:organic-raspberry,13015
-Vin rouge bio,Vin rouge 13°,Vin rouge 13°,Organic red wine,"Wine, red, 13°",en:organic-red-wine,5208
-Vin rouge bio,Vin rouge 12°,Vin rouge 12°,Organic red wine,"Wine, red, 12°",en:organic-red-wine,5205
-Vin rouge bio,Vin rouge 11°,Vin rouge 11°,Organic red wine,"Wine, red, 11°",en:organic-red-wine,5204
-Vin rouge bio,Vin rouge 10°,Vin rouge 10°,Organic red wine,"Wine, red, 10°",en:organic-red-wine,5203
+Vin rouge bio,Vin rouge,Vin rouge,Organic red wine,"Wine, red",en:organic-red-wine,5214
 Romarin bio,"Romarin, frais",Romarin,Organic rosemary,"Rosemary, fresh",en:organic-rosemary,11068
 Lait demi-écrémé issu de l'agriculture biologique,"Lait demi-écrémé, pasteurisé",Lait demi-écrémé,Organic semi-skimmed milk,"Milk, semi-skimmed, pasteurised",en:organic-semi-skimmed-milk,19042
 Lait demi-écrémé issu de l'agriculture biologique,"Lait demi-écrémé, UHT",Lait demi-écrémé,Organic semi-skimmed milk,"Milk, semi-skimmed, UHT",en:organic-semi-skimmed-milk,19041
@@ -1180,7 +1170,7 @@ Jus de poire à base de concentré,"Jus de fruits, à base de concentré (alimen
 Orge perlé,"Orge perlée, crue","Orge perlée, crue",Pearl Barley,"Pearled barley, raw",en:pearl-barley,9321
 Noix de pécan,Noix de pécan,Noix de pécan,Pecan nut,Pecan nut,en:pecan-nut,15026
 Tomates pelées,"Tomate, pelée, appertisée, égouttée","Tomate, pelée",Peeled tomatoes,"Tomato, peeled, canned, drained",en:peeled-tomatoes,20048
-Grains de poivre,"Poivre gris, poudre",Poivre gris,Peppercorns,"Grey pepper, powder",en:peppercorns,11020
+Grains de poivre,"Poivre noir, poudre",Poivre noir,Peppercorns,"Black pepper, powder",en:peppercorns,11015
 Menthe poivrée,"Menthe, fraîche",Menthe,Peppermint,"Mint, fresh",en:peppermint,11027
 Petit beurre,Biscuit sec petit beurre,Petit beurre,Petit-Beurre,Butter biscuit (cookie),en:petit-beurre,24015
 Sepia pharaonis,"Seiche, crue","Seiche, crue",Pharaoh cuttlefish,"Cuttlefish, raw",en:pharaoh-cuttlefish,10016
@@ -1216,7 +1206,6 @@ Poitrine de porc,"Porc, poitrine cutter, sans mouille, crue",Porc poitrine,Pork 
 Viande de porc,"Chair à saucisse, pur porc, crue","Chair à saucisse, pur porc, crue",Pork meat,"Sausage meat, pure pork, raw",en:pork-meat,30051
 Viande de porc,Viande cuite (aliment moyen),Viande,Pork meat,"Meat, cooked (average)",en:pork-meat,6999
 Viande de porc,"Porc, viande, cuite (aliment moyen)",Porc,Pork meat,"Pork, meat, cooked (average)",en:pork-meat,28205
-Couenne,"Porc, couenne, crue",Couenne,Pork rind,"Pork, rind, raw",en:pork-rind,28478
 Langue de porc,"Langue, porc, crue","Langue, porc, crue",Pork tongue,"Tongue, pork, raw",en:pork-tongue,40205
 Pomme de terre,"Pomme de terre nouvelle, crue","Pomme de terre nouvelle, crue",Potato,"New potato, raw",en:potato,4023
 Pomme de terre,"Pomme de terre, sans peau, crue","Pomme de terre, crue",Potato,"Potato, peeled, raw",en:potato,4008
@@ -1307,14 +1296,8 @@ Poivron rouge,"Poivron rouge, cru","Poivron rouge, cru",Red pepper,"Sweet pepper
 Quinoa rouge,"Quinoa, cru","Quinoa, cru",Red quinoa,"Quinoa, raw",en:red-quinoa,9340
 Riz rouge,"Riz rouge, cru","Riz rouge, cru",Red rice,"Rice, red, raw",en:red-rice,9109
 Écrevisse de Louisiane,"Écrevisse, crue",Écrevisse,Red swamp crayfish,"Crayfish, raw",en:red-swamp-crayfish,10030
-Vin rouge,Vin rouge 12°,Vin rouge 12°,Red wine,"Wine, red, 12°",en:red-wine,5205
-Vin rouge,Vin rouge 11°,Vin rouge 11°,Red wine,"Wine, red, 11°",en:red-wine,5204
-Vin rouge,Vin rouge 10°,Vin rouge 10°,Red wine,"Wine, red, 10°",en:red-wine,5203
-Vin rouge,Vin rouge 13°,Vin rouge 13°,Red wine,"Wine, red, 13°",en:red-wine,5208
-Vin rouge de France,Vin rouge 13°,Vin rouge 13°,Red wine from France,"Wine, red, 13°",en:red-wine-from-france,5208
-Vin rouge de France,Vin rouge 12°,Vin rouge 12°,Red wine from France,"Wine, red, 12°",en:red-wine-from-france,5205
-Vin rouge de France,Vin rouge 10°,Vin rouge 10°,Red wine from France,"Wine, red, 10°",en:red-wine-from-france,5203
-Vin rouge de France,Vin rouge 11°,Vin rouge 11°,Red wine from France,"Wine, red, 11°",en:red-wine-from-france,5204
+Vin rouge,Vin rouge,Vin rouge,Red wine,"Wine, red",en:red-wine,5214
+Vin rouge de France,Vin rouge,Vin rouge,Red wine from France,"Wine, red",en:red-wine-from-france,5214
 Vinaigre de vin rouge,Vinaigre,Vinaigre,Red wine vinegar,Vinegar,en:red-wine-vinegar,11018
 Groseille,"Groseille, crue",Groseille,Redcurrant,"Red currant, raw",en:redcurrant,13019
 Huile de tournesol raffinée,Huile de tournesol,Huile de tournesol,Refined sunflower oil,Sunflower oil,en:refined-sunflower-oil,17440
@@ -1334,7 +1317,7 @@ Roquette,"Roquette, crue",Roquette,Rocket,"Roman rocket, raw",en:rocket,20217
 ,"Laitue romaine, crue",Romaine,Romaine lettuce,"Cos or romaine lettuce, raw",en:romaine-lettuce,20171
 Légume-racine,Légume cuit (aliment moyen),Légume,Root vegetable,"Vegetable, cooked (average)",en:root-vegetable,20499
 Roquefort,Roquefort,Roquefort,Roquefort,"Roquefort cheese, from ewe's milk",en:roquefort,12500
-Vin rosé,Vin rosé 11°,Vin rosé 11°,Rosé wine,"Wine, rose, 11°",en:rose-wine,5206
+Vin rosé,Vin rosé,Vin rosé,Rosé wine,"Wine, rose",en:rose-wine,5216
 Romarin,"Romarin, frais",Romarin,Rosemary,"Rosemary, fresh",en:rosemary,11068
 Rutabaga,"Rutabaga, cru","Rutabaga, cru",Rutabaga,"Rutabaga or Swede, raw",en:rutabaga,20201
 Orge,"Orge entière, crue","Orge entière, crue",Rye,"Barley, whole, raw",en:rye,9320
@@ -1360,7 +1343,6 @@ Beurre salé,"Beurre à 80% MG, salé",Beurre salé,Salted butter,"Butter, 80% f
 Poisson de mer,"Poisson blanc, de mer, cuit (aliment moyen)",Poisson blanc,Saltwater fish,"Marine fish, white, without skin, cooked",en:saltwater-fish,26250
 Sardine,"Sardine, crue","Sardine, crue",Sardine,"European pilchard or sardine, raw",en:sardine,26065
 Filets de sardines,"Sardine, filets sans arêtes à l'huile d'olive, appertisés, égouttés","Sardine, filets sans arêtes à l'huile d'olive",Sardine fillets,"European pilchard or sardine, fillets without fishbone, in olive oil, canned, drained",en:sardine-fillets,26231
-Choucroute,"Choucroute, sans garniture, égouttée","Choucroute, sans garniture",Sauerkraut,"Sauerkraut, without garnish, drained",en:sauerkraut,25004
 Chou vert,"Chou vert, cru","Chou vert, cru",Savoy cabbage,"Green cabbage, raw",en:savoy-cabbage,20069
 Noix de Saint-Jacques,"Coquille Saint-Jacques, noix, crue","Coquille Saint-Jacques, noix, crue",Scallop,"Scallop, without coral, raw",en:scallop,10045
 Whisky écossais,Whisky,Whisky,Scottish whiskey,Whisky,en:scotch-whisky,1005
@@ -1369,7 +1351,6 @@ Dorade,"Dorade grise, ou daurade grise, ou griset, rôtie/cuite au four","Dorade
 Dorade,"Dorade royale ou daurade ou vraie daurade, crue, élevage","Dorade royale ou daurade ou vraie daurade, crue",Sea breams,"Gilthead seabream, raw, farmed",en:sea-breams,26088
 Dorade,"Dorade grise, ou daurade grise, ou griset, crue","Dorade grise, ou daurade grise, ou griset, crue",Sea breams,"Black seabream, raw",en:sea-breams,26099
 Dorade,"Dorade rose, ou daurade rose, crue","Dorade rose, ou daurade rose, crue",Sea breams,"Blackspot seabream, raw",en:sea-breams,26109
-Dorade,"Grand sébaste, ou dorade sébaste, ou daurade sébaste, cru","Dorade sébaste ou daurade, cru",Sea breams,"Golden redfish, raw",en:sea-breams,26132
 Dorade,"Sébaste du nord, ou dorade sébaste, ou daurade sébaste, crue","Sébaste du nord, ou dorade sébaste, ou daurade sébaste, crue",Sea breams,"Golden redfish, raw",en:sea-breams,26210
 Laitue de mer,"Laitue de mer (Ulva sp.), séchée ou déshydratée",Laitue de mer,Sea lettuce,"Sea lettuce (ulva sp.), dried or dehydrated)",en:sea-lettuce,20985
 Sel marin,"Sel marin gris, non iodé, non fluoré",Sel gris,Sea salt,"Sea salt, grey, no enrichment",en:sea-salt,11083
@@ -1497,7 +1478,7 @@ Espadon,"Espadon, cru","Espadon, cru",Swordfish,"Swordfish, raw",en:swordfish,26
 Sirop,"Sirop à diluer, sucré","Sirop à diluer, sucré",Syrup,"Syrup, with sugar (to be diluted)",en:syrup,18017
 Vinaigre de table,Vinaigre,Vinaigre,Table vinegar,Vinegar,en:table-vinegar,11018
 Tahini,Tahin ou Purée de sésame,Tahin ou Purée de sésame,Tahini,Tahini (sesame paste),en:tahini,15203
-Tamarin,"Tamarin, fruit immature, pulpe, cru",Tamarin,Tamarind,"Tamarind, immature fruit, pulp, raw",en:tamarind,13079
+Tamarin,"Tamarin, fruit mûr, pulpe, cru",Tamarin,Tamarind,"Tamarind, mature fruit, pulp, raw",en:tamarind,13080
 Amidon de tapioca,Amidon de riz,Amidon de riz,Tapioca starch,Rice starch,en:tapioca-starch,96781
 Estragon,"Estragon, frais",Estragon,Tarragon,"Tarragon, fresh",en:tarragon,11092
 Feuille d'estragon,"Estragon, frais",Estragon,Tarragon leaves,"Tarragon, fresh",en:tarragon-leaves,11092
@@ -1570,7 +1551,6 @@ Veau,"Veau, steak haché 20% MG, cru","Veau, steak haché 20% MG, cru",Veal,"Vea
 Viande de veau,"Veau, viande, cuite (aliment moyen)",Veau,Veal meat,"Veal, meat, cooked (average)",en:veal-meat,6564
 Légume,Légume cuit (aliment moyen),Légume,Vegetable,"Vegetable, cooked (average)",en:vegetable,20499
 Bouillon végétal,"Bouillon de viande et légumes type pot-au-feu, dégraissé, déshydraté",Bouillon,Vegetable broth,"Broth, stock or bouillon, meat and vegetables, defatted, dehydrated",en:vegetable-broth,25971
-Matière grasse végétale,"Matière grasse végétale (type margarine), à tartiner, à 30-40% MG, légère, doux, aux esters de stérol végétal",Pro activ tartine,Vegetable fat,"Vegetable fat (margarine type), spreadable, 30-40% fat, light, unsalted, with plant sterols esters",en:vegetable-fat,16735
 Matière grasse végétale,"Matière grasse végétale (type margarine) à 50-63% MG, allégée, doux",Margarine,Vegetable fat,"Vegetable fat (margarine type), spreadable, 50-63% fat, light, unsalted",en:vegetable-fat,16741
 Matière grasse végétale,"Matière grasse végétale (type margarine) à 50-63% MG, allégée, doux, aux esters de stérol végétal",Pro activ cuisine,Vegetable fat,"Vegetable fat (margarine type), spreadable, 50-63% fat, light, unsalted, with plant sterols esters",en:vegetable-fat,16739
 Matière grasse végétale,"Matière grasse végétale (type margarine) à 50-63% MG, allégée, doux, riche en oméga 3","Margarine, oméga 3",Vegetable fat,"Vegetable fat (margarine type), spreadable, 50-63% fat, light, unsalted, rich in omega 3",en:vegetable-fat,16737
@@ -1646,10 +1626,8 @@ Poivre blanc,"Poivre blanc, poudre",Poivre blanc,White pepper,"White pepper, pow
 Riz blanc,"Riz blanc, cru","Riz blanc, cru",White rice,"Rice, raw",en:white-rice,9100
 Rhum blanc,Rhum,Rhum,White rum,Rum,en:white-rum,1004
 Sucre blanc,Sucre blanc,Sucre,White sugar,"Sugar, white",en:white-sugar,31016
-Vin blanc,Vin blanc sec 11°,Vin blanc sec 11°,White wine,"Wine, white, dry, 11°",en:white-wine,5211
-Vin blanc,Vin blanc 11°,Vin blanc 11°,White wine,"Wine, white, 11°",en:white-wine,5200
-Vin blanc de France,Vin blanc 11°,Vin blanc 11°,White wine from France,"Wine, white, 11°",en:white-wine-from-france,5200
-Vin blanc de France,Vin (aliment moyen),Vin,White wine from France,Wine (average),en:white-wine-from-france,5210
+Vin blanc,Vin blanc (sec),Vin blanc,White wine,"Wine, white, dry",en:white-wine,5215
+Vin blanc de France,Vin blanc (sec),Vin blanc,White wine from France,"Wine, white, dry",en:white-wine-from-france,5215
 Vinaigre de vin blanc,Vinaigre,Vinaigre,White wine vinegar,Vinegar,en:white-wine-vinegar,11018
 Crevette à pattes blanches,"Crevette, cuite",Crevette,Whiteleg shrimp,"Shrimp or prawn, cooked",en:whiteleg-shrimp,10007
 Merlan,"Merlan, cru","Merlan, cru",Whiting,"Whiting, raw",en:whiting,26095
@@ -1790,8 +1768,6 @@ Compote de pommes allégée en sucres,"Compote, tout type de fruits, allégée e
 Comté aop,Comté,Comté,,"Comté cheese, from cow's milk",fr:comte-aop,12110
 Confiture de lait,Confiture de lait,Confiture de lait,,Dulce de leche or confiture de lait,fr:confiture-de-lait,31040
 Côtes de porc,"Porc, côte, grillée","Porc, côte",,"Pork, chop, grilled",fr:cotes-de-porc,28101
-Couenne de porc,"Porc, couenne, crue",Couenne,,"Pork, rind, raw",fr:couenne-de-porc,28478
-Couenne et gras de porc,"Porc, couenne, crue",Couenne,,"Pork, rind, raw",fr:couenne-et-gras-de-porc,28478
 Coulis de tomates,"Tomate, coulis, appertisé (purée de tomates mi-réduite à 11%)","Tomate, coulis",,"Tomato coulis, canned (tomato puree semi-reduced 11%)",fr:coulis-de-tomates,20260
 Crème de marrons,Crème de marrons,Crème de marrons,,Chestnut cream,fr:creme-de-marrons,15013
 Crème dessert au chocolat,"Crème dessert au chocolat, appertisée",Crème dessert au chocolat,,"Custard dessert, chocolate, canned",fr:creme-dessert-au-chocolat,39506
@@ -1918,7 +1894,6 @@ Graines de lin doré,"Lin, brun, graine",Lin,,"Flaxseed, brown",en:golden-flax-s
 Graines de lin doré,"Lin, graine",Lin,,Flaxseed,en:golden-flax-seeds,15034
 Grains de maïs,"Maïs doux, appertisé, égoutté",Maïs,,"Sweet corn, canned, drained",en:corn-kernel,20066
 Grains de maïs à éclater,"Maïs doux, appertisé, égoutté",Maïs,,"Sweet corn, canned, drained",fr:grains-de-mais-a-eclater,20066
-Gras et couenne de porc,"Porc, couenne, crue",Couenne,,"Pork, rind, raw",fr:gras-et-couenne-de-porc,28478
 Gruyère aop,Gruyère,Gruyère,,"Gruyere cheese, from cow's milk",fr:gruyere-aop,12114
 Haricot mungo,"Haricot mungo germé ou pousse de ""soja"", cru",Pousse ou germe de soja,,"Mung bean, sprouted or soy spouts, raw",en:mung-bean,20183
 Haricot mungo,"Haricot mungo, sec","Haricot mungo, sec",,"Beans, mung, mature, seeds, dry",en:mung-bean,20530
@@ -2204,8 +2179,8 @@ Poisson blanc,"Poisson blanc, de mer, cuit (aliment moyen)",Poisson blanc,,"Mari
 Poisson blanc,"Poisson blanc, cuit (aliment moyen)",Poisson blanc,,"Fish, white, without skin, cooked",fr:poisson-blanc,26249
 Poisson,"Poisson blanc, cuit (aliment moyen)",Poisson blanc,Fish,"Fish, white, without skin, cooked",en:fish,26249
 Poitrine de porc fumée,"Poitrine de porc, fumée, crue","Poitrine de porc, fumée, crue",,"Pork belly, smoked, raw",fr:poitrine-de-porc-fumee,28502
-Poivre gris,"Poivre gris, poudre",Poivre gris,,"Grey pepper, powder",en:grey-pepper,11020
-Poivre rose,"Poivre gris, poudre",Poivre gris,,"Grey pepper, powder",en:pink-pepper,11020
+Poivre gris,"Poivre noir, poudre",Poivre noir,,"Black pepper, powder",en:grey-pepper,11015
+Poivre rose,"Poivre noir, poudre",Poivre noir,,"Black pepper, powder",en:pink-pepper,11015
 Pommes de terre précuites,"Pomme de terre, sautée/poêlée",Pomme de terre sautée,,"Potato, sautéed/pan-fried",en:precooked-potato,4015
 Pommes de terre préfrites,"Pomme de terre, sautée/poêlée",Pomme de terre sautée,,"Potato, sautéed/pan-fried",fr:pommes-de-terre-prefrites,4015
 Poudres de lait écrémé et entier,"Lait en poudre, entier","Lait en poudre, entier",,"Milk, powder, whole",fr:poudres-de-lait-ecreme-et-entier,19021
@@ -2551,8 +2526,6 @@ Pâte à tarte,"Pâte brisée, crue","Pâte brisée, crue",Pastry,"Short crust p
 Pâte à tarte,"Pâte brisée, pur beurre, crue","Pâte brisée, pur beurre, crue",Pastry,"Short crust pastry, pure butter, raw",en:pastry,23414
 Beurre d'arachide,Beurre de cacahuète ou Pâte d'arachide,Beurre de cacahuète ou Pâte d'arachide,Peanut butter,Peanut butter or peanut paste,en:peanut-butter,15202
 ,Beurre de cacahuète ou Pâte d'arachide,Beurre de cacahuète ou Pâte d'arachide,Peanut paste,Peanut butter or peanut paste,en:peanut-paste,15202
-Poivre,"Poivre gris, poudre",Poivre gris,Pepper,"Grey pepper, powder",en:pepper,11020
-Poivre,"Poivre blanc, poudre",Poivre blanc,Pepper,"White pepper, powder",en:pepper,11019
 Poivre,"Poivre noir, poudre",Poivre noir,Pepper,"Black pepper, powder",en:pepper,11015
 ,"Perche, crue","Perche, crue",Perch,"European perch, raw",en:perch,27010
 Kaki,"Kaki, pulpe, cru",Kaki,Persimmon,"Persimmon, pulp, raw",en:persimmon,13066
@@ -2576,7 +2549,6 @@ Farine de blé prégélatinisée,Farine de blé tendre ou froment T150,Farine de
 Garniture aux framboises,Confiture de framboise (extra ou classique),Confiture de framboise,Raspberry filling,"Jam, raspberry",en:raspberry-filling,31062
 Saumon cru,"Saumon, cru, sauvage","Saumon, cru, sauvage",Raw salmon,"Salmon, raw, wild",en:raw-salmon,26161
 Saumon cru,"Saumon, cru, élevage","Saumon, cru, élevage",Raw salmon,"Salmon, raw, farmed",en:raw-salmon,26036
-Choucroute crue,"Choucroute, sans garniture, égouttée","Choucroute, sans garniture",Raw sauerkraut,"Sauerkraut, without garnish, drained",en:raw-sauerkraut,25004
 Pâte de curry rouge,"Curry, poudre",Curry,Red curry paste,"Curry, powder",en:red-curry-paste,11005
 Raisin rouge,"Raisin noir, cru",Raisin noir,Red grape,"Grape, red, raw",en:red-grape,13045
 Pâte miso rouge,Miso,Miso,Red miso paste,Miso,en:red-miso-paste,20916
@@ -2627,7 +2599,7 @@ Farine de graines de tournesol,"Tournesol, graine","Tournesol, graine",Sunflower
 Amande douce,"Amande, mondée, émondée ou blanchie",Amande,Sweet almond,"Almond, peeled, unpeeled or blanched",en:sweet-almond,15041
 Amande douce,Amande (avec peau),Amande,Sweet almond,"Almond, (with peel)",en:sweet-almond,15000
 ,Paprika,Paprika,Sweet paprika,Paprika,en:sweet-paprika,11049
-Extrait de tamarin,"Tamarin, fruit immature, pulpe, cru",Tamarin,Tamarind extract,"Tamarind, immature fruit, pulp, raw",en:tamarind-extract,13079
+Extrait de tamarin,"Tamarin, fruit mûr, pulpe, cru",Tamarin,Tamarind extract,"Tamarind, mature fruit, pulp, raw",en:tamarind-extract,13080
 Vinaigre à l'estragon,Vinaigre,Vinaigre,Tarragon vinegar,Vinegar,en:tarragon-vinegar,11018
 Sauce teriyaki,"Sauce teriyaki, préemballée",Sauce teriyaki,Teriyaki sauce,"Teriyaki sauce, prepacked",en:teriyaki-sauce,11301
 Tilapia,"Tilapia, cru","Tilapia, cru",Tilapia,"Tilapia, raw",en:tilapia,27019
@@ -2664,7 +2636,7 @@ Maïs blanc,"Maïs doux, appertisé, égoutté",Maïs,White corn,"Sweet corn, ca
 Pêche blanche,"Pêche, pulpe et peau, crue",Pêche,White peach,"Peach, pulp and peel, raw",en:white-peach,13043
 ,"Raisin blanc, à gros grain (type Italia ou Dattier), cru",Raisin blanc,White seedless grape,"Grape, white, raw",en:white-seedless-grape,13044
 Vinaigre blanc,Vinaigre,Vinaigre,White vinegar,Vinegar,en:white-vinegar,11018
-,Vin blanc 11°,Vin blanc 11°,White wine from cava,"Wine, white, 11°",en:white-wine-from-cava,5200
+,Vin blanc (sec),Vin blanc,White wine from cava,"Wine, white, dry",en:white-wine-from-cava,5215
 ,Sucre roux,Sucre roux,Whole brown cane sugar,"Sugar, brown",en:whole-brown-cane-sugar,31017
 Sucre de canne complet,Sucre blanc,Sucre,Whole cane sugar,"Sugar, white",en:whole-cane-sugar,31016
 ,"Amarante, crue","Amarante, crue",Whole grain amaranth flour,"Amaranth, raw",en:whole-grain-amaranth-flour,9345

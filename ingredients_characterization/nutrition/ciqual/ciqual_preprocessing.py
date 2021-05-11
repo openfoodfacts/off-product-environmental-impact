@@ -9,10 +9,10 @@ import xmltodict
 
 from ingredients_characterization.vars import CIQUAL_DATA_DIR, CIQUAL_DATA_FILEPATH, CIQUAL_TO_OFF
 
-with open(os.path.join(CIQUAL_DATA_DIR, 'alim_2017 11 21.xml'), 'r', encoding='windows-1252') as file:
+with open(os.path.join(CIQUAL_DATA_DIR, 'alim_2020_07_07.xml'), 'r', encoding='windows-1252') as file:
     products = xmltodict.parse(file.read())['TABLE']['ALIM']
 
-with open(os.path.join(CIQUAL_DATA_DIR, 'compo_2017 11 21.xml'), 'r', encoding='windows-1252') as file:
+with open(os.path.join(CIQUAL_DATA_DIR, 'compo_2020_07_07.xml'), 'r', encoding='windows-1252') as file:
     compositions = xmltodict.parse(file.read())['TABLE']['COMPO']
 
 top_level_nutriments = ['proteins', 'carbohydrates', 'fat', 'fiber', 'salt', 'water']
