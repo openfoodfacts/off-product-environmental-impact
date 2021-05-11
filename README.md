@@ -154,11 +154,7 @@ categories are:
 
 ### Algorithm
 
-The algorithm used by this program is based on a Monte-Carlo approach to estimate the impact of a product. Its principle
-is to pick random possible recipes of the product and compute their impact until the geometric mean of the impacts of
-all sampled recipes stabilizes within a given confidence interval. The sampling of possible recipes is made as accurate
-as possible by the use of a non linear programming solver ([SCIP](http://scip.zib.de/)), and nutritional information of
-the product.
+The algorithm used by this program is based on a Monte-Carlo approach to estimate the impact of a product. Its principle is to pick random possible recipes of the product and compute their impact until the geometric mean of the impacts of all sampled recipes stabilizes within a given confidence interval. The sampling of possible recipes is made as accurate as possible by the use of a non-linear programming solver ([SCIP](http://scip.zib.de/)), and nutritional information of the product.
 
 ## Disclaimer
 
