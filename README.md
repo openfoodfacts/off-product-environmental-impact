@@ -73,6 +73,18 @@ print(impact_estimation_result['warnings'])
 # ['Parameter use_defined_prct has been set to False in order to get a result.']
 ``` 
 
+The `reporting` module can be used to create HTML and PDF impact estimation reports.
+
+```python
+from reporting import ProductImpactReport
+
+reporter = ProductImpactReport(barcode='3292590830953')
+
+reporter.to_pdf()
+reporter.to_html()
+```
+
+
 ### Parameters
 
 The function `impacts_estimation.estimate_impacts()` accepts the following parameters:
@@ -154,7 +166,7 @@ categories are:
 
 ### Algorithm
 
-The algorithm used by this program is based on a Monte-Carlo approach to estimate the impact of a product. Its principle is to pick random possible recipes of the product and compute their impact until the geometric mean of the impacts of all sampled recipes stabilizes within a given confidence interval. The sampling of possible recipes is made as accurate as possible by the use of a non-linear programming solver ([SCIP](http://scip.zib.de/)), and nutritional information of the product.
+The algorithm used by this program is based on a Monte-Carlo approach to estimate the impact of a product. Its principle is to pick random possible recipes of the product and compute their impact until the geometric mean of the impacts of all sampled recipes stabilizes within a given confidence interval. The sampling of possible recipes is made as accurate as possible by using a non-linear programming solver ([SCIP](http://scip.zib.de/)), and nutritional information of the product.
 
 ## Disclaimer
 
