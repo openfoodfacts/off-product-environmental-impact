@@ -7,6 +7,7 @@ This repository contains a Python program to estimate the environmental impact o
 This tool gives an estimation of the environmental impact of the agricultural steps of a product by browsing its possible recipes according to its ingredient list and nutritional composition.
 
 ## ❌ What this tool does **NOT** do
+
 * Giving the exact environmental impact of a product
 * Taking into account the origin of the ingredients
 * Taking into account the packaging of the product
@@ -32,8 +33,8 @@ from openfoodfacts import get_product
 
 product = get_product(barcode='3175681790285')['product']
 
-impact_categories = ['Score unique EF',
-                     'Changement climatique']
+impact_categories = ['EF single score',
+                     'Climate change']
 
 impact_estimation_result = estimate_impacts(product=product,
                                             impact_names=impact_categories)
@@ -42,8 +43,8 @@ for impact_category in impact_categories:
     print(f"{impact_category}: "
           f"{impact_estimation_result['impact_geom_means'][impact_category]:.4} "
           f"{impact_estimation_result['impacts_units'][impact_category]}")
-# Score unique EF: 0.07872 mPt
-# Changement climatique: 0.7816 kg CO2 eq
+# EF single score: 0.07872 mPt
+# Climate change: 0.7816 kg CO2 eq
 ```
 
 If `safe_mode` is set to `True`, it will change the parameters in case of error to ensure getting a result.
@@ -56,17 +57,17 @@ product = get_product(barcode='3564707104920')['product']
 
 try:
     impact_estimation_result = estimate_impacts(product=product,
-                                                impact_names='Score unique EF',
+                                                impact_names='EF single score',
                                                 safe_mode=False)
 except RecipeCreationError:
     print("No possible recipe with the given input data.")
 # No possible recipe with the given input data.
 
 impact_estimation_result = estimate_impacts(product=product,
-                                            impact_names='Score unique EF',
+                                            impact_names='EF single score',
                                             safe_mode=True)
 
-print(impact_estimation_result['impact_geom_means']['Score unique EF'])
+print(impact_estimation_result['impact_geom_means']['EF single score'])
 # 0.16486248336651319
 
 print(impact_estimation_result['warnings'])
@@ -84,7 +85,6 @@ reporter.to_pdf()
 reporter.to_html()
 ```
 
-
 ### Parameters
 
 The function `impacts_estimation.estimate_impacts()` accepts the following parameters:
@@ -92,7 +92,7 @@ The function `impacts_estimation.estimate_impacts()` accepts the following param
 |              Parameter             |         Type         |            Default            |                                                                                                                Description                                                                                                                |
 |:----------------------------------:|:--------------------:|:-----------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | product                            | dict                 |                               | Open Food Facts product to analyze                                                                                                                                                                                                        |
-| impact_names                       |  string or iterable  |                               | Names of the impacts to compute. They must correspond to the impact categories used by Agribalyse. See list of available impact categories.                                                                                               |
+| impact_names                       |  string or iterable  |                               | Names of the impacts to compute in French or in English. They must correspond to the impact categories used by Agribalyse. See list of available impact categories.                                                                                               |
 | quantity                           | float                | 100                           | Quantity of product in grams for which the impact must be calculated. If None, will use the 'product_quantity' attribute of the product. If 'product_quantity' is undefined, will use 100g by default.                                    |
 | ignore_unknown_ingredients         | bool                 | True                          | Should ingredients absent of OFF taxonomy and without defined percentage be considered as parsing errors and ignored?                                                                                                                     |
 | min_run_nb                         | int                  | 30                            | Minimum number of run for the Monte-Carlo loop                                                                                                                                                                                            |
@@ -146,9 +146,9 @@ several additional data.
 The ingredients environmental impact data come from [_Agribalyse_](https://ecolab.ademe.fr/agribalyse). The impact
 categories are:
 
-| Agribalyse name                                     |                                           |
+| French name                                     |            English name                               |
 |-----------------------------------------------------|-------------------------------------------|
-| Score unique EF                                     | Single score EF (Environmental Footprint) |
+| Score unique EF                                     | EF single score |
 | Changement climatique                               | Climate change                            |
 | Appauvrissement de la couche d'ozone                | Ozone depletion                           |
 | Rayonnements ionisants                              | Ionizing radiations                       |
@@ -170,14 +170,11 @@ The algorithm used by this program is based on a Monte-Carlo approach to estimat
 
 ## Disclaimer
 
-The results given by this tool are **estimates** of the environmental impact of a food product. These estimates are
-subject to potential bias and uncertainties due to the stochastic nature of the algorithm and the uncertainty inherent
-to the background data. Thus, the accuracy of the result cannot be guaranteed.
+The results given by this tool are **estimates** of the environmental impact of a food product. These estimates are subject to potential bias and uncertainties due to the stochastic nature of the algorithm and the uncertainty inherent to the background data. Thus, the accuracy of the result cannot be guaranteed.
 
 ## Documentation
 
 [off-product-environmental-impact.readthedocs.io](https://off-product-environmental-impact.readthedocs.io/en/latest/)
-
 
 ## References
 

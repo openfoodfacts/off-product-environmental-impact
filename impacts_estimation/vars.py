@@ -66,7 +66,7 @@ QUALITY_DATA_WARNINGS_FLAT = [x for y in QUALITY_DATA_WARNINGS.values() for x in
 IMPACT_MASS_UNIT = 1000  # Ingredients impacts are given per kg
 
 AGRIBALYSE_IMPACT_CATEGORIES_EN_TO_FR = {
-    'Environmental footprint': 'Score unique EF',
+    'EF single score': 'Score unique EF',
     'Climate change': 'Changement climatique',
     'Ozone depletion': "Appauvrissement de la couche d'ozone",
     'Ionising radiation, HH': 'Rayonnements ionisants',
