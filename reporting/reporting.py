@@ -9,8 +9,8 @@ import pylab
 import seaborn as sns
 
 from impacts_estimation.impacts_estimation import estimate_impacts
-from impacts_estimation.vars import AGRIBALYSE_IMPACT_CATEGORIES, AGRIBALYSE_IMPACT_UNITS
-from impacts_estimation.utils import flat_ingredients_list_DFS
+from impacts_estimation.vars import AGRIBALYSE_IMPACT_CATEGORIES_FR
+from impacts_estimation.utils import flat_ingredients_list_DFS, agribalyse_impact_name_i18n
 from .utils import ensure_extension, get_product_from_barcode, smart_round_format
 from ingredients_characterization.vars import AGRIBALYSE_DATA_FILEPATH
 from data import ingredients_data, off_categories, off_taxonomy
@@ -22,7 +22,7 @@ with open(AGRIBALYSE_DATA_FILEPATH, 'r', encoding='utf8') as file:
 class ProductImpactReport:
     """ Class used to generate reports for Open Food Facts products impacts. """
 
-    def __init__(self, barcode=None, product=None, impact_categories=None, main_impact_category='Score unique EF',
+    def __init__(self, barcode=None, product=None, impact_categories=None, main_impact_category=None,
                  product_mass=1000, language='french'):
         """
         Args:
@@ -31,18 +31,18 @@ class ProductImpactReport:
             product (dict): Open Food Facts product (use only if barcode is None)
             impact_categories (list): Impact categories to consider.
                 By default will consider all the impact categories available in Agribalyse.
-            main_impact_category (str): Main impact category to display.
+            main_impact_category (str): Main impact category to display. First element of impact_categories by default
             product_mass (float): Mass of product considered in grams
             language (str): Language of the report
         """
-        self.impact_categories = impact_categories or AGRIBALYSE_IMPACT_CATEGORIES
-        self.main_impact_category = main_impact_category
+        self.impact_categories = impact_categories or AGRIBALYSE_IMPACT_CATEGORIES_FR
+        self.main_impact_category = main_impact_category or self.impact_categories[0]
         self.product_mass = product_mass
         self.language = language.lower()
         self.language_short = language[:2]
 
-        assert self.main_impact_category in AGRIBALYSE_IMPACT_CATEGORIES
-        assert all(x in AGRIBALYSE_IMPACT_CATEGORIES for x in self.impact_categories)
+        assert self.main_impact_category in self.impact_categories
+        assert all(agribalyse_impact_name_i18n(x) in AGRIBALYSE_IMPACT_CATEGORIES_FR for x in self.impact_categories)
 
         self._html_output = None
         self.images_filepath = {}
@@ -76,12 +76,10 @@ class ProductImpactReport:
 
             # Getting impact of non agricultural phases
             self.impact_base = {impact_category:
-                                    sum([self.agribalyse_proxy_data['impact_environnemental'][impact_category][
-                                             'etapes'][
-                                             step]
-                                         for step in
-                                         self.agribalyse_proxy_data['impact_environnemental'][impact_category][
-                                             'etapes'].keys()
+                                    sum([value for step, value in
+                                         self.agribalyse_proxy_data
+                                         ['impact_environnemental'][agribalyse_impact_name_i18n(impact_category)]
+                                         ['etapes'].items()
                                          if step != 'Agriculture']) * product_mass / 1000
                                 for impact_category in self.impact_categories}
         else:
@@ -133,7 +131,8 @@ class ProductImpactReport:
                capprops=dict(linewidth=2, color='#777777'))
 
         if self.has_agribalyse_proxy:
-            ax.axvline(self.agribalyse_proxy_data['impact_environnemental'][self.main_impact_category]['synthese'],
+            ax.axvline(self.agribalyse_proxy_data
+                       ['impact_environnemental'][agribalyse_impact_name_i18n(self.main_impact_category)]['synthese'],
                        linestyle='--',
                        color='darkgreen')
 
@@ -159,7 +158,8 @@ class ProductImpactReport:
 
         rank = 0.5
         agricultural_impact_value = self.impact_result['impacts_quantiles'][self.main_impact_category]['0.5']
-        steps = self.agribalyse_proxy_data['impact_environnemental'][self.main_impact_category]['etapes']
+        steps = self.agribalyse_proxy_data \
+            ['impact_environnemental'][agribalyse_impact_name_i18n(self.main_impact_category)]['etapes']
         total = agricultural_impact_value + sum([v for k, v in steps.items() if k != 'Agriculture'])
         for step, value in reversed(steps.items()):
             if step == 'Agriculture':
@@ -269,7 +269,7 @@ class ProductImpactReport:
         for impact_category in self.impact_categories:
             impact_data = {
                 'category': impact_category,
-                'unit': AGRIBALYSE_IMPACT_UNITS[impact_category],
+                'unit': self.impact_result['impacts_units'][impact_category],
                 'confidence_interval': ''
             }
 
@@ -281,19 +281,20 @@ class ProductImpactReport:
 
             if impact_category in self.impact_result['impacts_quantiles']:
                 impact_data['conf_int_lower_bound'] = self.impact_base[impact_category] + \
-                                        self.impact_result['impacts_quantiles'][impact_category]['0.05']
+                                                      self.impact_result['impacts_quantiles'][impact_category]['0.05']
             else:
                 impact_data['conf_int_lower_bound'] = "This impact could not be calculated."
 
             if impact_category in self.impact_result['impacts_quantiles']:
                 impact_data['conf_int_upper_bound'] = self.impact_base[impact_category] + \
-                                        self.impact_result['impacts_quantiles'][impact_category]['0.95']
+                                                      self.impact_result['impacts_quantiles'][impact_category]['0.95']
             else:
                 impact_data['conf_int_upper_bound'] = "This impact could not be calculated."
 
             if self.has_agribalyse_proxy:
                 impact_data['reference_impact'] = \
-                    self.agribalyse_proxy_data['impact_environnemental'][impact_category]['synthese']
+                    self.agribalyse_proxy_data[
+                        'impact_environnemental'][agribalyse_impact_name_i18n(impact_category)]['synthese']
 
             result[impact_category] = impact_data
 

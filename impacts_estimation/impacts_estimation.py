@@ -22,7 +22,7 @@ from pyscipopt import Model
 from impacts_estimation.utils import natural_bounds, nutritional_error_margin, \
     clear_ingredient_graph, define_subingredients_percentage_type, find_ingredients_graph_leaves, \
     flat_ingredients_list_BFS, individualize_ingredients, original_id, nutriments_from_recipe, \
-    remove_percentage_from_product, confidence_score, UnknownIngredientsRemover
+    remove_percentage_from_product, confidence_score, UnknownIngredientsRemover, agribalyse_impact_name_i18n
 from impacts_estimation.vars import NUTRIMENTS_CATEGORIES, QUALITY_DATA_WARNINGS, \
     TOP_LEVEL_NUTRIMENTS_CATEGORIES, MAX_ASH_CONTENT, FERMENTATION_AGENTS, FERMENTED_FOOD_CATEGORIES, \
     HIGH_WATER_LOSS_CATEGORIES, IMPACT_MASS_UNIT, AGRIBALYSE_IMPACT_UNITS, RESULTS_WARNINGS_NOT_RELIABLE
@@ -50,7 +50,7 @@ class RecipeImpactCalculator:
             If True, the result may vary from one call to another.
         """
         self.recipe = recipe
-        self.impact_name = impact_name
+        self.impact_name = agribalyse_impact_name_i18n(impact_name)
         self.use_uncertainty = use_uncertainty
         self.ingredients_impacts = dict()
         self.known_ingredients_mass = None
@@ -1487,7 +1487,8 @@ class ImpactEstimator:
                         ingredient_impact_share = recipe_impact_calculator.get_ingredient_impact_share(ingredient)
 
                         if impact_name not in impacts_units:
-                            impacts_units[impact_name] = AGRIBALYSE_IMPACT_UNITS[impact_name]
+                            impacts_units[impact_name] = \
+                                AGRIBALYSE_IMPACT_UNITS[agribalyse_impact_name_i18n(impact_name)]
 
                         if run == 1:
                             ingredients_impacts_share[impact_name][ingredient] = ingredient_impact_share

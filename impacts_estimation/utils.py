@@ -4,7 +4,8 @@ import copy
 import numpy as np
 from math import sqrt
 
-from impacts_estimation.vars import NUTRIMENTS_CATEGORIES, TOP_LEVEL_NUTRIMENTS_CATEGORIES
+from impacts_estimation.vars import NUTRIMENTS_CATEGORIES, TOP_LEVEL_NUTRIMENTS_CATEGORIES, \
+    AGRIBALYSE_IMPACT_CATEGORIES_EN_TO_FR, AGRIBALYSE_IMPACT_CATEGORIES_FR
 from data import ingredients_data, off_taxonomy
 
 
@@ -504,3 +505,25 @@ def weighted_geometric_mean(values, weights):
     assert len(values) == len(weights)
     return np.exp(sum([weights[i] * np.log(values[i]) for i in range(len(values))]) /
                   sum([weights[i] for i in range(len(values))]))
+
+
+def agribalyse_impact_name_i18n(impact_name):
+    """
+    Returns the French version of an impact name
+
+    Args:
+        impact_name (str):
+
+    Examples:
+        >>> agribalyse_impact_name_i18n('Climate change')
+        'Changement climatique'
+        >>> agribalyse_impact_name_i18n("Appauvrissement de la couche d'ozone")
+        'Appauvrissement de la couche d'ozone'
+    """
+
+    if impact_name in AGRIBALYSE_IMPACT_CATEGORIES_EN_TO_FR:
+        return AGRIBALYSE_IMPACT_CATEGORIES_EN_TO_FR[impact_name]
+    elif impact_name in AGRIBALYSE_IMPACT_CATEGORIES_FR:
+        return impact_name
+    else:
+        raise ValueError(f'Unrecognized impact: {impact_name}')

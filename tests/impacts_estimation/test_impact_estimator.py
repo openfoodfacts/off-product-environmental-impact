@@ -103,7 +103,44 @@ class TestImpactEstimator:
         impact_estimator = ImpactEstimator(product=self.product)
         impact_result = impact_estimator.estimate_impacts('Score unique EF')
 
-        assert type(impact_result['impacts_geom_means']['Score unique EF']) == float
+        assert isinstance(impact_result['impacts_geom_means']['Score unique EF'], float)
+
+    def test_get_several_impact_result(self):
+        """ Assert that an impact result is returned for several impacts. """
+
+        impact_estimator = ImpactEstimator(product=self.product)
+        impact_result = impact_estimator.estimate_impacts(['Score unique EF', 'Particules'])
+
+        assert isinstance(impact_result['impacts_geom_means']['Score unique EF'], float)
+        assert isinstance(impact_result['impacts_geom_means']['Particules'], float)
+
+    def test_get_impact_result_in_english(self):
+        """
+            Assert that an impact result is returned for an impact name in English and that the result keeps the impact
+             name in English.
+        """
+
+        impact_estimator = ImpactEstimator(product=self.product)
+        impact_result = impact_estimator.estimate_impacts('Climate change')
+
+        assert isinstance(impact_result['impacts_geom_means']['Climate change'], float)
+
+    def test_ingredients_impact_share(self):
+        """ Assert that the ingredients impact shares are returned """
+
+        impact_estimator = ImpactEstimator(product=self.product)
+        impact_result = impact_estimator.estimate_impacts('Climate change')
+
+        for ingredient in flat_ingredients_list_DFS(self.product):
+            assert isinstance(impact_result['ingredients_impacts_share']['Climate change'][ingredient['id']], float)
+
+    def test_impacts_units(self):
+        """ Assert that the impacts units are returned """
+
+        impact_estimator = ImpactEstimator(product=self.product)
+        impact_result = impact_estimator.estimate_impacts('Climate change')
+
+        assert isinstance(impact_result['impacts_units']['Climate change'], str)
 
     def test_remove_allergens(self):
         """

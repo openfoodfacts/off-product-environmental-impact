@@ -65,22 +65,27 @@ QUALITY_DATA_WARNINGS_FLAT = [x for y in QUALITY_DATA_WARNINGS.values() for x in
 # What is the mass (in g) for which ingredients impacts are given
 IMPACT_MASS_UNIT = 1000  # Ingredients impacts are given per kg
 
-AGRIBALYSE_IMPACT_CATEGORIES = [
-    "Score unique EF",
-    "Changement climatique",
-    "Appauvrissement de la couche d'ozone",
-    "Rayonnements ionisants",
-    "Formation photochimique d'ozone",
-    "Particules",
-    "Acidification terrestre et eaux douces",
-    "Eutrophisation terrestre",
-    "Eutrophisation eaux douces",
-    "Eutrophisation marine",
-    "Utilisation du sol",
-    "Écotoxicité pour écosystèmes aquatiques d'eau douce",
-    "Épuisement des ressources eau",
-    "Épuisement des ressources énergétiques",
-    "Épuisement des ressources minéraux"]
+AGRIBALYSE_IMPACT_CATEGORIES_EN_TO_FR = {
+    'Environmental footprint': 'Score unique EF',
+    'Climate change': 'Changement climatique',
+    'Ozone depletion': "Appauvrissement de la couche d'ozone",
+    'Ionising radiation, HH': 'Rayonnements ionisants',
+    'Photochemical ozone formation, HH': "Formation photochimique d'ozone",
+    'Respiratory inorganics': 'Particules',
+    'Acidification terrestrial and freshwater': 'Acidification terrestre et eaux douces',
+    'Eutrophication terrestrial': 'Eutrophisation terrestre',
+    'Eutrophication freshwater': 'Eutrophisation eaux douces',
+    'Eutrophication marine': 'Eutrophisation marine',
+    'Land use': 'Utilisation du sol',
+    'Ecotoxicity freshwater': "Écotoxicité pour écosystèmes aquatiques d'eau douce",
+    'Water scarcity': 'Épuisement des ressources eau',
+    'Resource use, energy carriers': 'Épuisement des ressources énergétiques',
+    'Resource use, mineral and metals': 'Épuisement des ressources minéraux'
+}
+
+AGRIBALYSE_IMPACT_CATEGORIES_FR = list(AGRIBALYSE_IMPACT_CATEGORIES_EN_TO_FR.values())
+AGRIBALYSE_IMPACT_CATEGORIES_EN = list(AGRIBALYSE_IMPACT_CATEGORIES_EN_TO_FR.keys())
+AGRIBALYSE_IMPACT_CATEGORIES_FR_TO_EN = {v: k for k, v in AGRIBALYSE_IMPACT_CATEGORIES_EN_TO_FR.items()}
 
 AGRIBALYSE_IMPACT_UNITS = {
     "Score unique EF": "mPt",
@@ -116,42 +121,6 @@ AGRIBALYSE_IMPACT_UNITS_MAGNITUDE_ORDER = {
     "Épuisement des ressources eau": 1,
     "Épuisement des ressources énergétiques": 1,
     "Épuisement des ressources minéraux": 1e-6
-}
-
-AGRIBALYSE_IMPACT_CATEGORIES_EN_TO_FR = {
-    'Environmental footprint': 'Score unique EF',
-    'Climate change': 'Changement climatique',
-    'Ozone depletion': "Appauvrissement de la couche d'ozone",
-    'Ionising radiation, HH': 'Rayonnements ionisants',
-    'Photochemical ozone formation, HH': "Formation photochimique d'ozone",
-    'Respiratory inorganics': 'Particules',
-    'Acidification terrestrial and freshwater': 'Acidification terrestre et eaux douces',
-    'Eutrophication terrestrial': 'Eutrophisation terrestre',
-    'Eutrophication freshwater': 'Eutrophisation eaux douces',
-    'Eutrophication marine': 'Eutrophisation marine',
-    'Land use': 'Utilisation du sol',
-    'Ecotoxicity freshwater': "Écotoxicité pour écosystèmes aquatiques d'eau douce",
-    'Water scarcity': 'Épuisement des ressources eau',
-    'Resource use, energy carriers': 'Épuisement des ressources énergétiques',
-    'Resource use, mineral and metals': 'Épuisement des ressources minéraux'
-}
-
-AGRIBALYSE_IMPACT_CATEGORIES_FR_TO_EN = {
-    "Score unique EF": "Environmental footprint",
-    "Changement climatique": 'Climate change',
-    "Appauvrissement de la couche d'ozone": 'Ozone depletion',
-    "Rayonnements ionisants": 'Ionising radiation, HH',
-    "Formation photochimique d'ozone": 'Photochemical ozone formation, HH',
-    "Particules": 'Respiratory inorganics',
-    "Acidification terrestre et eaux douces": 'Acidification terrestrial and freshwater',
-    "Eutrophisation terrestre": 'Eutrophication terrestrial',
-    "Eutrophisation eaux douces": 'Eutrophication freshwater',
-    "Eutrophisation marine": 'Eutrophication marine',
-    "Utilisation du sol": 'Land use',
-    "Écotoxicité pour écosystèmes aquatiques d'eau douce": 'Ecotoxicity freshwater',
-    "Épuisement des ressources eau": 'Water scarcity',
-    "Épuisement des ressources énergétiques": 'Resource use, energy carriers',
-    "Épuisement des ressources minéraux": 'Resource use, mineral and metals'
 }
 
 FERMENTATION_AGENTS = ['en:selected-ferments',
