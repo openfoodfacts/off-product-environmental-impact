@@ -21,6 +21,8 @@ the [SCIP Optimization Suite](http://scip.zib.de/). Installation instructions ca
 found [here (PySCIPOpt)](https://github.com/SCIP-Interfaces/PySCIPOpt/blob/master/INSTALL.md)
 and [here (SCIP)](https://www.scipopt.org/doc/html/INSTALL.php).
 
+The reporting module uses *weasyprint* to generate PDF files. Weasyprint installation instructions can be found [here](https://weasyprint.readthedocs.io/en/stable/install.html).
+
 See [requirements.txt](requirements.txt) for the other required Python packages.
 
 ## Usage
