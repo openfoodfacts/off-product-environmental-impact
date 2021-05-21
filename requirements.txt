@@ -20,6 +20,7 @@ jinja2
 weasyprint
 matplotlib
 seaborn
+requests
 
 #################################################################################################################
 # Packages below are not needed for impact estimation of OFF products but may be necessary to run other scripts #
