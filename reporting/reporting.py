@@ -11,7 +11,8 @@ import seaborn as sns
 from impacts_estimation.impacts_estimation import estimate_impacts
 from impacts_estimation.vars import AGRIBALYSE_IMPACT_CATEGORIES_FR
 from impacts_estimation.utils import flat_ingredients_list_DFS, agribalyse_impact_name_i18n
-from .utils import ensure_extension, get_product_from_barcode, smart_round_format
+from .utils import ensure_extension, smart_round_format
+from utils import get_product_from_barcode
 from ingredients_characterization.vars import AGRIBALYSE_DATA_FILEPATH
 from data import ingredients_data, off_categories, off_taxonomy
 
