@@ -1696,10 +1696,49 @@ def estimate_impacts(product, impact_names, quantity=100, ignore_unknown_ingredi
                      use_ingredients_impact_uncertainty=True, quantiles_points=('0.05', '0.25', '0.5', '0.75', '0.95'),
                      distributions_as_result=False, confidence_score_weighting_factor=10, safe_mode=True):
     """
-        Wrapper for impact estimation that will maximise the chances of getting a result by running the program with
-        more permissive parameters in case of error.
+        Wrapper for impact estimation.
 
         Args:
+            product (dict): Dict containing an OpenFoodFact product.
+                It must contain the keys "ingredients" and "nutriments"
+            impact_names (str or list): Iterable containing impacts names or single impact name.
+            quantity (float): Quantity of product in grams for which the impact must be calculated. Default is 100g.
+            ignore_unknown_ingredients (bool): Should ingredients absent of OFF taxonomy and without defined percentage
+                be considered as parsing errors and ignored?
+            min_run_nb (int): Minimum number of run for the Monte-Carlo loop
+                A too small number may result in a falsely converging value
+            max_run_nb (int): Maximum number of run for the Monte-Carlo loop
+            forced_run_nb (int): Used to bypass natural Monte-Carlo stopping criteria and force the number of runs
+            confidence_interval_width (float): Width of the confidence interval that will determine the convergence
+                detection.
+            confidence_level (float): Confidence level of the confidence interval.
+            use_nutritional_info (bool): Should nutritional information be used to estimate recipe?
+            const_relax_coef (float): Constraints relaxation coefficient. Allows to relax constraints on nutriments,
+                water and mass balance to increase chances to get a result.
+            use_defined_prct (bool): Should ingredients percentages defined in the product be used?
+            maximum_evaporation (float): Upper bound of the evaporation coefficient [0-1[. I.e. maximum proportion of
+                ingredients water that can evaporate.
+            total_mass_used (float): Total mass of ingredient used in grams, if known.
+            min_prct_dist_size (int): Minimum size of the ingredients percentage distribution that will be used to pick
+                a proportion for an ingredient. If the distribution (adjusted to the possible value interval) has less
+                data, uniform distribution will be used instead.
+            dual_gap_type (str): 'absolute' or 'relative'. Determines the precision type of the variable optimization
+                by the solver.
+            dual_gap_limit (float): Determines the precision of the variable optimization by the solver.
+                Relative or absolute according to dual_gap_type.
+            solver_time_limit (float): Maximum time for the solver optimization (in seconds).
+                Set to None or 0 to set no limit.
+            time_limit_dual_gap_limit (float): Accepted precision of the solver in case of time limit hit.
+                Relative or absolute according to dual_gap_type.
+            confidence_weighting (bool): Should the recipes be weighted by their confidence score (deviation of
+                the recipes nutritional composition to the reference product).
+            use_ingredients_impact_uncertainty (bool): Should ingredients impacts uncertainty data be used?
+            quantiles_points (iterable): List of impacts quantiles cutting points to return in the result.
+            distributions_as_result (bool): Should the recipes, the distributions of the impact, the mean confidence
+                interval and the confidence score be added to the result?
+            confidence_score_weighting_factor (float): Weighting factor used for the confidence score calculation.
+                It corresponds to the weight of the nutritional distance against the absolute difference between the
+                 total mass and 100g/100g.
             safe_mode (bool): If set to True, the constraints will be progressively relaxed in order to get a result.
     """
 
