@@ -72,7 +72,7 @@ class ProductImpactReport:
 
         self.has_agribalyse_proxy = self.agribalyse_proxy_code is not None
 
-        if self.agribalyse_proxy_code is not None:
+        if self.has_agribalyse_proxy:
             self.agribalyse_proxy_data = agribalyse_data[self.agribalyse_proxy_code]
 
             # Getting impact of non agricultural phases
@@ -83,10 +83,19 @@ class ProductImpactReport:
                                          ['etapes'].items()
                                          if step != 'Agriculture']) * product_mass / 1000
                                 for impact_category in self.impact_categories}
+
+            # Getting total reference impacts
+            self.agribalyse_proxy_impacts = \
+                {impact_category: self.agribalyse_proxy_data['impact_environnemental'][
+                                      agribalyse_impact_name_i18n(impact_category)]['synthese']
+                                  * product_mass / 1000
+                 for impact_category in self.impact_categories}
+
         else:
             self.agribalyse_proxy_data = None
             self.impact_base = {impact_category: 0
                                 for impact_category in self.impact_categories}
+            self.agribalyse_proxy_impacts = None
 
         self._compute_impact()
 
@@ -132,8 +141,7 @@ class ProductImpactReport:
                capprops=dict(linewidth=2, color='#777777'))
 
         if self.has_agribalyse_proxy:
-            ax.axvline(self.agribalyse_proxy_data
-                       ['impact_environnemental'][agribalyse_impact_name_i18n(self.main_impact_category)]['synthese'],
+            ax.axvline(self.agribalyse_proxy_impacts[self.main_impact_category],
                        linestyle='--',
                        color='darkgreen')
 
@@ -161,10 +169,13 @@ class ProductImpactReport:
         agricultural_impact_value = self.impact_result['impacts_quantiles'][self.main_impact_category]['0.5']
         steps = self.agribalyse_proxy_data \
             ['impact_environnemental'][agribalyse_impact_name_i18n(self.main_impact_category)]['etapes']
-        total = agricultural_impact_value + sum([v for k, v in steps.items() if k != 'Agriculture'])
+        total = agricultural_impact_value + \
+                sum([v * self.product_mass / 1000 for k, v in steps.items() if k != 'Agriculture'])
         for step, value in reversed(steps.items()):
             if step == 'Agriculture':
                 value = agricultural_impact_value
+            else:
+                value = value * self.product_mass / 1000
 
             ax.barh(y=rank,
                     width=value / total,
@@ -293,9 +304,7 @@ class ProductImpactReport:
                 impact_data['conf_int_upper_bound'] = "This impact could not be calculated."
 
             if self.has_agribalyse_proxy:
-                impact_data['reference_impact'] = \
-                    self.agribalyse_proxy_data[
-                        'impact_environnemental'][agribalyse_impact_name_i18n(impact_category)]['synthese']
+                impact_data['reference_impact'] = self.agribalyse_proxy_impacts[impact_category]
 
             result[impact_category] = impact_data
 
