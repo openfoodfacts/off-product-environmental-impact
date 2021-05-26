@@ -430,9 +430,11 @@ class ProductImpactReport:
 
     def _generate_html(self):
         """ Generate the html version of the report """
-        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static', 'pure-min.css')) as file:
+        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static', 'pure-min.css'),
+                  encoding='utf8') as file:
             stylesheet = file.read()
-        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static', 'style.css')) as file:
+        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static', 'style.css'),
+                  encoding='utf8') as file:
             stylesheet += file.read()
 
         template_vars = {"product_name": self.product.get('product_name', ''),
@@ -477,5 +479,5 @@ class ProductImpactReport:
 
         self._generate_figures(img_folder=os.path.dirname(filename))
         self._generate_html()
-        with open(filename, 'w') as file:
+        with open(filename, 'w', encoding='utf8') as file:
             file.write(self._html_output)

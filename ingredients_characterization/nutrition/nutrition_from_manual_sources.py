@@ -10,7 +10,7 @@ from impacts_estimation.vars import NUTRIMENTS_CATEGORIES, TOP_LEVEL_NUTRIMENTS_
 
 
 def main():
-    with open(INGREDIENTS_DATA_FILEPATH, 'r') as file:
+    with open(INGREDIENTS_DATA_FILEPATH, 'r', encoding='utf8') as file:
         ingredients_data = json.load(file)
 
     manual_data = pd.read_csv(MANUAL_SOURCES_NUTRITION_DATA_FILEPATH)
@@ -72,7 +72,7 @@ def main():
 
         ingredients_data[ingredient_name] = ingredient
 
-    with open(INGREDIENTS_DATA_FILEPATH, 'w') as file:
+    with open(INGREDIENTS_DATA_FILEPATH, 'w', encoding='utf8') as file:
         json.dump(ingredients_data, file, indent=2, ensure_ascii=False)
 
 

@@ -44,5 +44,5 @@ for i, food in food_names.iterrows():
     result[food.FoodID] = food.to_dict()
 
 # Saving the result
-with open(FCEN_DATA_FILEPATH, 'w') as file:
+with open(FCEN_DATA_FILEPATH, 'w', encoding='utf8') as file:
     json.dump(result, file, indent=2, ensure_ascii=False)

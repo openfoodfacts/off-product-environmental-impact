@@ -7,10 +7,10 @@ from ingredients_characterization.vars import TAP_WATER_IMPACTS_DATA_FILEPATH
 
 
 def main():
-    with open(INGREDIENTS_DATA_FILEPATH, 'r') as file:
+    with open(INGREDIENTS_DATA_FILEPATH, 'r', encoding='utf8') as file:
         ingredients_data = json.load(file)
 
-    with open(TAP_WATER_IMPACTS_DATA_FILEPATH, 'r') as file:
+    with open(TAP_WATER_IMPACTS_DATA_FILEPATH, 'r', encoding='utf8') as file:
         tap_water_impacts = json.load(file)
 
     ingredient = ingredients_data.get('en:water', {'id': 'en:water'})
@@ -21,7 +21,7 @@ def main():
 
     ingredients_data['en:water'] = ingredient
 
-    with open(INGREDIENTS_DATA_FILEPATH, 'w') as file:
+    with open(INGREDIENTS_DATA_FILEPATH, 'w', encoding='utf8') as file:
         json.dump(ingredients_data, file, indent=2, ensure_ascii=False)
 
 

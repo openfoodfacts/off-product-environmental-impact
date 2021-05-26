@@ -11,10 +11,10 @@ from impacts_estimation.vars import IMPACT_MASS_UNIT, AGRIBALYSE_IMPACT_UNITS
 
 
 def main():
-    with open(INGREDIENTS_DATA_FILEPATH, 'r') as file:
+    with open(INGREDIENTS_DATA_FILEPATH, 'r', encoding='utf8') as file:
         ingredients_data = json.load(file)
 
-    with open(AGRIBALYSE_DATA_FILEPATH, 'r') as file:
+    with open(AGRIBALYSE_DATA_FILEPATH, 'r', encoding='utf8') as file:
         agribalyse_impacts = json.load(file)
     agribalyse_impacts = {x['LCI_name']: x for x in agribalyse_impacts}
 
@@ -100,7 +100,7 @@ def main():
 
                         ingredient['impacts'][impact_category]['uncertainty_distributions'].append(distribution_data)
 
-    with open(INGREDIENTS_DATA_FILEPATH, 'w') as file:
+    with open(INGREDIENTS_DATA_FILEPATH, 'w', encoding='utf8') as file:
         json.dump(ingredients_data, file, indent=2, ensure_ascii=False)
 
 

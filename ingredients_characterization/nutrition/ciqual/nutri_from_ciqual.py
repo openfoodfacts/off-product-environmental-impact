@@ -12,11 +12,11 @@ from data import INGREDIENTS_DATA_FILEPATH
 def main():
     links = pd.read_csv(CIQUAL_OFF_LINKING_TABLE_FILEPATH)
 
-    with open(CIQUAL_DATA_FILEPATH, 'r') as file:
+    with open(CIQUAL_DATA_FILEPATH, 'r', encoding='utf8') as file:
         ciqual_data = json.load(file)
 
     try:
-        with open(INGREDIENTS_DATA_FILEPATH, 'r') as file:
+        with open(INGREDIENTS_DATA_FILEPATH, 'r', encoding='utf8') as file:
             ingredients_data = json.load(file)
     except FileNotFoundError:
         ingredients_data = dict()
@@ -126,7 +126,7 @@ def main():
             # Adding the ingredient to the main result
             ingredients_data[off_id] = ingredient
 
-    with open(INGREDIENTS_DATA_FILEPATH, 'w') as file:
+    with open(INGREDIENTS_DATA_FILEPATH, 'w', encoding='utf8') as file:
         json.dump(ingredients_data, file, indent=2, ensure_ascii=False)
 
 

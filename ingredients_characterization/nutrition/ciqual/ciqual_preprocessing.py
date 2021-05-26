@@ -86,5 +86,5 @@ for product in products.values():
                                                                 if k in top_level_nutriments]))
 
 # Exporting the result
-with open(CIQUAL_DATA_FILEPATH, 'w') as file:
+with open(CIQUAL_DATA_FILEPATH, 'w', encoding='utf8') as file:
     json.dump(products, file, indent=2, ensure_ascii=False)
