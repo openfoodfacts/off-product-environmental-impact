@@ -53,7 +53,7 @@
 
 <div>
     <div class="centered-div">
-        <img src="{{ images_filepath['main_impact_plot'] }}">
+        {{ images['main_impact_plot'] }}
     </div>
     <p>
         <small>
@@ -67,12 +67,12 @@
 {% if has_agribalyse_proxy %}
 <div>
     <h3>Impact per step</h3>
-    <img src="{{ images_filepath['impact_per_step_plot'] }}">
+    {{ images['impact_per_step_plot'] }}
 </div>
 {% endif %}
 <div>
     <h3>Impact per ingredient</h3>
-    <img src="{{ images_filepath['impact_per_ingredient_plot'] }}">
+    {{ images['impact_per_ingredient_plot'] }}
     {% if has_ingredients_without_impact %}
     <div class="note-block">
         <p>
@@ -92,7 +92,7 @@
         <dt>Estimated ingredients mass used</dt>
         <dd><strong>{{ total_mass_used | round | int }}g</strong></dd>
     </dl>
-    <img src="{{ images_filepath['mass_per_ingredient_plot'] }}">
+    {{ images['mass_per_ingredient_plot'] }}
     <div class="warning-block">
         <p>
             <strong>Warning : </strong>This does not represent an estimation of the composition of the product but the

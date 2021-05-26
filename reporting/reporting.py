@@ -1,9 +1,8 @@
 import os
 import json
-import uuid
+import io
 
 from jinja2 import Environment, FileSystemLoader
-import weasyprint
 import matplotlib.pyplot as plt
 import pylab
 import seaborn as sns
@@ -46,7 +45,7 @@ class ProductImpactReport:
         assert all(agribalyse_impact_name_i18n(x) in AGRIBALYSE_IMPACT_CATEGORIES_FR for x in self.impact_categories)
 
         self._html_output = None
-        self.images_filepath = {}
+        self.images = {}
 
         if (barcode is not None) and (product is not None):
             raise ValueError('Both barcode and product parameters cannot be provided simultaneously.')
@@ -381,52 +380,34 @@ class ProductImpactReport:
 
         return result
 
-    def _generate_figure(self, plotting_function, figure_name, img_folder=None):
+    def _generate_figure(self, plotting_function, figure_name):
         fig = plotting_function()
-        if img_folder is not None:
-            filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                                    img_folder,
-                                    f"{str(uuid.uuid4())[:8]}.png")
-            try:
-                os.mkdir(os.path.dirname(filepath))
-            except FileExistsError:
-                pass
-        else:
-            filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                                    f"{str(uuid.uuid4())[:8]}.png")
-        self.images_filepath[figure_name] = filepath
-        fig.savefig(filepath, bbox_inches='tight')
 
-    def _generate_figures(self, img_folder=None):
+        string_io = io.BytesIO()
+        fig.savefig(string_io, format='svg')
+        self.images[figure_name] = string_io.getvalue().decode("utf-8").replace('\n', '')
+
+    def _generate_figures(self):
         """ Generating the figures png files """
 
         sns.set()
 
         # Main impact plot
         self._generate_figure(plotting_function=self.main_impact_plot,
-                              figure_name='main_impact_plot',
-                              img_folder=img_folder)
+                              figure_name='main_impact_plot')
 
         # Impact per step plot
         if self.has_agribalyse_proxy:
             self._generate_figure(plotting_function=self.impact_per_step_plot,
-                                  figure_name='impact_per_step_plot',
-                                  img_folder=img_folder)
+                                  figure_name='impact_per_step_plot')
 
         # Impact per ingredient
         self._generate_figure(plotting_function=self.impact_per_ingredient_plot,
-                              figure_name='impact_per_ingredient_plot',
-                              img_folder=img_folder)
+                              figure_name='impact_per_ingredient_plot')
 
         # Mass per ingredient
         self._generate_figure(plotting_function=self.mass_per_ingredient_plot,
-                              figure_name='mass_per_ingredient_plot',
-                              img_folder=img_folder)
-
-    def _clear_images(self):
-        """ Deletes the images generated """
-        for image_filepath in self.images_filepath.values():
-            os.remove(image_filepath)
+                              figure_name='mass_per_ingredient_plot')
 
     def _generate_html(self):
         """ Generate the html version of the report """
@@ -445,7 +426,7 @@ class ProductImpactReport:
                              self.agribalyse_proxy_data['nom_francais'] if self.has_agribalyse_proxy else None,
                          "has_ingredients_without_impact": len(self.ingredients_without_impact) > 0,
                          "product_mass": self.product_mass,
-                         "images_filepath": self.images_filepath,
+                         "images": self.images,
                          "off_categories": self.off_categories(),
                          "total_mass_used": self.impact_result['average_total_used_mass'],
                          "full_ingredient_list": self.product.get('ingredients_text', ''),
@@ -453,23 +434,9 @@ class ProductImpactReport:
                          "result_warnings": self.impact_result['warnings'],
                          "reliability": str(self.impact_result['reliability']),
                          "off_ingredients": self.off_ingredients(),
-                         "stylesheet": stylesheet
-                         }
+                         "stylesheet": stylesheet}
 
         self._html_output = self.template.render(template_vars)
-
-    def to_pdf(self, filename=None):
-        """ Export the report to pdf """
-
-        filename = filename or f"{self.product['_id']} - {self.product.get('product_name')}"
-        filename = ensure_extension(filename, 'pdf')
-
-        try:
-            self._generate_figures()
-            self._generate_html()
-            weasyprint.HTML(string=self._html_output, base_url='.').write_pdf(filename)
-        finally:
-            self._clear_images()
 
     def to_html(self, filename=None):
         """ Export the report to html """
@@ -477,7 +444,7 @@ class ProductImpactReport:
         filename = filename or f"{self.product['_id']} - {self.product.get('product_name')}"
         filename = ensure_extension(filename, 'html')
 
-        self._generate_figures(img_folder=os.path.dirname(filename))
+        self._generate_figures()
         self._generate_html()
         with open(filename, 'w', encoding='utf8') as file:
             file.write(self._html_output)

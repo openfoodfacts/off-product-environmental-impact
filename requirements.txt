@@ -17,7 +17,6 @@ statsmodels
 # Reporting
 openfoodfacts
 jinja2
-weasyprint
 matplotlib
 seaborn
 requests

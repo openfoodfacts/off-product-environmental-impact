@@ -21,8 +21,6 @@ the [SCIP Optimization Suite](http://scip.zib.de/). Installation instructions ca
 found [here (PySCIPOpt)](https://github.com/SCIP-Interfaces/PySCIPOpt/blob/master/INSTALL.md)
 and [here (SCIP)](https://www.scipopt.org/doc/html/INSTALL.php).
 
-The reporting module uses *weasyprint* to generate PDF files. Weasyprint installation instructions can be found [here](https://weasyprint.readthedocs.io/en/stable/install.html).
-
 See [requirements.txt](requirements.txt) for the other required Python packages.
 
 ## Usage
@@ -76,14 +74,13 @@ print(impact_estimation_result['warnings'])
 # ['Parameter use_defined_prct has been set to False in order to get a result.']
 ``` 
 
-The `reporting` module can be used to create HTML and PDF impact estimation reports.
+The `reporting` module can be used to create HTML impact estimation reports.
 
 ```python
 from reporting import ProductImpactReport
 
 reporter = ProductImpactReport(barcode='3292590830953')
 
-reporter.to_pdf()
 reporter.to_html()
 ```
 
