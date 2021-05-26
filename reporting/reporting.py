@@ -435,7 +435,7 @@ class ProductImpactReport:
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static', 'style.css')) as file:
             stylesheet += file.read()
 
-        template_vars = {"product_name": self.product.get('product_name'),
+        template_vars = {"product_name": self.product.get('product_name', ''),
                          "barcode": self.product['_id'],
                          "main_impact_category": self.main_impact_category,
                          "has_agribalyse_proxy": self.has_agribalyse_proxy,
@@ -446,7 +446,7 @@ class ProductImpactReport:
                          "images_filepath": self.images_filepath,
                          "off_categories": self.off_categories(),
                          "total_mass_used": self.impact_result['average_total_used_mass'],
-                         "full_ingredient_list": self.product['ingredients_text'],
+                         "full_ingredient_list": self.product.get('ingredients_text', ''),
                          "impacts_data": self.impacts_data(),
                          "result_warnings": self.impact_result['warnings'],
                          "reliability": str(self.impact_result['reliability']),
