@@ -60,6 +60,11 @@ Data sources
 
 For traceability purposes, the nutritional and environmental databases entries linked to each ingredient are stored in the ``nutritional_data_sources`` and  ``environmental_impact_data_sources`` attributes.
 
+Ingredients characterization data generation
+++++++++++++++++++++++++++++++++++++++++++++
+
+The script ``ingredients_characterization/characterize_ingredients.py`` can be used to update ``ingredients_data.json`` by running each ingredient characterization script in the right order.
+
 Ingredients defined percentages distributions
 ---------------------------------------------
 
