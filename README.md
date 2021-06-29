@@ -167,13 +167,17 @@ categories are:
 
 The algorithm used by this program is based on a Monte-Carlo approach to estimate the impact of a product. Its principle is to pick random possible recipes of the product and compute their impact until the geometric mean of the impacts of all sampled recipes stabilizes within a given confidence interval. The sampling of possible recipes is made as accurate as possible by using a non-linear programming solver ([SCIP](http://scip.zib.de/)), and nutritional information of the product.
 
-## Disclaimer
-
-The results given by this tool are **estimates** of the environmental impact of a food product. These estimates are subject to potential bias and uncertainties due to the stochastic nature of the algorithm and the uncertainty inherent to the background data. Thus, the accuracy of the result cannot be guaranteed.
-
 ## Documentation
 
 [off-product-environmental-impact.readthedocs.io](https://off-product-environmental-impact.readthedocs.io/en/latest/)
+
+## Testing
+
+This project can be tested using [pytest](https://docs.pytest.org) on the automated tests contained in the `/tests/` directory.
+
+## Disclaimer
+
+The results given by this tool are **estimates** of the environmental impact of a food product. These estimates are subject to potential bias and uncertainties due to the stochastic nature of the algorithm and the uncertainty inherent to the background data. Thus, the accuracy of the result cannot be guaranteed.
 
 ## References
 
