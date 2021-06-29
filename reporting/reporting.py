@@ -169,7 +169,7 @@ class ProductImpactReport:
             ['impact_environnemental'][agribalyse_impact_name_i18n(self.main_impact_category)]['etapes']
         total = agricultural_impact_value + \
                 sum([v * self.product_mass / 1000 for k, v in steps.items() if k != 'Agriculture'])
-        for step, value in reversed(steps.items()):
+        for step, value in reversed(list(steps.items())):
             if step == 'Agriculture':
                 value = agricultural_impact_value
             else:
