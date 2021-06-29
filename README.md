@@ -41,10 +41,10 @@ impact_estimation_result = estimate_impacts(product=product,
 
 for impact_category in impact_categories:
     print(f"{impact_category}: "
-          f"{impact_estimation_result['impact_geom_means'][impact_category]:.4} "
+          f"{impact_estimation_result['impacts_geom_means'][impact_category]:.4} "
           f"{impact_estimation_result['impacts_units'][impact_category]}")
-# EF single score: 0.07872 mPt
-# Climate change: 0.7816 kg CO2 eq
+# EF single score: 0.03832 mPt
+# Climate change: 0.3819 kg CO2 eq
 ```
 
 If `safe_mode` is set to `True`, it will change the parameters in case of error to ensure getting a result.
@@ -67,11 +67,32 @@ impact_estimation_result = estimate_impacts(product=product,
                                             impact_names='EF single score',
                                             safe_mode=True)
 
-print(impact_estimation_result['impact_geom_means']['EF single score'])
+print(impact_estimation_result['impacts_geom_means']['EF single score'])
 # 0.16486248336651319
 
 print(impact_estimation_result['warnings'])
-# ['Parameter use_defined_prct has been set to False in order to get a result.']
+# ['from impacts_estimation import estimate_impacts, RecipeCreationError
+from openfoodfacts import get_product
+
+product = get_product(barcode='3564707104920')['product']
+
+try:
+    impact_estimation_result = estimate_impacts(product=product,
+                                                impact_names='EF single score',
+                                                safe_mode=False)
+except RecipeCreationError:
+    print("No possible recipe with the given input data.")
+# No possible recipe with the given input data.
+
+impact_estimation_result = estimate_impacts(product=product,
+                                            impact_names='EF single score',
+                                            safe_mode=True)
+
+print(impact_estimation_result['impacts_geom_means']['EF single score'])
+# 0.050604882643004834
+
+print(impact_estimation_result['warnings'])
+# ['Parameter use_defined_prct has been set to False in order to get a result.']']
 ``` 
 
 The `reporting` module can be used to create HTML impact estimation reports.
