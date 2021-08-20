@@ -4,11 +4,18 @@ Food product modelling
 Among other information, the Open Food Facts database contains the ingredient list and nutritional composition of each product. Coupling this information to physical and regulatory constraints makes it possible to guess the recipe of the product. In order to do this, the following conceptual framework have been developed.
 
 Let a product of mass :math:`F` be composed of a set of ingredients :math:`I`. Let :math:`M` be the total mass of ingredients used
-before processing. Let :math:`m_i` be the mass of ingredient :math:`i \in I` used and :math:`p_i` its proportion of the total mass :math:`M`.
+before processing. The ingredients processing may induce a water loss (cooking or drying for example), thus:
+
+.. math::
+    M \ge F
+
+Let :math:`m_i` be the mass of ingredient :math:`i \in I` used and :math:`p_i` its proportion of the total mass :math:`M`.
 
 .. math::
     M = \sum_{i \in I}{m_i}\\
-    \forall i \in I, m_i = M.p_i\\
+    \forall i \in I, m_i = M \cdot p_i\\
+
+:math:`F` is known but :math:`M` is not and the proportions :math:`p_i` are generally not. However, the impacts of the product depend on the masses of ingredients :math:`m_i`.
 
 .. note::
     This equation is implemented by :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._add_total_leaves_percentage_constraint`
@@ -27,11 +34,11 @@ The ingredient list is given by decreasing proportion at the moment of incorpora
 Compound ingredients
 --------------------
 
-The ingredients composing a food product can themselves be composed by sub-ingredients. Let :math:`i` be an ingredient of :math:`I`. Let :math:`m_j` be the mass of ingredient :math:`j \in i` used and :math:`p_i` its proportion of the mass :math:`m_i`.
+The ingredients composing a food product can themselves be composed by sub-ingredients. Let :math:`i` be an ingredient of :math:`I`. Let :math:`J` be the set of ingredients composing :math:`i`. Let :math:`m_j` be the mass of ingredient :math:`j \in J` used and :math:`p_j` its proportion of the mass :math:`m_i`.
 
 .. math::
-    m_i = \sum_{j \in i}{m_j}\\
-    \forall j \in i, m_j = m_i.p_j\\
+    m_i = \sum_{j \in J}{m_j}\\
+    \forall j \in J, m_j = m_i \cdot p_j\\
 
 .. note::
     This equation is implemented by :meth:`~impacts_estimation.impacts_estimation.RandomRecipeCreator._add_total_subingredients_percentages_constraint`
@@ -39,7 +46,7 @@ The ingredients composing a food product can themselves be composed by sub-ingre
 Nutriments balance
 ------------------
 
-Let :math:`N` be the set of nutrient types considered. Let :math:`F_n` be the mass of the nutrient :math:`n \in N` in the product. This mass has an error margin depending on its value which can be relative (in percent) or absolute (in grams).
+Let :math:`N` be the set of nutrient types considered. Let :math:`F_n` be the mass of the nutrient :math:`n \in N` in the product according to its packaging information. This mass has an error margin depending on its value which can be relative (in percent) or absolute (in grams). Let :math:`M_n` be the mass of nutriment :math:`n \in N` actually contained in the product.
 
 
 .. table:: Nutriment information error margins (source: INCO EU regulation)

@@ -24,7 +24,7 @@ Considering the decreasing proportions constraint, we can reduce the set of poss
     :width: 300
     :align: center
 
-We then randomly choose an ingredient and determine the bounds of the possible values of its mass. For example, the mass of ingredient :math:`b` is in the interval :math:`[0; 50]`. We randomly choose the value :math:`20`. The set of possible solutions becomes even smaller.
+We then randomly choose an ingredient and determine the bounds of the possible values of its mass. For example, the mass of ingredient :math:`b` is in the interval :math:`[0; 50]`. We randomly choose the value :math:`20` and add :math:`b=20` as a constraint of the system. The set of possible solutions becomes even smaller.
 
 .. image:: /_static/ternary_diagram_3.svg
     :width: 300

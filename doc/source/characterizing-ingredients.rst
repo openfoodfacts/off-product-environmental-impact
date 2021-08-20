@@ -24,9 +24,11 @@ Agribalyse
 Linking tables
 --------------
 
-In order to link the ingredients from OFF to the aforementioned databases, linking tables have been created. They can be found in ``agribalyse_off_links.csv``, ``ciqual_off_links.csv``, ``fcen_off_links.csv``. These tables are used to establish a link between an ingredient of the OFF database and one or several entries of the nutritional/environmental databases. They can be edited and matches can be added in order to improve the quality of the impact estimation.
+In order to link the ingredients from Open Food Facts (OFF) to the aforementioned databases, linking tables have been created. They can be found in ``agribalyse_off_links.csv``, ``ciqual_off_links.csv``, ``fcen_off_links.csv``. These tables are used to establish a link between an ingredient of the OFF database and one or several entries of the nutritional/environmental databases. They can be edited and matches can be added in order to improve the quality of the impact estimation.
 
 ``off_duplicates.csv`` contains matches between OFF ingredients. The column ``proxy_type`` is null when the match between the ingredient is consistent from both nutritional and environmental point of view, it is ``1`` if the match concerns only nutrition and ``2`` if it concerns only environmental impact.
+
+These tables have been created by manually editing a list of possible matches computed using the `fuzzywuzzy <https://github.com/seatgeek/fuzzywuzzy>`_ package.
 
 Data processing
 ---------------
@@ -53,7 +55,7 @@ If the product is linked to several Agribalyse entries with different impact dat
 
 .. note::
 
-    The Agribalyse database contains impact of foods for their complete life cycle, from farm to consumer. Considering the whole life cycle of each ingredient would result in double counting. For example, for a tomato concentrate made with 4 kg of tomato for 1 kg of concentrate, considering the impact of the whole life cycle of 4 kg of tomato would overestimate the impact of the distribution phase as only 1 kg of product is delivered, not 4. Likewise, the transformation phase would be underestimated as the dehydration of the tomatoes would not be considered. This is why only the agricultural steps of the ingredients life cycle is considered. The other steps of the life cycle must be accounted by a different way, for example by using the impacts of the non-agricultural steps of a similar product found in Agribalyse.
+    The Agribalyse database contains impact of foods for their complete life cycle, from farm to consumer. Considering the whole life cycle of each ingredient would result in double counting. For example, for a tomato concentrate made with 4 kg of tomato for 1 kg of concentrate, considering the impact of the whole life cycle of 4 kg of tomato would overestimate the impact of the distribution phase as only 1 kg of product is delivered, not 4. Likewise, the transformation phase would be underestimated as the dehydration of the tomatoes would not be considered. This is why only the agricultural steps of the ingredients life cycle is considered which typically represents around 80% of the total impact of the product (this proportion can vary from one product to another). The other steps of the life cycle must be accounted by a different way, for example by using the impacts of the non-agricultural steps of a similar product found in Agribalyse.
 
 Data sources
 ++++++++++++

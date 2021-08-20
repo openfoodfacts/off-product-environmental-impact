@@ -35,7 +35,7 @@ Let :math:`F` be the final mass of the product, :math:`M` the total mass of ingr
     \begin{cases}
         \frac{F - M}{F - M_{min}} \text{ if } \lt F\\
         \\
-        1 \text{ if } M = F \\
+        0 \text{ if } M = F \\
         \\
         \frac{M - F}{M_{max} - F} \text{ if } M \gt F
     \end{cases}
