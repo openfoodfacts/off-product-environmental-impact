@@ -6,6 +6,8 @@
 Welcome to Open Food Facts Product Environmental Impact's documentation!
 ========================================================================
 
+Repository : `framagit.org/GustaveCoste/off-product-environmental-impact <https://framagit.org/GustaveCoste/off-product-environmental-impact>`_
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
