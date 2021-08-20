@@ -106,8 +106,8 @@ def confidence_score(nutri, reference_nutri, total_mass, min_possible_mass, max_
     # The distance in the n-dimensional space is the square root of the sum of the squared differences
     nutri_distance = sqrt(sum(squared_differences))
 
-    # Normalizing by the maximum possible distance sqrt(n) to ignore the number of dimensions
-    normalized_nutri_distance = nutri_distance / sqrt(n)
+    # Normalizing by the maximum possible distance sqrt(2)
+    normalized_nutri_distance = nutri_distance / sqrt(2)
 
     # Calculating total mass likelihood coefficient
     if total_mass < 1:

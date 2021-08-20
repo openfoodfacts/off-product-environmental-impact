@@ -19,7 +19,7 @@ The distance :math:`d` is the Euclidean distance between the reference and calcu
 
 .. math::
     S_{nutri} &= \frac{d}{D} \\
-    S_{nutri} &= \frac{\sqrt{\sum_{n \in N} (M_n - \widehat{M_n})^2}}{\sqrt{|N|}}\\
+    S_{nutri} &= \frac{\sqrt{\sum_{n \in N} (M_n - \widehat{M_n})^2}}{\sqrt{2}}\\
 
 Total ingredients mass likelihood
 ---------------------------------
