@@ -8,28 +8,15 @@ Central limit theorem
 
 This algorithm uses a Monte-Carlo based approach to estimate the expectation of a random variable by a large number of draws. It uses the `Central Limit Theorem <https://en.wikipedia.org/wiki/Central_limit_theorem>`_ which establishes the convergence in law of the mean of a sequence of random variables to a normal distribution in order to detect when the number of computed values is sufficient.
 
-This theorem can be stated as follows:
-    Let :math:`(X_n), n \in \mathbb{N^*}` be a sequence of independent random variables of the same distribution, with expectation :math:`\mu` and finite variance :math:`\sigma^2`.
-    Let :math:`\overline{X}_n` be the mean of the :math:`n` first samples.
+This theorem could be used to calculate the expectation of the environmental impact of a recipe obtained with :class:`~impacts_estimation.impacts_estimation.RandomRecipeCreator`. Note that the calculated impact values have a large dispersion, sometimes over several orders of magnitude. LCA results mostly follow lognormal distributions [REF]. To address this point, the CLT is applied by considering the logarithm of the environmental impact of a recipe as a random variable :math:`(X_n=\ln(x_i))` of expectation :math:`\mu` and variance :math:`\sigma^2`.
+Thus, the arithmetic mean :math:`\overline{X}_n` of a large number of draws of this random variable converges in law to a normal distribution of the same expectation :math:`\mu` and whose standard deviation :math:`\frac{\sigma}{\sqrt{n}}` decreases as the number of draws :math:`n` increases.
 
-    .. math::
-        \forall n \in \mathbb{N^*}, \overline{X}_n = \frac{X_1+\dots+X_n}{n}
-
-    The law of :math:`\overline{X}_n` converges to a normal law :math:`\mathcal{N}\left(\mu,\frac{\sigma}{\sqrt{n}}\right)`.
-
-This theorem could be used to calculate the expectation of the environmental impact of a recipe obtained with :class:`~impacts_estimation.impacts_estimation.RandomRecipeCreator`. However, the calculated impact values have a large dispersion, sometimes over several orders of magnitude, and seem to follow a lognormal distribution. In this case, the geometric mean of the distribution is a more relevant indicator than the arithmetic mean. However, the geometric mean can be calculated as the exponential of the arithmetic mean of the logarithms of the values.
+Since the variance :math:`\sigma^2` of the impact of the compositions is unknown, we can use a Student's law to calculate a confidence interval of the expectation :math:`\mu`. Once this confidence interval is sufficiently narrowed, we can consider that the number of draws is sufficient to calculate a result. We then calculate
 
 .. math::
-    \forall n \in \mathbb{N^*}, G=\exp\left(\frac{\sum_{i=1}^{n}{\ln(x_i)}}{n}\right)
+   G=exp(\overline{X}_n)=\exp\left(\frac{\sum_{i=1}^{n}{\ln(x_i)}}{n}\right)
 
-The CLT can be applied by considering the logarithm of the environmental impact of a recipe as a random variable :math:`(X_n)` of expectation :math:`\mu` and variance :math:`\sigma^2`.
-Thus, the mean :math:`\overline{X}_n` of a large number of draws of this random variable converges in law to a normal distribution of the same expectation :math:`\mu` and whose standard deviation :math:`\frac{\sigma}{\sqrt{n}}` decreases as the number of draws :math:`n` increases.
-
-Since the variance :math:`\sigma^2` of the impact of the compositions is unknown, we can use a Student's law to calculate a confidence interval of the expectation :math:`\mu`. Once this confidence interval is sufficiently narrowed, we can consider that the number of draws is sufficient to calculate a result. We then calculate the geometric mean of the draws :math:`G`
-as the exponential of the mean of the logarithms.
-
-.. math::
-    G=\exp(\overline{X}_n)
+which corresponds to the geometric mean of the draws
 
 Confidence score weighting
 --------------------------
@@ -50,7 +37,7 @@ At each turn of this loop, :meth:`~impacts_estimation.impacts_estimation.RandomR
 We then loop over all the impact categories considered to calculate the impact of this recipe and add it to a list.
 The logarithms of the impact values of the recipes calculated so far are averaged and weighted by their confidence score and this result is added to a list.
 This list thus contains the weighted average of the impact logs of the first :math:`1, 2, \dots, n` first draws.
-Thanks to the CLT, we know that the values of this list of means follow a normal distribution.
+Thanks to the CLT, the values of this list of means seem to follow a normal distribution.
 We can therefore estimate a confidence interval for this distribution.
 If the width of this interval converted back to the linear space (by taking the exponential of the bounds) is smaller than the ``confidence_interval_width`` parameter for all impact categories, the loop ends and the weighted geometric mean of the calculated impacts for each category is returned as well as other results derived from the recipes impacts distributions.
 
@@ -142,5 +129,3 @@ Before calculating the impact of a product with :meth:`~impacts_estimation.impac
 * :meth:`~impacts_estimation.impacts_estimation.ImpactEstimator._check_defined_percentages` will check the validity of ingredients percentages. If an inconsistency is spotted (for example a higher percentage defined for the second ingredient than the first), the defined percentages will not be used and a warning will be added to the result.
 * :meth:`~impacts_estimation.impacts_estimation.ImpactEstimator._check_product_water_loss` will check if the product belongs to a category that has a high water loss potential, such as cheese for example. In that case, it will adjust the evaporation coefficient accordingly and add a warning to the result.
 * :meth:`~impacts_estimation.impacts_estimation.ImpactEstimator._check_fermented_product` will check if the product belongs to a fermented product category or if it contains ingredients that may induce a fermentation. In that case, the hypothesis of conservation of the nutrients during product processing may be false for carbohydrates and sugars. These nutriments are then ignored and a warning is added to the result.
-
-
