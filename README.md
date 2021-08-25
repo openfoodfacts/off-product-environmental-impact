@@ -192,6 +192,10 @@ The algorithm used by this program is based on a Monte-Carlo approach to estimat
 
 [off-product-environmental-impact.readthedocs.io](https://off-product-environmental-impact.readthedocs.io/en/latest/)
 
+## Contributing
+
+For contribution guidelines, please see [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Testing
 
 This project can be tested using [pytest](https://docs.pytest.org) on the automated tests contained in the `/tests/` directory.
