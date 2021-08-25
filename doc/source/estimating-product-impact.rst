@@ -8,15 +8,18 @@ Central limit theorem
 
 This algorithm uses a Monte-Carlo based approach to estimate the expectation of a random variable by a large number of draws. It uses the `Central Limit Theorem <https://en.wikipedia.org/wiki/Central_limit_theorem>`_ which establishes the convergence in law of the mean of a sequence of random variables to a normal distribution in order to detect when the number of computed values is sufficient.
 
-This theorem could be used to calculate the expectation of the environmental impact of a recipe obtained with :class:`~impacts_estimation.impacts_estimation.RandomRecipeCreator`. Note that the calculated impact values have a large dispersion, sometimes over several orders of magnitude. LCA results mostly follow lognormal distributions (Qin Y, Suh S (2017) *What distribution function do life cycle inventories follow?* Int J Life Cycle Assess 22:1138–1145. `doi.org/10.1007/s11367-016-1224-4 <https://doi.org/10.1007/s11367-016-1224-4>`_). To address this point, the CLT is applied by considering the logarithm of the environmental impact of a recipe as a random variable :math:`(X_n=\ln(x_i))` of expectation :math:`\mu` and variance :math:`\sigma^2`.
+This theorem can be used to calculate the expectation of the environmental impact of a recipe obtained with :class:`~impacts_estimation.impacts_estimation.RandomRecipeCreator`. Note that the calculated impact values have a large dispersion, sometimes over several orders of magnitude. LCA results mostly follow lognormal distributions (Qin Y, Suh S (2017) *What distribution function do life cycle inventories follow?* Int J Life Cycle Assess 22:1138–1145. `doi.org/10.1007/s11367-016-1224-4 <https://doi.org/10.1007/s11367-016-1224-4>`_). To address this point, the CLT is applied by considering the logarithm of the environmental impact of a recipe as a random variable :math:`(X_n=\ln(x_i))` of expectation :math:`\mu` and variance :math:`\sigma^2`.
 Thus, the arithmetic mean :math:`\overline{X}_n` of a large number of draws of this random variable converges in law to a normal distribution of the same expectation :math:`\mu` and whose standard deviation :math:`\frac{\sigma}{\sqrt{n}}` decreases as the number of draws :math:`n` increases.
 
-Since the variance :math:`\sigma^2` of the impact of the compositions is unknown, we can use a Student's law to calculate a confidence interval of the expectation :math:`\mu`. Once this confidence interval is sufficiently narrowed, we can consider that the number of draws is sufficient to calculate a result. We then calculate
+Since the variance :math:`\sigma^2` of the impact of the compositions is unknown, we can use a Student's law to calculate a confidence interval of the expectation :math:`\mu`. At each run, this confidence interval is calculated (with a level of confidence specified by the ``confidence_level`` parameter which is 95% by default). When this confidence interval is narrower than the threshold defined by :math:`\mu \cdot confidence\_interval\_width` (with ``confidence_interval_width`` equal to 5% by default), we consider that the number of draws is sufficient to calculate a result. We then calculate
 
 .. math::
    G=exp(\overline{X}_n)=\exp\left(\frac{\sum_{i=1}^{n}{\ln(x_i)}}{n}\right)
 
 which corresponds to the geometric mean of the draws
+
+.. note::
+   In order to avoid erroneous convergence detection caused by a small number of runs, a minimum number of run is determined by the ``min_run_nb`` parameter which is equal to 30 by default.
 
 Confidence score weighting
 --------------------------
