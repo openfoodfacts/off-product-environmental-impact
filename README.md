@@ -17,7 +17,7 @@ This tool gives an estimation of the environmental impact of the agricultural st
 ## Installation
 
 This program uses the [PySCIPOpt](https://github.com/SCIP-Interfaces/PySCIPOpt) package and
-the [SCIP Optimization Suite](http://scip.zib.de/). Installation instructions can be
+the [SCIP Optimization Suite](https://www.scipopt.org/) V7.0. Installation instructions can be
 found [here (PySCIPOpt)](https://github.com/SCIP-Interfaces/PySCIPOpt/blob/master/INSTALL.md)
 and [here (SCIP)](https://www.scipopt.org/doc/html/INSTALL.php).
 
