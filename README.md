@@ -200,6 +200,10 @@ This project can be tested using [pytest](https://docs.pytest.org) on the automa
 
 The results given by this tool are **estimates** of the environmental impact of a food product. These estimates are subject to potential bias and uncertainties due to the stochastic nature of the algorithm and the uncertainty inherent to the background data. Thus, the accuracy of the result cannot be guaranteed.
 
+## Hardware compatibility issues 
+
+Hardware compatibility issue have been observed for this software on a 2012 MacBook Pro (2.5 GHz Dual-Core Intel Core i5) running macOS Catalina.
+
 ## References
 
 [_ADEME - Agribalyse_](https://ecolab.ademe.fr/agribalyse), 2020
