@@ -16,3 +16,12 @@ In [test_dataset_nutri_from_ciqual.json](test_dataset_nutri_from_ciqual.json) th
 
 ![Computed vs reference EF impact with self-computed nutrient tables](pef_median_vs_agri_calc.png "Computed vs reference EF impat with self-computed nutrient tables")
 
+This image shows a plot of computed vs reference (from AgriBalyse) EF impact of the compound products when the nutrient table was computed using this tool based on the CIQUAL composition of the ingredients.
+
+
+![Computed vs reference EF impact with reference nutrient tables](pef_median_vs_agri_ciqual.png "Computed vs reference EF impat with reference nutrient tables")
+
+This image shows a plot of computed vs reference (from AgriBalyse) EF impact of the compound products when the nutrient table of the product was taken from CIQUAL.
+
+Unsurprisingly the correct ingredient mixture is harder to compute when the nutrient table doesn't match the one this tool would project for the perfectly correct mixture.
+
