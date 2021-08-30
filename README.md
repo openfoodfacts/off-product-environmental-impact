@@ -192,7 +192,7 @@ The algorithm used by this program is based on a Monte-Carlo approach to estimat
 
 [off-product-environmental-impact.readthedocs.io](https://off-product-environmental-impact.readthedocs.io/en/latest/)
 
-See the [analysis README](analysis) for an analysis of the precision of this tool.
+See the [analysis](analysis) directory for an analysis of the precision of this tool.
 
 ## Contributing
 
