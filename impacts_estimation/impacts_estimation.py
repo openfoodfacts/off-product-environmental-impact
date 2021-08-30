@@ -2,10 +2,10 @@
 
 import warnings
 import time
-from random import uniform, shuffle, choice
 from statistics import mean
 import copy
 import math
+import numpy as np
 
 # ### FOR DEBUG PURPOSE ONLY ###
 # import matplotlib.pyplot as plt
@@ -40,7 +40,7 @@ ing_with_ref_prct_dist = list(ref_ing_dist.id.unique())
 
 
 class RecipeImpactCalculator:
-    def __init__(self, recipe, impact_name, use_uncertainty=False):
+    def __init__(self, recipe, impact_name, use_uncertainty=False, random_state=None):
         """
 
         Args:
@@ -55,6 +55,7 @@ class RecipeImpactCalculator:
         self.ingredients_impacts = dict()
         self.known_ingredients_mass = None
         self.known_ingredients_impact = None
+        self.random_state = random_state or np.random.RandomState()
 
         self.impact_computed = False
         self.impact_shares_computed = False
@@ -72,35 +73,34 @@ class RecipeImpactCalculator:
                 ingredient_impact_data = ingredients_data[ingredient]['impacts'][self.impact_name]
             except KeyError:
                 continue
-            rng = np.random.default_rng()
             if ('uncertainty_distributions' not in ingredient_impact_data) or (not self.use_uncertainty):
                 self.ingredients_impacts[ingredient] = ingredient_impact_data['amount']
             else:
                 # Pick a random uncertainty distribution
                 uncertainty_distribution = choice(ingredient_impact_data['uncertainty_distributions'])
                 if uncertainty_distribution['distribution'] == 'normal':
-                    self.ingredients_impacts[ingredient] = rng.normal(uncertainty_distribution['mean'],
-                                                                      uncertainty_distribution['standard deviation'])
+                    self.ingredients_impacts[ingredient] = self.random_state.normal(uncertainty_distribution['mean'],
+                                                                                    uncertainty_distribution['standard deviation'])
                 elif uncertainty_distribution['distribution'] == 'lognormal':
                     if uncertainty_distribution['geometric mean'] >= 0:
                         # Numpy requires the mean and std of the underlying normal distribution, which are the logs of
                         # the mean and std of the lognormal distribution.
-                        self.ingredients_impacts[ingredient] = rng.lognormal(
+                        self.ingredients_impacts[ingredient] = self.random_state.lognormal(
                             np.log(uncertainty_distribution['geometric mean']),
                             np.log(uncertainty_distribution['geometric standard deviation']))
                     # If the geometric mean is negative, then simply take the opposite of the value generated
                     # with the opposite of the geometric mean
                     if uncertainty_distribution['geometric mean'] < 0:
-                        self.ingredients_impacts[ingredient] = - rng.lognormal(
+                        self.ingredients_impacts[ingredient] = - self.random_state.lognormal(
                             np.log(-uncertainty_distribution['geometric mean']),
                             np.log(uncertainty_distribution['geometric standard deviation']))
                 elif uncertainty_distribution['distribution'] == 'triangular':
-                    self.ingredients_impacts[ingredient] = rng.triangular(uncertainty_distribution['minimum'],
-                                                                          uncertainty_distribution['mode'],
-                                                                          uncertainty_distribution['maximum'])
+                    self.ingredients_impacts[ingredient] = self.random_state.triangular(uncertainty_distribution['minimum'],
+                                                                                        uncertainty_distribution['mode'],
+                                                                                        uncertainty_distribution['maximum'])
                 elif uncertainty_distribution['distribution'] == 'uniform':
-                    self.ingredients_impacts[ingredient] = rng.uniform(uncertainty_distribution['minimum'],
-                                                                       uncertainty_distribution['maximum'])
+                    self.ingredients_impacts[ingredient] = self.random_state.uniform(uncertainty_distribution['minimum'],
+                                                                                     uncertainty_distribution['maximum'])
                 else:
                     raise ValueError(f"Unknown distribution type {uncertainty_distribution['distribution']}"
                                      f" for ingredient {ingredient}")
@@ -195,7 +195,7 @@ class RandomRecipeCreator:
 
     def __init__(self, product, use_defined_prct=True, use_nutritional_info=True, const_relax_coef=0,
                  maximum_evaporation=0.4, total_mass_used=None, min_prct_dist_size=30, dual_gap_type='absolute',
-                 dual_gap_limit=0.001, solver_time_limit=60, time_limit_dual_gap_limit=0.01,
+                 dual_gap_limit=0.001, solver_time_limit=60, time_limit_dual_gap_limit=0.01, random_state=None,
                  allow_unbalanced_recipe=False, confidence_score_weighting_factor=10):
         """
         Args:
@@ -245,6 +245,7 @@ class RandomRecipeCreator:
         self.allow_unbalanced_recipe = allow_unbalanced_recipe
         self.maximum_evaporation = maximum_evaporation
         self.confidence_score_weighting_factor = confidence_score_weighting_factor
+        self.random_state = random_state or np.random.RandomState()
 
         self.recipe = dict()
 
@@ -659,7 +660,7 @@ class RandomRecipeCreator:
 
             # If there are less values than required, use uniform distribution
             if len(reference_distribution) < self.min_dist_size:
-                percent = uniform(inf, sup)
+                percent = self.random_state.uniform(inf, sup)
             else:
                 bandwidth = (sup - inf) / 10
                 kde = KernelDensity(kernel='gaussian', bandwidth=bandwidth)
@@ -688,10 +689,10 @@ class RandomRecipeCreator:
                 # Ensure the sampled value is between inf and sup
                 percent = -1
                 while (percent < inf) or (percent > sup):
-                    percent = kde.sample()[0][0]
+                    percent = kde.sample(random_state=self.random_state)[0][0]
 
         else:
-            percent = uniform(inf, sup)
+            percent = self.random_state.uniform(inf, sup)
 
         return percent / 100  # Converting back to proportion
 
@@ -852,7 +853,7 @@ class RandomRecipeCreator:
 
         # Shuffling the ingredients
         leaf_ingredients_names = self.leaf_ingredients_names.copy()  # Creating a copy to avoid messing with original
-        shuffle(leaf_ingredients_names)
+        self.random_state.shuffle(leaf_ingredients_names)
 
         # Looping over ingredients to pick a random proportion in their possible values interval
         proportions = dict()
@@ -891,7 +892,7 @@ class RandomRecipeCreator:
 
 
 class ImpactEstimator:
-    def __init__(self, product, quantity=100, ignore_unknown_ingredients=True, use_defined_prct=True):
+    def __init__(self, product, quantity=100, ignore_unknown_ingredients=True, use_defined_prct=True, seed=None):
 
         """
         Estimate the environmental impact of an Open Food Facts product by a Monte-Carlo approach.
@@ -919,6 +920,7 @@ class ImpactEstimator:
         self.ignored_unknown_ingredients = []
         self.product_quantity = quantity
         self.adjusted_maximum_evaporation_coefficient = None
+        self.random_state = np.random.RandomState(seed=seed)
 
         # Assert the product has ingredients
         if 'ingredients' not in product:
@@ -1336,6 +1338,7 @@ class ImpactEstimator:
                                              solver_time_limit=solver_time_limit,
                                              time_limit_dual_gap_limit=time_limit_dual_gap_limit,
                                              allow_unbalanced_recipe=True,
+                                             random_state=self.random_state,
                                              confidence_score_weighting_factor=confidence_score_weighting_factor)
 
         run = 0
@@ -1429,7 +1432,7 @@ class ImpactEstimator:
 
             # Computing the impact of the recipe for all impact categories
             for impact_name in impact_names:
-                recipe_impact_calculator = RecipeImpactCalculator(recipe, impact_name,
+                recipe_impact_calculator = RecipeImpactCalculator(recipe, impact_name, random_state=self.random_state,
                                                                   use_uncertainty=use_ingredients_impact_uncertainty)
                 recipe_impact = recipe_impact_calculator.get_recipe_impact()
                 if recipe_impact == 0:
@@ -1694,7 +1697,7 @@ def estimate_impacts(product, impact_names, quantity=100, ignore_unknown_ingredi
                      total_mass_used=None, min_prct_dist_size=30, dual_gap_type='absolute', dual_gap_limit=0.001,
                      solver_time_limit=60, time_limit_dual_gap_limit=0.01, confidence_weighting=True,
                      use_ingredients_impact_uncertainty=True, quantiles_points=('0.05', '0.25', '0.5', '0.75', '0.95'),
-                     distributions_as_result=False, confidence_score_weighting_factor=10, safe_mode=True):
+                     distributions_as_result=False, confidence_score_weighting_factor=10, safe_mode=True, seed=None):
     """
         Wrapper for impact estimation.
 
@@ -1745,6 +1748,7 @@ def estimate_impacts(product, impact_names, quantity=100, ignore_unknown_ingredi
     impact_estimator_kwargs = dict(product=product,
                                    quantity=quantity,
                                    ignore_unknown_ingredients=ignore_unknown_ingredients,
+                                   seed=seed,
                                    use_defined_prct=use_defined_prct)
 
     impact_estimation_method_kwargs = dict(impact_names=impact_names,

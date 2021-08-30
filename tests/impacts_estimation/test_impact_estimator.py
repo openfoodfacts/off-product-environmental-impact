@@ -2,16 +2,46 @@ import copy
 
 import pytest
 
-from impacts_estimation.impacts_estimation import ImpactEstimator
+from impacts_estimation.impacts_estimation import ImpactEstimator, estimate_impacts
 from impacts_estimation.exceptions import NoCharacterizedIngredientsError, NoKnownIngredientsError
 from impacts_estimation.utils import flat_ingredients_list_DFS
 from data import ingredients_data, off_taxonomy
 from tests.test_data import pound_cake
 
+from deepdiff import DeepDiff
+
 
 class TestImpactEstimator:
     def setup_method(self):
         self.product = copy.deepcopy(pound_cake)
+
+    def test_nondeterminism(self):
+        """Ensures that not providing a random seed will lead to nondeterministic results."""
+
+        impact_categories = ['EF single score',
+                             'Climate change']
+        estimates = []
+        for i in range(4):
+            estimates.append(estimate_impacts(
+                product=self.product,
+                impact_names=impact_categories))
+        for i in range(1, 4):
+            assert estimates[0]["impacts_geom_means"]["EF single score"] != estimates[i]["impacts_geom_means"]["EF single score"]
+
+    def test_determinism(self):
+        """Ensures that providing a random seed will lead to deterministic results."""
+
+        impact_categories = ['EF single score',
+                             'Climate change']
+        estimates = []
+        for i in range(4):
+            estimates.append(estimate_impacts(
+                product=self.product,
+                seed=777,
+                distributions_as_result=True,
+                impact_names=impact_categories))
+        for i in range(1, 4):
+            assert estimates[0]["impacts_geom_means"]["EF single score"] == estimates[i]["impacts_geom_means"]["EF single score"]
 
     def test_raise_no_characterized_ingredients_error(self):
         """ Ensures a NoCharacterizedIngredientsError is raised if no ingredient of the product are characterized. """

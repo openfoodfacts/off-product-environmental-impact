@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+    off-product-environmental-impact:
+        container_name: test
+        build:
+            context: .
+            dockerfile: Dockerfile

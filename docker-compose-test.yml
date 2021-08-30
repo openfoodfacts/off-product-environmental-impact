@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+    off-product-environmental-impact:
+        volumes:
+            - ".:/app"
+
