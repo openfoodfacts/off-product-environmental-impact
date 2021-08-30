@@ -77,7 +77,7 @@ class RecipeImpactCalculator:
                 self.ingredients_impacts[ingredient] = ingredient_impact_data['amount']
             else:
                 # Pick a random uncertainty distribution
-                uncertainty_distribution = this.random_state.choice(ingredient_impact_data['uncertainty_distributions'])
+                uncertainty_distribution = self.random_state.choice(ingredient_impact_data['uncertainty_distributions'])
                 if uncertainty_distribution['distribution'] == 'normal':
                     self.ingredients_impacts[ingredient] = self.random_state.normal(uncertainty_distribution['mean'],
                                                                                     uncertainty_distribution['standard deviation'])
