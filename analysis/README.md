@@ -14,6 +14,8 @@ In [test_dataset_nutri_from_ciqual.json](test_dataset_nutri_from_ciqual.json) th
 
 ## Visualizations
 
+### Computed vs reference EF impact
+
 ![Computed vs reference EF impact with self-computed nutrient tables](pef_median_vs_agri_calc.png "Computed vs reference EF impat with self-computed nutrient tables")
 
 This image shows a plot of computed vs reference (from AgriBalyse) EF impact of the compound products when the nutrient table was computed using this tool based on the CIQUAL composition of the ingredients.
@@ -24,4 +26,20 @@ This image shows a plot of computed vs reference (from AgriBalyse) EF impact of 
 This image shows a plot of computed vs reference (from AgriBalyse) EF impact of the compound products when the nutrient table of the product was taken from CIQUAL.
 
 Unsurprisingly the correct ingredient mixture is harder to compute when the nutrient table doesn't match the one this tool would project for the perfectly correct mixture.
+
+### Error rate distribution
+
+![Error rate distribution with self-computed nutrient tables](pef_median_vs_agri_ciqual_error_rate_density_calc.png "Error rate distribution with self-computed nutrient tables")
+
+![Distribution parameters of error distribtuion with self-computed nutrient tables](image-2.png "Distribution parameters of error distribtuion with self-computed nutrient tables")
+
+These images shows the distribution and distribution parameters of `(computed_impact - reference_impact) / reference_impact` when the nutrient table was computed using this tool based on the CIQUAL composition of the ingredients.
+
+![Error rate distribution with reference nutrient tables](pef_median_vs_agri_ciqual_error_rate_density.png "Error rate distribution with reference nutrient tables")
+
+![Distribution parameters of error distribtuion with reference nutrient tables](image-1.png "Distribution parameters of error distribtuion with reference nutrient tables")
+
+These images shows the distribution and distribution parameters of `(computed_impact - reference_impact) / reference_impact` when the nutrient table of the product was taken from CIQUAL.
+
+
 
