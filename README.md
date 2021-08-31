@@ -1,3 +1,5 @@
+[![Test](https://github.com/openfoodfacts/off-product-environmental-impact/actions/workflows/test.yml/badge.svg)](https://github.com/openfoodfacts/off-product-environmental-impact/actions/workflows/test.yml)
+
 # Environmental impact estimation of Open Food Facts products
 
 This repository contains a Python program to estimate the environmental impact of the agricultural steps of a product of the Open Food Facts database.
