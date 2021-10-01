@@ -7,7 +7,7 @@ import multiprocessing
 import queue
 
 
-PARALLELLISM = 8
+PARALLELLISM = 64
 
 DONE = "DONE"
 
