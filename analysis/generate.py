@@ -42,11 +42,9 @@ def all_unicorn_combinations(prod, switch_index=0):
 def generate_combos(products, product_queue):
     n = 1
     for prod in products:
-        print_now(f'{n}/{len(prod)}\t{prod["product_name"]}')
         for percentage_combo in all_percentage_combinations(prod):
             for unicorn_combo in all_unicorn_combinations(percentage_combo):
-                print_now(f'Percentages: {list(map(lambda i: "percent" in i, unicorn_combo["ingredients"]))}')
-                print_now(f'Known: {list(map(lambda i: "en:unicorn-feces" != i["id"], unicorn_combo["ingredients"]))}')
+                print_now(f'{n}/{len(prod)}\n * {prod["product_name"]}\n * percentages: {list(map(lambda i: "percent" in i, unicorn_combo["ingredients"]))}\n * known: {list(map(lambda i: "en:unicorn-feces" != i["id"], unicorn_combo["ingredients"]))}')
                 product_queue.put(unicorn_combo)
         n = n + 1
     product_queue.put(DONE)
