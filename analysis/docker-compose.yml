@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+    impact-estimator-generate-data:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+            - ".:/app"
