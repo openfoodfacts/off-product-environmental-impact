@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+    off-product-environmental-impact:
+        volumes:
+            - ".:/app"
+        working_dir: "/app/analysis"
+        command: ["python", "generate.py"]
