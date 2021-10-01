@@ -4,7 +4,6 @@ import json
 import sys
 import copy
 import multiprocessing
-import queue
 
 
 PARALLELLISM = 64
@@ -82,7 +81,7 @@ def estimate_products(product_queue, result_queue):
         except Exception as e:
             result['error'] = f'{e.__class__.__name__}'
         result_queue.put(result)
-    result_queue.put(prod)
+    result_queue.put(DONE)
 
 
 def main():
