@@ -7,6 +7,7 @@ import multiprocessing
 
 
 PARALLELLISM = 64
+MAX_INGREDIENT_COMBOS = 4
 
 DONE = "DONE"
 
@@ -15,7 +16,7 @@ def print_now(s):
     sys.stdout.flush()
 
 def all_percentage_combinations(prod, switch_index=0):
-    if switch_index == len(prod['ingredients']) - 1:
+    if switch_index == len(prod['ingredients']) - 1 or switch_index == MAX_INGREDIENT_COMBOS:
         yield prod
         cpy = copy.deepcopy(prod)
         del cpy['ingredients'][switch_index]['percent']
@@ -27,7 +28,7 @@ def all_percentage_combinations(prod, switch_index=0):
         yield from all_percentage_combinations(cpy, switch_index=switch_index+1)
 
 def all_unicorn_combinations(prod, switch_index=0):
-    if switch_index == len(prod['ingredients']) - 1:
+    if switch_index == len(prod['ingredients']) - 1 or switch_index == MAX_INGREDIENT_COMBOS:
         yield prod
         cpy = copy.deepcopy(prod)
         cpy['ingredients'][switch_index]['id'] = 'en:unicorn-feces'
@@ -43,8 +44,10 @@ def generate_combos(products, product_queue):
     for prod in products:
         for percentage_combo in all_percentage_combinations(prod):
             for unicorn_combo in all_unicorn_combinations(percentage_combo):
-                print_now(f'{n}/{len(products)} {prod["product_name"]}\n * percentages: {list(map(lambda i: "percent" in i, unicorn_combo["ingredients"]))}\n * known: {list(map(lambda i: "en:unicorn-feces" != i["id"], unicorn_combo["ingredients"]))}')
-                product_queue.put(unicorn_combo)
+                known = len(list(filter(lambda i: "en:unicorn-feces" != i["id"], unicorn_combo["ingredients"])))
+                if known > 0:
+                    print_now(f'{n}/{len(products)} {prod["product_name"]}\n * percentages: {list(map(lambda i: "percent" in i, unicorn_combo["ingredients"]))}\n * known: {list(map(lambda i: "en:unicorn-feces" != i["id"], unicorn_combo["ingredients"]))}')
+                    product_queue.put(unicorn_combo)
         n = n + 1
     product_queue.put(DONE)
 
