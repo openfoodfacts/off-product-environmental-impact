@@ -16,7 +16,7 @@ statsmodels==0.12
 
 # Reporting
 openfoodfacts==0.1
-jinja2==3.0
+jinja2==3.0.2
 matplotlib==3.3
 seaborn==0.11
 requests==2.25
