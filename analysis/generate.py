@@ -83,10 +83,13 @@ def generate_combos(products, product_queue):
             combos = 2.0 ** (len(prod["ingredients"]) * 2)
             likelihood_per_combo = args.combos_per_product / combos
             if likelihood_per_combo > 0.005:
+                possible_combos = []
                 for percentage_combo in all_percentage_combinations(prod):
                     for unicorn_combo in all_unicorn_combinations(percentage_combo):
-                        if np.random.rand() < likelihood_per_combo:
-                            push_prod(True, n, len(products), unicorn_combo, product_queue)
+                        possible_combos.append(unicorn_combo)
+                for _ in range(args.combos_per_product):
+                    combo = possible_combos.pop(np.random.randint(len(possible_combos)))
+                    push_prod(True, n, len(products), combo, product_queue)
             else:
                 for _ in range(int(args.combos_per_product)):
                     combo = indexed_combo(prod,
