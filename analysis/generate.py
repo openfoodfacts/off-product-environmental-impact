@@ -1,9 +1,9 @@
 """
 Generates `COMBOS_PER_PRODUCTS` pseudo-products for each product in
-`test_dataset_nutri_from_ciqual.json` where each ingredient percentage
-is 50% likely to be known, and each ingredient name is 50% likely to
-be replaced by `en:unicorn-meat`. Does this in `PARALLELLISM` OS
-processes in parallell.
+`args.input_file` where (optionally) each ingredient percentage
+is 50% likely to be known, and (optionally) each ingredient name is 
+50% likely to be replaced by `en:unicorn-meat`.
+Does this in `args.parallellism` OS processes in parallell.
 """
 from impacts_estimation.impacts_estimation import estimate_impacts
 
@@ -13,46 +13,61 @@ import copy
 import multiprocessing
 import numpy as np
 import traceback
+import argparse
 
-PARALLELLISM = 64
-SEED = 1
+
+parser = argparse.ArgumentParser(description='Generate product combinations and compute their Eco-Score.')
+parser.add_argument('--parallellism', type=int, help='number of parallell processes', default=64)
+parser.add_argument('--seed', type=int, help='random seed', default=1)
+parser.add_argument('--combos_per_product', type=int, help='combinations per product in the input file', default=16)
+parser.add_argument('--input_file', type=str, help='input file', default='test_dataset_nutri_from_ciqual.json')
+parser.add_argument('--output_file', type=str, help='output file', default='generated_data.json')
+parser.add_argument('--with_unrecognized_ingredients', type=str, help='make each ingredient for each combination 50% likely to be replaced with "en:unicorn-meat"', default="yes")
+parser.add_argument('--with_missing_percentages', type=str, help='make each ingredient for each combination 50% likely to be without the provided percentage', default="yes")
+args = parser.parse_args()
+
 DONE = "DONE"
-COMBOS_PER_PRODUCT = 16.0
 
-np.random.seed(SEED)
+np.random.seed(args.seed)
 
 def indexed_combo(prod, percentages, unicorns):
     cpy = copy.deepcopy(prod)
-    for idx, known in enumerate(percentages):
-        if not known:
-            del cpy['ingredients'][idx]['percent']
-    for idx, unicorn in enumerate(unicorns):
-        if unicorn:
-          cpy['ingredients'][idx]['id'] = 'en:unicorn-meat'
+    if args.with_missing_percentages == 'yes':
+        for idx, known in enumerate(percentages):
+            if not known:
+                del cpy['ingredients'][idx]['percent']
+    if args.with_unrecognized_ingredients == 'yes':
+        for idx, unicorn in enumerate(unicorns):
+            if unicorn:
+                cpy['ingredients'][idx]['id'] = 'en:unicorn-meat'
     return cpy
 
 def all_percentage_combinations(prod, switch_index=0):
     if switch_index == len(prod['ingredients']) - 1:
         yield prod
         cpy = copy.deepcopy(prod)
-        del cpy['ingredients'][switch_index]['percent']
+        if args.with_missing_percentages == 'yes':
+            del cpy['ingredients'][switch_index]['percent']
         yield cpy
     else:
         yield from all_percentage_combinations(prod, switch_index=switch_index+1)
         cpy = copy.deepcopy(prod)
-        del cpy['ingredients'][switch_index]['percent']
+        if args.with_missing_percentages == 'yes':
+            del cpy['ingredients'][switch_index]['percent']
         yield from all_percentage_combinations(cpy, switch_index=switch_index+1)
 
 def all_unicorn_combinations(prod, switch_index=0):
     if switch_index == len(prod['ingredients']) - 1:
         yield prod
         cpy = copy.deepcopy(prod)
-        cpy['ingredients'][switch_index]['id'] = 'en:unicorn-meat'
+        if args.with_unrecognized_ingredients == 'yes':
+            cpy['ingredients'][switch_index]['id'] = 'en:unicorn-meat'
         yield cpy
     else:
         yield from all_unicorn_combinations(prod, switch_index=switch_index+1)
         cpy = copy.deepcopy(prod)
-        cpy['ingredients'][switch_index]['id'] = 'en:unicorn-meat'
+        if args.with_unrecognized_ingredients == 'yes':
+            cpy['ingredients'][switch_index]['id'] = 'en:unicorn-meat'
         yield from all_unicorn_combinations(cpy, switch_index=switch_index+1)
 
 def push_prod(iterated, n, num, prod, product_queue):
@@ -66,14 +81,14 @@ def generate_combos(products, product_queue):
         n = 1
         for prod in products:
             combos = 2.0 ** (len(prod["ingredients"]) * 2)
-            likelihood_per_combo = COMBOS_PER_PRODUCT / combos
+            likelihood_per_combo = args.combos_per_product / combos
             if likelihood_per_combo > 0.005:
                 for percentage_combo in all_percentage_combinations(prod):
                     for unicorn_combo in all_unicorn_combinations(percentage_combo):
                         if np.random.rand() < likelihood_per_combo:
                             push_prod(True, n, len(products), unicorn_combo, product_queue)
             else:
-                for _ in range(int(COMBOS_PER_PRODUCT)):
+                for _ in range(int(args.combos_per_product)):
                     combo = indexed_combo(prod,
                                           np.random.choice([True, False], size=[len(prod["ingredients"])]).tolist(),
                                           np.random.choice([True, False], size=[len(prod["ingredients"])]).tolist())
@@ -92,7 +107,7 @@ def queue_all(queue):
 
 def save_results(result_queue, done_queue):
     try:
-        with open('generated_test_data.json', 'w') as f:
+        with open(args.output_file, 'w') as f:
             f.write('[')
             for result in queue_all(result_queue):
                 json.dump(result, f, indent=2, sort_keys=True)
@@ -112,7 +127,7 @@ def estimate_products(product_queue, result_queue):
                     }
             try:
                 impact_estimation_result = estimate_impacts(
-                        seed=SEED,
+                        seed=args.seed,
                         product=prod,
                         distributions_as_result=True,
                         impact_names=impact_categories)
@@ -134,7 +149,7 @@ def main():
     result_queue = multiprocessing.Queue(1)
     done_queue = multiprocessing.Queue(1)
     multiprocessing.Process(target=save_results, args=(result_queue, done_queue)).start()
-    for i in range(PARALLELLISM):
+    for i in range(args.parallellism):
         multiprocessing.Process(target=estimate_products, args=(product_queue, result_queue)).start()
 
     print('Generating data...', flush=True)
