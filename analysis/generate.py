@@ -1,3 +1,10 @@
+"""
+Generates `COMBOS_PER_PRODUCTS` pseudo-products for each product in
+`test_dataset_nutri_from_ciqual.json` where each ingredient percentage
+is 50% likely to be known, and each ingredient name is 50% likely to
+be replaced by `en:unicorn-meat`. Does this in `PARALLELLISM` OS
+processes in parallell.
+"""
 from impacts_estimation.impacts_estimation import estimate_impacts
 
 import json
@@ -105,7 +112,7 @@ def estimate_products(product_queue, result_queue):
                     }
             try:
                 impact_estimation_result = estimate_impacts(
-                        seed=1,
+                        seed=SEED,
                         product=prod,
                         distributions_as_result=True,
                         impact_names=impact_categories)
