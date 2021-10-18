@@ -23,6 +23,7 @@ parser.add_argument('--combos_per_product', type=int, help='combinations per pro
 parser.add_argument('--input_file', type=str, help='input file', default='test_dataset_nutri_from_ciqual.json')
 parser.add_argument('--output_file', type=str, help='output file', default='generated_data.json')
 parser.add_argument('--with_unrecognized_ingredients', type=str, help='make each ingredient for each combination 50% likely to be replaced with "en:unicorn-meat"', default="yes")
+parser.add_argument('--only_missing_percentages', type=str, help='make each ingredient be without the provided percentage', default='no')
 parser.add_argument('--with_missing_percentages', type=str, help='make each ingredient for each combination 50% likely to be without the provided percentage', default="yes")
 args = parser.parse_args()
 
@@ -32,10 +33,15 @@ np.random.seed(args.seed)
 
 def indexed_combo(prod, percentages, unicorns):
     cpy = copy.deepcopy(prod)
-    if args.with_missing_percentages == 'yes':
-        for idx, known in enumerate(percentages):
-            if not known:
-                del cpy['ingredients'][idx]['percent']
+    if args.only_missing_percentages == 'yes':
+        for ing in cpy['ingredients']:
+            if 'percent' in ing:
+                del ing['percent']
+    else:
+        if args.with_missing_percentages == 'yes':
+            for idx, known in enumerate(percentages):
+                if not known:
+                    del cpy['ingredients'][idx]['percent']
     if args.with_unrecognized_ingredients == 'yes':
         for idx, unicorn in enumerate(unicorns):
             if unicorn:
@@ -44,28 +50,38 @@ def indexed_combo(prod, percentages, unicorns):
 
 def all_percentage_combinations(prod, switch_index=0):
     if switch_index == len(prod['ingredients']) - 1:
-        yield prod
         cpy = copy.deepcopy(prod)
+        if args.only_missing_percentages == 'yes':
+            for ing in cpy['ingredients']:
+                if 'percent' in ing:
+                    del ing['percent']
+        yield cpy
         if args.with_missing_percentages == 'yes':
-            del cpy['ingredients'][switch_index]['percent']
+            if 'percent' in cpy['ingredients'][switch_index]:
+                del cpy['ingredients'][switch_index]['percent']
         yield cpy
     else:
-        yield from all_percentage_combinations(prod, switch_index=switch_index+1)
         cpy = copy.deepcopy(prod)
+        if args.only_missing_percentages == 'yes':
+            for ing in cpy['ingredients']:
+                if 'percent' in ing:
+                    del ing['percent']
+        yield from all_percentage_combinations(cpy, switch_index=switch_index+1)
         if args.with_missing_percentages == 'yes':
-            del cpy['ingredients'][switch_index]['percent']
+            if 'percent' in cpy['ingredients'][switch_index]:
+                del cpy['ingredients'][switch_index]['percent']
         yield from all_percentage_combinations(cpy, switch_index=switch_index+1)
 
 def all_unicorn_combinations(prod, switch_index=0):
     if switch_index == len(prod['ingredients']) - 1:
-        yield prod
         cpy = copy.deepcopy(prod)
+        yield cpy
         if args.with_unrecognized_ingredients == 'yes':
             cpy['ingredients'][switch_index]['id'] = 'en:unicorn-meat'
         yield cpy
     else:
-        yield from all_unicorn_combinations(prod, switch_index=switch_index+1)
         cpy = copy.deepcopy(prod)
+        yield from all_unicorn_combinations(cpy, switch_index=switch_index+1)
         if args.with_unrecognized_ingredients == 'yes':
             cpy['ingredients'][switch_index]['id'] = 'en:unicorn-meat'
         yield from all_unicorn_combinations(cpy, switch_index=switch_index+1)
