@@ -97,9 +97,11 @@ def generate_combos(products, product_queue):
                                           np.random.choice([True, False], size=[len(prod["ingredients"])]).tolist())
                     push_prod(False, n, len(products), combo, product_queue)
             n = n + 1
-        product_queue.put(DONE)
+        for i in range(args.parallellism):
+            product_queue.put(DONE)
     except Exception as e:
         print(traceback.format_exception(None, e, e.__traceback__), file=sys.stderr, flush=True)
+    print('DONE generating combos', flush=True)
 
 def queue_all(queue):
     while True:
@@ -112,13 +114,15 @@ def save_results(result_queue, done_queue):
     try:
         with open(args.output_file, 'w') as f:
             f.write('[')
-            for result in queue_all(result_queue):
-                json.dump(result, f, indent=2, sort_keys=True)
-                f.write(',\n')
+            for i in range(args.parallellism):
+                for result in queue_all(result_queue):
+                    json.dump(result, f, indent=2, sort_keys=True)
+                    f.write(',\n')
             f.write(']\n')
         done_queue.put(DONE)
     except Exception as e:
         print(traceback.format_exception(None, e, e.__traceback__), file=sys.stderr, flush=True)
+    print('DONE saving results', flush=True)
 
 def estimate_products(product_queue, result_queue):
     try:
@@ -141,6 +145,7 @@ def estimate_products(product_queue, result_queue):
         result_queue.put(DONE)
     except Exception as e:
         print(traceback.format_exception(None, e, e.__traceback__), file=sys.stderr, flush=True)
+    print('DONE estimating products', flush=True)
 
 
 def main():
@@ -157,7 +162,8 @@ def main():
 
     print('Generating data...', flush=True)
     generate_combos(ground_truth, product_queue)
-    print(done_queue.get(), flush=True)
+    done_queue.get()
+    print('DONE with everything!', flush=True)
 
 if __name__ == '__main__':
     main()
