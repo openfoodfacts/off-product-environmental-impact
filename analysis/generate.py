@@ -49,47 +49,45 @@ def indexed_combo(prod, percentages, unicorns):
     return cpy
 
 def all_percentage_combinations(prod, switch_index=0):
-    if switch_index == len(prod['ingredients']) - 1:
-        cpy = copy.deepcopy(prod)
-        if args.only_missing_percentages == 'yes':
-            for ing in cpy['ingredients']:
-                if 'percent' in ing:
-                    del ing['percent']
-        yield cpy
-        if args.with_missing_percentages == 'yes':
-            if 'percent' in cpy['ingredients'][switch_index]:
-                del cpy['ingredients'][switch_index]['percent']
-        yield cpy
+    if args.with_missing_percentages != 'yes':
+        yield prod
     else:
         cpy = copy.deepcopy(prod)
         if args.only_missing_percentages == 'yes':
             for ing in cpy['ingredients']:
                 if 'percent' in ing:
                     del ing['percent']
-        yield from all_percentage_combinations(cpy, switch_index=switch_index+1)
-        if args.with_missing_percentages == 'yes':
-            if 'percent' in cpy['ingredients'][switch_index]:
-                del cpy['ingredients'][switch_index]['percent']
-        yield from all_percentage_combinations(cpy, switch_index=switch_index+1)
+            yield cpy
+        else:
+            if switch_index == len(prod['ingredients']) - 1:
+                yield cpy
+                if 'percent' in cpy['ingredients'][switch_index]:
+                    del cpy['ingredients'][switch_index]['percent']
+                yield cpy
+            else:
+                yield from all_percentage_combinations(cpy, switch_index=switch_index+1)
+                if 'percent' in cpy['ingredients'][switch_index]:
+                    del cpy['ingredients'][switch_index]['percent']
+                yield from all_percentage_combinations(cpy, switch_index=switch_index+1)
 
 def all_unicorn_combinations(prod, switch_index=0):
-    if switch_index == len(prod['ingredients']) - 1:
-        cpy = copy.deepcopy(prod)
-        yield cpy
-        if args.with_unrecognized_ingredients == 'yes':
-            cpy['ingredients'][switch_index]['id'] = 'en:unicorn-meat'
-        yield cpy
+    if args.with_unrecognized_ingredients != 'yes':
+        yield prod
     else:
         cpy = copy.deepcopy(prod)
-        yield from all_unicorn_combinations(cpy, switch_index=switch_index+1)
-        if args.with_unrecognized_ingredients == 'yes':
+        if switch_index == len(prod['ingredients']) - 1:
+            yield cpy
             cpy['ingredients'][switch_index]['id'] = 'en:unicorn-meat'
-        yield from all_unicorn_combinations(cpy, switch_index=switch_index+1)
+            yield cpy
+        else:
+            yield from all_unicorn_combinations(cpy, switch_index=switch_index+1)
+            cpy['ingredients'][switch_index]['id'] = 'en:unicorn-meat'
+            yield from all_unicorn_combinations(cpy, switch_index=switch_index+1)
 
-def push_prod(iterated, n, num, prod, product_queue):
+def push_prod(iterated, current_num, total_num, prod_num, prod, product_queue):
   known = len(list(filter(lambda i: "en:unicorn-meat" != i["id"], prod["ingredients"])))
   if known > 0:
-      print(f'{n}/{num} {prod["product_name"]} (iterated {iterated})\n * percentages: {list(map(lambda i: "percent" in i, prod["ingredients"]))}\n * known: {list(map(lambda i: "en:unicorn-meat" != i["id"], prod["ingredients"]))}', flush=True)
+      print(f'{current_num}/{total_num} {prod["product_name"]} #{prod_num} (iterated {iterated})\n * percentages: {list(map(lambda i: "percent" in i, prod["ingredients"]))}\n * known: {list(map(lambda i: "en:unicorn-meat" != i["id"], prod["ingredients"]))}', flush=True)
       product_queue.put(prod)
 
 def generate_combos(products, product_queue):
@@ -103,15 +101,17 @@ def generate_combos(products, product_queue):
                 for percentage_combo in all_percentage_combinations(prod):
                     for unicorn_combo in all_unicorn_combinations(percentage_combo):
                         possible_combos.append(unicorn_combo)
-                for _ in range(args.combos_per_product):
+                for prod_num in range(args.combos_per_product):
                     combo = possible_combos.pop(np.random.randint(len(possible_combos)))
-                    push_prod(True, n, len(products), combo, product_queue)
+                    push_prod(True, n, len(products), prod_num, combo, product_queue)
+                    if len(possible_combos) == 0:
+                        break
             else:
-                for _ in range(int(args.combos_per_product)):
+                for prod_num in range(int(args.combos_per_product)):
                     combo = indexed_combo(prod,
                                           np.random.choice([True, False], size=[len(prod["ingredients"])]).tolist(),
                                           np.random.choice([True, False], size=[len(prod["ingredients"])]).tolist())
-                    push_prod(False, n, len(products), combo, product_queue)
+                    push_prod(False, n, len(products), prod_num, combo, product_queue)
             n = n + 1
         for i in range(args.parallellism):
             product_queue.put(DONE)
