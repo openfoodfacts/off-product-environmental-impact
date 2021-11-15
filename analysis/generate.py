@@ -14,6 +14,7 @@ import multiprocessing
 import numpy as np
 import traceback
 import argparse
+from datetime import datetime
 
 
 parser = argparse.ArgumentParser(description='Generate product combinations and compute their Eco-Score.')
@@ -87,7 +88,7 @@ def all_unicorn_combinations(prod, switch_index=0):
 def push_prod(iterated, current_num, total_num, prod_num, prod, product_queue):
   known = len(list(filter(lambda i: "en:unicorn-meat" != i["id"], prod["ingredients"])))
   if known > 0:
-      print(f'{current_num}/{total_num} {prod["product_name"]} #{prod_num} (iterated {iterated})\n * percentages: {list(map(lambda i: "percent" in i, prod["ingredients"]))}\n * known: {list(map(lambda i: "en:unicorn-meat" != i["id"], prod["ingredients"]))}', flush=True)
+      print(f'{datetime.now()} {current_num}/{total_num} {prod["product_name"]} #{prod_num} (iterated {iterated})\n * percentages: {list(map(lambda i: "percent" in i, prod["ingredients"]))}\n * known: {list(map(lambda i: "en:unicorn-meat" != i["id"], prod["ingredients"]))}', flush=True)
       product_queue.put(prod)
 
 def generate_combos(products, product_queue):
@@ -140,33 +141,67 @@ def save_results(result_queue, done_queue):
         print(traceback.format_exception(None, e, e.__traceback__), file=sys.stderr, flush=True)
     print('DONE saving results', flush=True)
 
-def estimate_products(product_queue, result_queue):
+def estimate_outside_process(product, queue):
+    """This function runs in a separate process, and communicates with the parent
+    through the provided queue. The queue must get a tuple of (result, exception-string)
+    when this function terminates."""
+    impact_categories = ['EF single score',
+            'Climate change']
     try:
-        impact_categories = ['EF single score',
-                'Climate change']
+        impact = estimate_impacts(
+                        ignore_unknown_ingredients=False,
+                product=product,
+                distributions_as_result=True,
+                impact_names=impact_categories)
+        queue.put((impact, None))
+    except Exception as e:
+        queue.put((None, f"{e.__class__.__name__}: {e}"))
+
+def estimate_with_deadline(product, deadline=600):
+    """This function starts estimate_outside_process in a separate process, giving
+    it a queue to return a (result, exception-string) through.
+    The process can time out, and the queue can be empty - both need to provide
+    exceptions in addition to anything received via the queue."""
+    q = multiprocessing.Queue(1)
+    p = multiprocessing.Process(target=estimate_outside_process, args=(product, q))
+    try:
+        p.start()
+        p.join(deadline)
+        if p.is_alive():
+            raise Exception(f"estimation process timed out after {deadline} seconds")
+    finally:
+        p.kill()
+        p.join()
+        p.close()
+    results = (None, "no results yet")
+    try:
+        results = q.get(block=False)
+    except Exception as e:
+        raise Exception(f"estimation queue read: {e.__class__.__name__}: {e}")
+    if results[1]:
+        raise Exception(f"estimation process got exception: {results[1]}")
+    return results[0]
+
+def estimate_products(product_queue, result_queue, worker_id):
+    try:
         for prod in queue_all(product_queue):
             result = {
                     'ground_truth': prod,
                     }
             try:
-                impact_estimation_result = estimate_impacts(
-                        seed=args.seed,
-                        product=prod,
-                        distributions_as_result=True,
-                        impact_names=impact_categories)
-                result['estimation'] = impact_estimation_result
+                result['estimation'] = estimate_with_deadline(prod)
             except Exception as e:
-                result['error'] = f'{e.__class__.__name__}'
+                result['error'] = f'{e.__class__.__name__}: {e}'
             result_queue.put(result)
         result_queue.put(DONE)
     except Exception as e:
         print(traceback.format_exception(None, e, e.__traceback__), file=sys.stderr, flush=True)
-    print('DONE estimating products', flush=True)
+    print(f'Worker {worker_id} DONE estimating products', flush=True)
 
 
 def main():
     print('Loading all ground truth objects...', flush=True)
-    with open('test_dataset_nutri_from_ciqual.json') as f:
+    with open(args.input_file) as f:
         ground_truth = json.load(f)
 
     product_queue = multiprocessing.Queue(1)
@@ -174,7 +209,7 @@ def main():
     done_queue = multiprocessing.Queue(1)
     multiprocessing.Process(target=save_results, args=(result_queue, done_queue)).start()
     for i in range(args.parallellism):
-        multiprocessing.Process(target=estimate_products, args=(product_queue, result_queue)).start()
+        multiprocessing.Process(target=estimate_products, args=(product_queue, result_queue, i)).start()
 
     print('Generating data...', flush=True)
     generate_combos(ground_truth, product_queue)
