@@ -137,6 +137,7 @@
 			<th>CIQUAL code <span class="tooltip">?<div class="content content-left">The CIQUAL code in the productopener database, and in the AgriBalyse and CIQUAL datasets. Green color means this tool has access to a detailed AgriBalyse proxy product ingredient list, red color means the AgriBalyse proxy product ingredints aren't known with percentages, but the ingredients themselves may be known.</div></span></th>
 			<th>AgriBalyse proxy impact <span class="tooltip">?<div class="content content-left">EF impact score for 1kg of the AgriBalyse proxy product.</div></span></th>
 			<th>Estimated impact <span class="tooltip">?<div class="content content-left">EF impact score for 1kg of the product according to the impactestimator.</div></span></th>
+			<th>Mass ratio uncharacterized ingredients <span class="tooltip">?<div class="content content-left">Ratio of uncharacterized ingredients - update the product to fix this.</div></span></th>
 			<th>Delta/estimated impact <span class="tooltip">?<div class="content content-left">Difference between proxy product and estimated scores. -0.5 means proxy product has %50 of the estimated impact, 0.5 means proxy product has 50% more impact that estimated.</div></span></th>
 			</tr>
 			</thead>
@@ -154,7 +155,7 @@
 							: prod["product_name"]
 					}</button>
 			</td>
-			<td>${prod["_id"]}</td>
+			<td><a href="https://world.openfoodfacts.org/cgi/product.pl?type=edit&code=${prod["_id"]}">${prod["_id"]}</a></td>
 			<td style="background-color: ${
 				knownCodes[agribalyse["code"]] ? "green" : "red"
 			}">${agribalyse["code"]}</td>
@@ -167,6 +168,7 @@
 					  ]
 					: estimator["error"]
 			}</td>
+			<td>${estimator["impact"] ? estimator["impact"]["mass_ratio_uncharacterized"].toFixed(2) : ''}</td>
 			<td>${
 				estimator["impact"]
 					? (agribalyse["ef_agriculture"] -
@@ -182,7 +184,7 @@
 			}</td>
 			</tr>
 			<tr id="expander${listIndex}" style="display: none;">
-			<td colspan="6" id="content${listIndex}" style="padding: 1em;">
+			<td colspan="7" id="content${listIndex}" style="padding: 1em;">
 			</td>
 			</tr>
 				`;
@@ -197,7 +199,7 @@
 					? `<button onClick="loadPage(${page - 1})">&lt;</button>`
 					: ""
 			}</th>
-			<th colspan="4"></th>
+			<th colspan="5"></th>
 			<th>${
 				skip < count
 					? `<button onClick="loadPage(${page + 1})">&gt;</button>`
@@ -271,7 +273,7 @@
 										}
 			<table style="display: inline; margin: 1em; width: 40%;">
 											<caption>AgriBalyse data for "${js["ProductName"]}" ${
-											!knownCodes[agribalyse["code"]] &&
+											agribalyse && agribalyse["code"] && !knownCodes[agribalyse["code"]] &&
 											(js["Ingredients"] || []).length > 0
 												? `<span class="tooltip">?<div class="content">We don't have access to the individual ingredient percentages for this product, but we have the list of ingredients and their individual EF impact.</div></span>`
 												: ""
@@ -327,7 +329,7 @@
 					})
 					.join("")}
 			`
-					: `<tr><td colspan="3">Unknown</td></tr>`
+					: `<tr><td colspan="4">Unknown</td></tr>`
 			}
 			</table>
 							 `;
