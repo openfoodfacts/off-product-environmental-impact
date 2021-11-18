@@ -113,7 +113,7 @@
 					"<h1>Loading...</h1>";
 				jsonReq(
 					"GET",
-					"https://world.openfoodfacts.org/misc/ecoscore-extended-data-version-4&no_cache=1&json=1&page=" +
+					"https://world.openfoodfacts.org/misc/ecoscore-extended-data-version-4&no_cache=1&json=1&page_size=20&page=" +
 						num
 				).then((js) => {
 					window.history.pushState(
@@ -128,7 +128,7 @@
 					document.getElementById("results").innerHTML = `
 			<table style="width: 100%;">
 			<caption>
-			Page ${page}
+			Page ${page}/${Math.ceil(count / 20)} (${count} products)
 			</caption>
 			<thead>
 			<tr>
