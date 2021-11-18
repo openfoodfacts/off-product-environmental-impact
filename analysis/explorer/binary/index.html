@@ -7,6 +7,31 @@
 			td {
 				vertical-align: top;
 			}
+			.tooltip {
+				border: 1px solid black;
+				padding: 0px 5px 0px 5px;
+				border-radius: 11px;
+				position: relative;
+			}
+			.tooltip .content {
+				width: 500px;
+				display: none;
+				text-align: center;
+				border-radius: 6px;
+				border: 1px solid black;
+				background-color: white;
+				padding: 5px;
+
+				/* Position the tooltip */
+				position: absolute;
+				z-index: 1;
+			}
+			.tooltip .content-left {
+				left: -500px;
+			}
+			.tooltip:hover .content {
+				display: inline;
+			}
 		</style>
 		<script>
 			var knownCodes = {};
@@ -91,6 +116,11 @@
 					"https://world.openfoodfacts.org/misc/ecoscore-extended-data-version-4&no_cache=1&json=1&page=" +
 						num
 				).then((js) => {
+					window.history.pushState(
+						"",
+						"",
+						new URL(`/?page=${num}`, window.location.href)
+					);
 					var listIndex = 0;
 					const count = Number.parseInt(js["count"]);
 					const page = Number.parseInt(js["page"]);
@@ -103,11 +133,11 @@
 			<thead>
 			<tr>
 			<th>Product name</th>
-			<th>Barcode</th>
-			<th>CIQUAL code</th>
-			<th>AgriBalyse proxy impact</th>
-			<th>Estimated impact</th>
-			<th>Estimated/AgriBalyse impact</th>
+			<th>Barcode <span class="tooltip">?<div class="content content-left">The barcode in the productopener database.</div></span></th>
+			<th>CIQUAL code <span class="tooltip">?<div class="content content-left">The CIQUAL code in the productopener database, and in the AgriBalyse and CIQUAL datasets. Green color means this tool has access to a detailed AgriBalyse proxy product ingredient list, red color means the AgriBalyse proxy product ingredints aren't known with percentages, but the ingredients themselves may be known.</div></span></th>
+			<th>AgriBalyse proxy impact <span class="tooltip">?<div class="content content-left">EF impact score for 1kg of the AgriBalyse proxy product.</div></span></th>
+			<th>Estimated impact <span class="tooltip">?<div class="content content-left">EF impact score for 1kg of the product according to the impactestimator.</div></span></th>
+			<th>Delta/estimated impact <span class="tooltip">?<div class="content content-left">Difference between proxy product and estimated scores. -0.5 means proxy product has %50 of the estimated impact, 0.5 means proxy product has 50% more impact that estimated.</div></span></th>
 			</tr>
 			</thead>
 			${js["products"]
@@ -131,18 +161,23 @@
 			<td>${agribalyse["ef_agriculture"]}</td>
 			<td>${
 				estimator["impact"]
-					? estimator["impact"]["likeliest_impacts"][
+					? 10 *
+					  estimator["impact"]["likeliest_impacts"][
 							"EF_single_score"
 					  ]
 					: estimator["error"]
 			}</td>
 			<td>${
 				estimator["impact"]
-					? (10 *
+					? (agribalyse["ef_agriculture"] -
+							10 *
+								estimator["impact"]["likeliest_impacts"][
+									"EF_single_score"
+								]) /
+					  (10 *
 							estimator["impact"]["likeliest_impacts"][
 								"EF_single_score"
-							]) /
-					  agribalyse["ef_agriculture"]
+							])
 					: ""
 			}</td>
 			</tr>
@@ -235,7 +270,12 @@
 												: ""
 										}
 			<table style="display: inline; margin: 1em; width: 40%;">
-		    <caption>AgriBalyse data for "${js["ProductName"]}"</caption>
+											<caption>AgriBalyse data for "${js["ProductName"]}" ${
+											!knownCodes[agribalyse["code"]] &&
+											(js["Ingredients"] || []).length > 0
+												? `<span class="tooltip">?<div class="content">We don't have access to the individual ingredient percentages for this product, but we have the list of ingredients and their individual EF impact.</div></span>`
+												: ""
+										}</caption>
 			<tr>
 			<th>Ingredient</th>
 			<th>Percent</th>
@@ -307,7 +347,13 @@
 			jsonReq("GET", new URL("/codes", window.location.href)).then(
 				(js) => {
 					knownCodes = js;
-					loadPage(1);
+					loadPage(
+						Number.parseInt(
+							new URL(window.location.href).searchParams.get(
+								"page"
+							) || "1"
+						)
+					);
 				}
 			);
 		</script>

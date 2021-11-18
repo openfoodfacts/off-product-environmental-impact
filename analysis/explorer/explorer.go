@@ -21,6 +21,7 @@ func mustParseJSON(s string, i interface{}) {
 type server struct {
 	ingredients map[string]map[string]interface{}
 	products    map[string]map[string]interface{}
+	agriBalyse  map[string]map[string]interface{}
 	index       []byte
 }
 
@@ -47,6 +48,7 @@ func (s *server) handleMetadata(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if prod, found := s.products[mreq.CIQUALCode]; found {
+		// Try to find the product in the test set provided by Gustave.
 		mresp.ProductName = prod["product_name"].(string)
 		for _, ingredIf := range prod["ingredients"].([]interface{}) {
 			ingred := ingredIf.(map[string]interface{})
@@ -56,6 +58,22 @@ func (s *server) handleMetadata(w http.ResponseWriter, r *http.Request) {
 			if ingred, found := s.ingredients[ingred["id"].(string)]; found {
 				if impact, found := ingred["impacts"].(map[string]interface{})["Score unique EF"]; found {
 					mresp.ImpactByIngredient[ingred["id"].(string)] = impact.(map[string]interface{})["amount"].(float64)
+				}
+			}
+		}
+	} else if prod, found := s.agriBalyse[mreq.CIQUALCode]; found {
+		// Try to find the product in the AgriBalyse JSON.
+		mresp.ProductName = prod["nom_francais"].(string)
+		if impacts, found := prod["impact_environnemental"]; found {
+			if efImpacts, found := impacts.(map[string]interface{})["Score unique EF"]; found {
+				if ingredients, found := efImpacts.(map[string]interface{})["ingredients"]; found {
+					ingredientsMap := ingredients.(map[string]interface{})
+					for ingID, impact := range ingredientsMap {
+						mresp.Ingredients = append(mresp.Ingredients, map[string]float64{
+							ingID: 1.0,
+						})
+						mresp.ImpactByIngredient[ingID] = impact.(float64)
+					}
 				}
 			}
 		}
@@ -119,12 +137,19 @@ func newServer() *server {
 	s := &server{
 		products:    map[string]map[string]interface{}{},
 		ingredients: map[string]map[string]interface{}{},
+		agriBalyse:  map[string]map[string]interface{}{},
 	}
 
 	products := []map[string]interface{}{}
 	s.mustDecodeJSON("/binary/products.json", &products)
 	for idx := range products {
 		s.products[products[idx]["ciqual_code"].(string)] = products[idx]
+	}
+
+	agriBalyseProducts := []map[string]interface{}{}
+	s.mustDecodeJSON("/binary/Agribalyse.json", &agriBalyseProducts)
+	for idx := range agriBalyseProducts {
+		s.agriBalyse[agriBalyseProducts[idx]["ciqual_code"].(string)] = agriBalyseProducts[idx]
 	}
 
 	s.mustDecodeJSON("/binary/ingredients.json", &s.ingredients)
