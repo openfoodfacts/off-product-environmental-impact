@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <script>
+	function jsonReq(method, url) {
+	  return new Promise((res, rej) => {
+        const req = new XMLHttpRequest();
+        req.addEventListener("load", () => {
+		  res(JSON.parse(req.responseText));
+        });
+	    req.open(method, url);
+	    req.send();
+	  });
+	}
+	function el(tag, { children=[], text='', style='' }={}) {
+	  const res = document.createElement(tag);
+	  res.innerText = text;
+	  res.setAttribute('style', style);
+	  children.forEach((child) => { res.appendChild(child); });
+	  return res;
+	}
+    function loadPage(num) {
+	  jsonReq("GET", "https://world.openfoodfacts.org/misc/ecoscore-extended-data-version-4&no_cache=1&json=1&page=" + num).then((js) => {
+		document.getElementById("results").innerHTML = '';
+		document.getElementById("results").appendChild(
+		  el('table', {
+		    children: [
+			  el('caption', { text: 'Page ' + num })
+			].concat(js['products'].map((prod) => {
+			  return el('tr', {
+			    children: [ el('td', { text: prod['product_name'] }) ]
+			  });
+			})).concat([
+			  el('tfoot', { children: [
+			    el('tr', { children: 
+			],
+			style: "width: 100%"
+		  })
+		);
+	  });
+    }
+    </script>
+  </head>
+  <body>
+    <div id="results">
+      <h1>Loading...</h1>
+	</div>
+    <script>loadPage(1);</script>
+  </body>
+</html>
