@@ -19,7 +19,7 @@ openfoodfacts==0.1
 jinja2==3.0
 matplotlib==3.3
 seaborn==0.11
-requests==2.25
+requests==2.27.0
 
 #################################################################################################################
 # Packages below are not needed for impact estimation of OFF products but may be necessary to run other scripts #
