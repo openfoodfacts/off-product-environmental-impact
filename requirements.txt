@@ -2,7 +2,7 @@
 pyscipopt==3.1
 
 # Numbers manipulation
-numpy==1.19
+numpy==1.22.0
 scipy==1.5
 
 # Dataframes
