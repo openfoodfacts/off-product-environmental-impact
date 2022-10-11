@@ -1,5 +1,5 @@
 # Matematical optimization
-pyscipopt==3.1
+pyscipopt==4.2.0
 
 # Numbers manipulation
 numpy==1.19
